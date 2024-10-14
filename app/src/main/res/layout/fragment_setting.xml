@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#000000"
     android:theme="@style/Theme.MaterialComponents.Light"
     tools:context=".ui.fragment.SettingFragment">
 
@@ -18,7 +19,7 @@
             android:id="@+id/appbarSetting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@color/black"
             tools:ignore="MissingConstraints">
 
             <androidx.appcompat.widget.Toolbar
@@ -35,8 +36,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Settings"
-                    android:textColor="@android:color/black"
-                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
                     android:textStyle="bold" />
 
             </androidx.appcompat.widget.Toolbar>
@@ -52,6 +53,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/black"
                 android:orientation="vertical">
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -60,18 +62,19 @@
                     android:layout_height="96dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="22dp"
-                    android:src="@drawable/logo_mini"
+                    android:src="@drawable/icon_avatar"
                     app:civ_border_color="@color/green_chaleston"
                     app:civ_border_width="1dp" />
 
                 <TextView
                     android:id="@+id/tvNameUserSetting"
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="22dp"
                     android:layout_marginBottom="22dp"
-                    android:text="Tài khoản"
+                    android:text="Lê Thành Nhân"
+                    android:textColor="@color/white"
+                    android:textSize="22dp"
                     android:textAlignment="center" />
 
                 <!-- Cấu hình từng mục cài đặt dưới đây -->
@@ -80,16 +83,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
+                    android:background="#0F0F0F"
                     android:orientation="vertical">
 
                     <TextView
                         style="@style/textContent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
                         android:padding="15dp"
                         android:text="Hồ sơ"
-                        android:textSize="16sp" />
+                         />
 
                     <View
                         android:layout_width="match_parent"
@@ -98,9 +101,11 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/lnNotification"
+                    android:id="@+id/lnHistory"
+                    android:background="#0F0F0F"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -109,41 +114,22 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:padding="15dp"
-                        android:text="Thông Báo"
-                        android:textSize="16sp" />
+                        android:enabled="false"
+                        android:text="Lịch sử"
+                        />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="?actionBarDivider" />
                 </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/lnAddress"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/textContent"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-
-                        android:padding="15dp"
-                        android:text="Địa chỉ của tôi"
-                        android:textSize="16sp" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="?actionBarDivider" />
-                </LinearLayout>
-
 
                 <LinearLayout
                     android:id="@+id/lnChangePassword"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="#0F0F0F"
+                    android:layout_marginTop="10dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -153,7 +139,7 @@
                         android:layout_weight="1"
                         android:padding="15dp"
                         android:text="Thay đổi mật khẩu"
-                        android:textSize="16sp" />
+                        />
 
                     <View
                         android:layout_width="match_parent"
@@ -168,6 +154,8 @@
                     android:id="@+id/lnHelpCentre"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="#0F0F0F"
+                    android:layout_marginTop="10dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -176,7 +164,7 @@
                         android:layout_height="wrap_content"
                         android:padding="15dp"
                         android:text="Trung tâm trợ giúp"
-                        android:textSize="16sp" />
+                         />
 
                     <View
                         android:layout_width="match_parent"

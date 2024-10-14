@@ -4,13 +4,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.cinemamanagerapp.R
-import com.example.cinemamanagerapp.api.UserProfile
 import com.example.cinemamanagerapp.databinding.ActivityMainBinding
-import com.example.cinemamanagerapp.ui.fragment.FavoriteFragment
+import com.example.cinemamanagerapp.ui.fragment.TicketQueueFragment
 import com.example.cinemamanagerapp.ui.fragment.HomeFragment
-import com.example.cinemamanagerapp.ui.fragment.OrderHistoryFragment
+import com.example.cinemamanagerapp.ui.fragment.NotificationFragment
 import com.example.cinemamanagerapp.ui.fragment.SettingFragment
-import com.example.cinemamanagerapp.ui.fragment.StoreFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,6 +16,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         var userId : Int = 0 //  0 là chưa được gán. vì userId trong database luon luon > 0
+        var userName : String = ""
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,16 +36,12 @@ class MainActivity : AppCompatActivity() {
                     replaceFragment(HomeFragment())
                     true
                 }
-                R.id.nav_store -> {
-                    replaceFragment(StoreFragment())
-                    true
-                }
-                R.id.nav_history -> {
-                    replaceFragment(OrderHistoryFragment())
+                R.id.nav_notification -> {
+                    replaceFragment(NotificationFragment())
                     true
                 }
                 R.id.nav_fav -> {
-                    replaceFragment(FavoriteFragment())
+                    replaceFragment(TicketQueueFragment())
                     true
                 }
                 R.id.nav_settting -> {

@@ -65,25 +65,11 @@
                     android:id="@+id/imgUserAccount"
                     android:layout_width="96dp"
                     android:layout_height="96dp"
-                    android:src="@drawable/logo_mini"
+                    android:src="@drawable/icon_avatar"
                     app:civ_border_width="1dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/fabImg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="48dp"
-                    android:backgroundTint="@color/white"
-                    android:clickable="true"
-                    android:src="@drawable/gallery"
-                    app:fabCustomSize="36dp"
-                    app:layout_constraintBottom_toBottomOf="@id/imgUserAccount"
-                    app:layout_constraintRight_toRightOf="@id/imgUserAccount"
-                    app:layout_constraintTop_toBottomOf="parent"
-                    app:maxImageSize="24dp" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -140,6 +126,24 @@
                     android:textColor="#000000"
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilAddress"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tedAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@android:drawable/arrow_down_float"
+                    android:drawableTint="@color/black"
+                    android:drawablePadding="10dp"
+                    android:hint="Address"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -152,6 +156,7 @@
                     style="@style/textContent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:text="Gender" />
 
                 <RadioGroup
@@ -186,13 +191,7 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tvUserId"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="User ID"
-                android:textSize="16sp" />
+
 
             <Button
                 android:id="@+id/btnSaveAccount"

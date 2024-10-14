@@ -5,14 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/black"
     tools:context=".ui.fragment.HomeFragment">
-
-
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbarHome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/black"
         tools:ignore="MissingConstraints">
 
         <androidx.appcompat.widget.Toolbar
@@ -20,17 +19,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-
+            android:background="@color/black"
             app:layout_scrollFlags="noScroll|enterAlways"
             tools:ignore="MissingConstraints">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="22dp"
+                android:layout_marginLeft="16dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginRight="22dp"
-                android:gravity="center"
+                android:layout_marginRight="16dp"
+                android:gravity="start"
                 android:orientation="horizontal">
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -38,174 +37,107 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/logo_mini"
+                    android:src="@drawable/icon_avatar"
                     app:civ_border_width="1dp" />
 
                 <TextView
                     android:id="@+id/tvNameUser"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingStart="12.5dp"
-                    android:text="Hello there!" />
-
-                <FrameLayout
-                    android:id="@+id/frameNotification"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp">
-                    <ImageView
-                        android:id="@+id/imgNotification"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/alert" />
-                </FrameLayout>
-
+                    android:layout_height="match_parent"
+                    android:gravity="start|center"
+                    android:text="Lê Thành Nhân"
+                    android:layout_marginStart="15dp"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:textColor="#FFFFFF"/>
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <!-- Search Prompt TextView -->
             <TextView
                 android:id="@+id/tvFind"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:text="Bạn muốn tìm kiếm gì à?"
-                android:textColor="@color/black"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="4dp"
+                android:text="Bạn muốn xem phim nào?"
+                android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <!-- Search Bar -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvMovieCategoryList"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/green_chaleston"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvFind" />
             <LinearLayout
                 android:id="@+id/line1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="12dp"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@id/tvFind"
+                app:layout_constraintTop_toBottomOf="@id/rcvMovieCategoryList"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <EditText
                     android:id="@+id/edSearchHome"
-                    android:layout_width="0dp"
-                    android:layout_height="53dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:textColorHint="@color/white"
                     android:background="@drawable/shape_rect"
                     android:drawableLeft="@drawable/search"
                     android:drawablePadding="12dp"
-                    android:hint="...Tìm kieems"
+                    android:drawableTint="@color/white"
+                    android:textColor="@color/white"
+                    android:focusable="true"
+                    android:hint="Tìm kiếm"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
-                    android:textSize="14sp"
-                    android:focusable="false" />
+                    android:textSize="14sp" />
             </LinearLayout>
-
-            <!-- Image Slider Card -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/containerSlider"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="24dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                app:layout_constraintTop_toBottomOf="@id/line1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
-
-                <com.denzcoskun.imageslider.ImageSlider
-                    android:id="@+id/image_slider"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    app:iss_auto_cycle="true"
-                    app:iss_delay="1000"
-                    app:iss_period="1000"
-                    app:iss_text_align="CENTER" />
-            </androidx.cardview.widget.CardView>
-
-            <!-- Category Title -->
             <TextView
-                android:id="@+id/tvTitleCateory"
+                android:id="@+id/tv_ToNowMovie"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:paddingStart="16dp"
-                android:text="Top Movies"
-                android:textColor="@color/black"
-                android:textSize="16sp"
+                android:layout_marginEnd="14dp"
                 android:drawableEnd="@drawable/mini_arrow"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/containerSlider" />
-
-            <!-- Category RecyclerView -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcvCategory"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                app:layout_constraintTop_toBottomOf="@id/tvTitleCateory"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <!-- Product RecyclerView -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcvProduct"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                app:layout_constraintTop_toBottomOf="@id/rcvCategory"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <!-- Recommendation Title -->
-            <TextView
-                android:id="@+id/tvRecommend"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
-                android:paddingStart="16dp"
-                android:text="Gợi ý phim cho bạn"
-                android:textColor="@color/black"
+                android:text="Now Movies "
+                android:layout_marginTop="3dp"
+                android:textColor="@color/blue_bld"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rcvProduct" />
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- Recommendation RecyclerView -->
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcvRecommend"
+                android:id="@+id/rcvMovieByCategory"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="150dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
-                app:layout_constraintTop_toBottomOf="@id/tvRecommend"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
-
-
 </LinearLayout>

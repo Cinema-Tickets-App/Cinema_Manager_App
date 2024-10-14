@@ -7,20 +7,13 @@
         android:title="Trang chủ" />
 
     <item
-        android:id="@+id/nav_store"
-        android:icon="@drawable/store"
-        android:title="Cửa hàng" />
-
-    <item
-        android:id="@+id/nav_history"
-        android:icon="@drawable/fourbox"
-        android:title="Lịch sử" />
-
+        android:id="@+id/nav_notification"
+        android:icon="@drawable/alert"
+        android:title="Thông báo" />
     <item
         android:id="@+id/nav_fav"
         android:icon="@drawable/heart_nav"
         android:title="Yêu thích" />
-
     <item
         android:id="@+id/nav_settting"
         android:icon="@drawable/user_circle_filled"

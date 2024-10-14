@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".ui.activities.Movie">
+
+    <VideoView
+        android:id="@+id/videoMovie"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/svContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="210dp"
+        android:layout_marginBottom="180dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black">
+
+            <TextView
+                android:id="@+id/tvMovieName"
+                style="@style/MovieSynopsisStyle"
+                android:text="Movie Name : Intsoaot"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvGenre"
+                style="@style/MovieSynopsisStyle"
+                android:text="Genre: Science Fiction, Action, Thriller"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvMovieName" />
+
+            <TextView
+                android:id="@+id/tvDirector"
+                style="@style/MovieSynopsisStyle"
+                android:text="Director: Christopher Nolan"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvGenre" />
+
+            <TextView
+                android:id="@+id/tvCast"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:background="@color/blue_bld"
+                android:text="Cast: Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page, Tom Hardy"
+                android:textSize="30dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDirector" />
+
+            <TextView
+                android:id="@+id/tvPlot"
+                style="@style/MovieSynopsisStyle"
+                android:text="Plot: Inception is a mind-bending thriller that explores the world of dreams. Dom Cobb (Leonardo DiCaprio) is a skilled thief who specializes in entering people's subconscious and stealing valuable secrets while they dream. His unique ability has made him a highly sought-after player in corporate espionage, but it has also cost him everything he loves. When he's offered a chance at redemption"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDirector" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/imageButon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="25dp"
+        android:textColor="@color/blue_bld"
+        android:text="Thêm vào danh mục"
+        android:textStyle="bold"
+        android:textSize="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/svContainer"
+        />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="256dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/black"
+        android:padding="5dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/movie_cart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/svContainer"
+        app:layout_goneMarginTop="16dp"
+        app:tint="@color/blue_bld" />
+
+    <Button
+        android:id="@+id/BTN_BookTickets"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/svContainer"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="90dp"
+        android:background="@color/blue_bld"
+        android:text="Đặt vé"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

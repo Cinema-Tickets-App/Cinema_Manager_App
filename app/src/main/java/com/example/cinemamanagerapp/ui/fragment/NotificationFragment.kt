@@ -5,12 +5,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ListView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemamanagerapp.R
+<<<<<<< HEAD:app/src/main/java/com/example/cinemamanagerapp/ui/fragment/NotificationFragment.kt
+import com.example.cinemamanagerapp.ui.adapters.ADTNotification
+=======
 import com.example.cinemamanagerapp.api.RetrofitClient
 import com.example.cinemamanagerapp.models.FoodDrink
 import com.example.cinemamanagerapp.ui.adapters.FoodDrinkAdapter
@@ -21,17 +25,22 @@ import org.json.JSONArray
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+>>>>>>> 3e08c8bd1f001a295d56acb1d1c9b969d1f7d841:app/src/main/java/com/example/cinemamanagerapp/ui/fragment/StoreFragment.kt
 
-class StoreFragment : Fragment() {
-
+class NotificationFragment  : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate layout cho fragment
-        return inflater.inflate(R.layout.fragment_store, container, false)
+        var view : View = inflater.inflate(R.layout.notification, container, false)
+        var listView = view.findViewById<ListView>(R.id.rcv_Notificaton);
+        listView.adapter = ADTNotification(null);
+        return view;
     }
+<<<<<<< HEAD:app/src/main/java/com/example/cinemamanagerapp/ui/fragment/NotificationFragment.kt
+}
+=======
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -64,3 +73,4 @@ class StoreFragment : Fragment() {
         }
     }
 }
+>>>>>>> 3e08c8bd1f001a295d56acb1d1c9b969d1f7d841:app/src/main/java/com/example/cinemamanagerapp/ui/fragment/StoreFragment.kt
