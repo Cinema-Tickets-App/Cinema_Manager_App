@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">192.168.100.188</domain> <!-- Thay địa chỉ IP hoặc tên miền của bạn -->
+        <domain includeSubdomains="true">172.16.50.85</domain> <!-- Thay địa chỉ IP hoặc tên miền của bạn -->
     </domain-config>
 </network-security-config>
