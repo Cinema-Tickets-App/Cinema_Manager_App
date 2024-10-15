@@ -7,7 +7,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemamanagerapp.R
 
-class ADTCategoryList(private val categoryList : Array<String>?) : RecyclerView.Adapter<ADTCategoryList.ViewHold>() {
+class ADTCategoryList(private val categoryList: Array<String>?) :
+    RecyclerView.Adapter<ADTCategoryList.ViewHold>() {
     class ViewHold(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     }
@@ -24,6 +25,6 @@ class ADTCategoryList(private val categoryList : Array<String>?) : RecyclerView.
     }
 
     override fun onBindViewHolder(holder: ViewHold, position: Int) {
-         var tv = holder.itemView.findViewById<TextView>(R.id.tv_CategoryName);
+        var tv = holder.itemView.findViewById<TextView>(R.id.tv_CategoryName);
     }
 }

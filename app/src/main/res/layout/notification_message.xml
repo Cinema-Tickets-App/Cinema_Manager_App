@@ -10,14 +10,15 @@
         android:background="#12151A"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="20dp"
-            android:textSize="18dp"
+            android:gravity="center|start"
             android:text="Bạn vừa thanh toán đơn hàng thành công"
             android:textColor="@color/white"
-            android:gravity="center|start"
+            android:textSize="18dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

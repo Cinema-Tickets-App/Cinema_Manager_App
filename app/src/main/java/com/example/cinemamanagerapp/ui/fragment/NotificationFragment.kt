@@ -23,14 +23,15 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class NotificationFragment  : Fragment() {
+class NotificationFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var view : View = inflater.inflate(R.layout.notification, container, false)
+        var view: View = inflater.inflate(R.layout.notification, container, false)
         var listView = view.findViewById<ListView>(R.id.rcv_Notificaton);
         listView.adapter = ADTNotification(null);
         return view;
-    } }
+    }
+}

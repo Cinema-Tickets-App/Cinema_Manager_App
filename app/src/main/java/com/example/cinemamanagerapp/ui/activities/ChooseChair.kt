@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemamanagerapp.R
 import com.example.cinemamanagerapp.ui.adapters.ADTChairNumber
 
-class ChooseChair : AppCompatActivity( ){
-    private lateinit var rcvChairNumber : RecyclerView //btn_to_payment
-    private lateinit var btn_to_payment : Button //
+class ChooseChair : AppCompatActivity() {
+    private lateinit var rcvChairNumber: RecyclerView //btn_to_payment
+    private lateinit var btn_to_payment: Button //
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,9 +28,9 @@ class ChooseChair : AppCompatActivity( ){
 
         rcvChairNumber = findViewById(R.id.rcv_ChairList);
         rcvChairNumber.adapter = ADTChairNumber(Array(10) { Array(10) { false } });
-        rcvChairNumber.layoutManager = GridLayoutManager(this,10)
+        rcvChairNumber.layoutManager = GridLayoutManager(this, 10)
 
         btn_to_payment = findViewById(R.id.btn_to_payment)
-        btn_to_payment.setOnClickListener({startActivity(Intent(this,Payment::class.java))})
+        btn_to_payment.setOnClickListener({ startActivity(Intent(this, Payment::class.java)) })
     }
 }

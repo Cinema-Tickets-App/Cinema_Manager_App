@@ -10,7 +10,7 @@ import com.example.cinemamanagerapp.R
 import com.example.cinemamanagerapp.ui.adapters.ADTFood
 
 class Payment : AppCompatActivity() {
-    private lateinit var lv_FoodList : ListView
+    private lateinit var lv_FoodList: ListView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

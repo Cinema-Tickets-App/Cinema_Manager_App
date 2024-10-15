@@ -30,11 +30,25 @@ class SettingFragment : Fragment() {
             val intent = Intent(activity, AccountActivity::class.java)
             startActivity(intent)
         }
-        val lnHistory : LinearLayout = view.findViewById(R.id.lnHistory);
-        lnHistory.setOnClickListener({context?.startActivity(Intent(context,History::class.java))})
+        val lnHistory: LinearLayout = view.findViewById(R.id.lnHistory);
+        lnHistory.setOnClickListener({
+            context?.startActivity(
+                Intent(
+                    context,
+                    History::class.java
+                )
+            )
+        })
 
-        val lnChangePassword : LinearLayout = view.findViewById(R.id.lnChangePassword);
-        lnChangePassword.setOnClickListener({context?.startActivity(Intent(context,ChangePassword::class.java))})
+        val lnChangePassword: LinearLayout = view.findViewById(R.id.lnChangePassword);
+        lnChangePassword.setOnClickListener({
+            context?.startActivity(
+                Intent(
+                    context,
+                    ChangePassword::class.java
+                )
+            )
+        })
 
         // Tìm nút Đăng xuất và thiết lập OnClickListener
         val btnLogout: Button = view.findViewById(R.id.btnLogout)
@@ -43,6 +57,7 @@ class SettingFragment : Fragment() {
         }
         return view
     }
+
     private fun logoutUser() {
         // Xóa thông tin người dùng khỏi SharedPreferences
         val sharedPreferences =

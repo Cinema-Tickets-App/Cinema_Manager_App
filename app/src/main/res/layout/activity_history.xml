@@ -14,9 +14,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Lịch sử"
+        android:textColor="@color/white"
         android:textSize="23dp"
         android:textStyle="bold"
-        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,11 +24,10 @@
         android:id="@+id/lv_HistoryList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="60dp"
         android:divider="@color/green_chaleston"
         android:dividerHeight="3dp"
-        android:layout_marginTop="60dp"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

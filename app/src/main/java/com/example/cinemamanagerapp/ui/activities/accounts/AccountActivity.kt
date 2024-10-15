@@ -17,7 +17,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class AccountActivity : AppCompatActivity() {
-    private lateinit var btnBackAccount : ImageButton
+    private lateinit var btnBackAccount: ImageButton
     private lateinit var btnSave: Button
     private lateinit var tedEmail: EditText
     private lateinit var tedName: EditText
@@ -31,10 +31,10 @@ class AccountActivity : AppCompatActivity() {
         setContentView(R.layout.activity_account)
 
         initViews()
-       // getUserInfo()
-        btnBackAccount.setOnClickListener({finish()})
+        // getUserInfo()
+        btnBackAccount.setOnClickListener({ finish() })
         btnSave.setOnClickListener {
-         //   updateProfile()
+            //   updateProfile()
         }
     }
 

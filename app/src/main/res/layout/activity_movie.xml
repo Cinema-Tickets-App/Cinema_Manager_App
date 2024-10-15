@@ -12,8 +12,8 @@
         android:id="@+id/videoMovie"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
@@ -21,8 +21,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="210dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="180dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -87,13 +87,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="25dp"
-        android:textColor="@color/blue_bld"
         android:text="Thêm vào danh mục"
-        android:textStyle="bold"
+        android:textColor="@color/blue_bld"
         android:textSize="24dp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/svContainer"
-        />
+        app:layout_constraintTop_toBottomOf="@id/svContainer" />
 
     <ImageButton
         android:id="@+id/imageButton"
@@ -114,11 +113,11 @@
         android:id="@+id/BTN_BookTickets"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/svContainer"
         android:layout_marginStart="30dp"
         android:layout_marginTop="90dp"
         android:background="@color/blue_bld"
-        android:text="Đặt vé"/>
+        android:text="Đặt vé"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/svContainer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

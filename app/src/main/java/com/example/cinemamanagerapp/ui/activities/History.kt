@@ -11,7 +11,7 @@ import com.example.cinemamanagerapp.ui.adapters.ADTMovieHistory
 
 class History : AppCompatActivity() {
     //
-    private lateinit var lv_HistoryList : ListView
+    private lateinit var lv_HistoryList: ListView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

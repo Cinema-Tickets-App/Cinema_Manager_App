@@ -7,7 +7,7 @@ import android.widget.BaseAdapter
 import com.example.cinemamanagerapp.R
 import com.example.cinemamanagerapp.model.Notificaton
 
-class ADTNotification(private val notificationList : List<Notificaton>?) :
+class ADTNotification(private val notificationList: List<Notificaton>?) :
     BaseAdapter() {
     override fun getCount(): Int {
         return 7
@@ -23,7 +23,7 @@ class ADTNotification(private val notificationList : List<Notificaton>?) :
     }
 
     override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
-        var view = LayoutInflater.from(p2?.context).inflate(R.layout.notification_message,null);
+        var view = LayoutInflater.from(p2?.context).inflate(R.layout.notification_message, null);
         return view
     }
 }

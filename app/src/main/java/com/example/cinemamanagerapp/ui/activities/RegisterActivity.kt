@@ -54,7 +54,8 @@ class RegisterActivity : AppCompatActivity() {
         RetrofitClient.apiService.registerUser(user).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) { // khi mã trả về từ 200 - 299, isSucessful = true
-                    Toast.makeText(this@RegisterActivity, "Đăng ký thành công!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@RegisterActivity, "Đăng ký thành công!", Toast.LENGTH_SHORT)
+                        .show()
                     finish()
                 } else {
                     val errorMessage = response.errorBody()?.string() ?: "Đăng ký thất bại"
@@ -63,7 +64,11 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                Toast.makeText(this@RegisterActivity, "Lỗi kết nối: ${t.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@RegisterActivity,
+                    "Lỗi kết nối: ${t.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
     }

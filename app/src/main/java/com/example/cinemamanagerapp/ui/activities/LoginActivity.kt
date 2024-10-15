@@ -37,11 +37,10 @@ class LoginActivity : AppCompatActivity() {
         // Kiểm tra xem người dùng đã đăng nhập hay chưa
 
 
-
         loginButton.setOnClickListener {
             val email = emailEditText.text.toString().trim()
             val password = passwordEditText.text.toString().trim()
-            loginUser(email,password)
+            loginUser(email, password)
         }
 
         registerTextView.setOnClickListener {
@@ -52,13 +51,14 @@ class LoginActivity : AppCompatActivity() {
     private fun checkLoggedIn() {
         val sharedPreferences = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
         val email = sharedPreferences.getString("email", null)
-        val password = sharedPreferences.getString("password", null) // Trả về null nếu không có giá trị
-        if(password != null && email != null){
-            loginUser(email,password)
+        val password =
+            sharedPreferences.getString("password", null) // Trả về null nếu không có giá trị
+        if (password != null && email != null) {
+            loginUser(email, password)
         }
     }
 
-    private fun loginUser(email : String,password : String) {
+    private fun loginUser(email: String, password: String) {
         if (email.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Vui lòng nhập thông tin", Toast.LENGTH_SHORT).show()
             return
@@ -69,30 +69,46 @@ class LoginActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val loginResponse = response.body() //
                     loginResponse?.let {
-                        saveUserInfo(email,password) // luu thong tin login
+                        saveUserInfo(email, password) // luu thong tin login
                         // lưu email va password lại để lần sau dùng login
-                        Toast.makeText(this@LoginActivity, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@LoginActivity,
+                            "Đăng nhập thành công!",
+                            Toast.LENGTH_SHORT
+                        ).show()
                         var intent = Intent(this@LoginActivity, MainActivity::class.java)
-                        intent.putExtra("userId",loginResponse.userId)
+                        intent.putExtra("userId", loginResponse.userId)
                         startActivity(intent)
                         finish()
                     } ?: run {
-                        Toast.makeText(this@LoginActivity, "Đăng nhập thất bại: Không có dữ liệu trả về", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@LoginActivity,
+                            "Đăng nhập thất bại: Không có dữ liệu trả về",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 } else {
                     val errorMessage = response.errorBody()?.string() ?: response.message()
-                    Toast.makeText(this@LoginActivity, "Đăng nhập thất bại: $errorMessage", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@LoginActivity,
+                        "Đăng nhập thất bại: $errorMessage",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
             override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                 Log.e("LoginActivity", "Lỗi: ${t.message}", t)
-                Toast.makeText(this@LoginActivity, "Đã xảy ra lỗi: ${t.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@LoginActivity,
+                    "Đã xảy ra lỗi: ${t.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
     }
 
-    private fun saveUserInfo(email : String , password: String) {
+    private fun saveUserInfo(email: String, password: String) {
         val sharedPreferences = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putString("email", email)

@@ -12,4 +12,5 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemamanagerapp.R
 import com.example.cinemamanagerapp.model.MovieInfo
 
-class ADTFavoriteMovie(private val mList: List<MovieInfo>,private var context : Context?) : ADTMoviesByCategory(mList,context);
+class ADTFavoriteMovie(private val mList: List<MovieInfo>, private var context: Context?) :
+    ADTMoviesByCategory(mList, context);

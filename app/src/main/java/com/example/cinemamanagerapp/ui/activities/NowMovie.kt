@@ -30,10 +30,11 @@ class NowMovie : AppCompatActivity() {
         }
         rcvMovieCategoryList = findViewById(R.id.rcvMovieCategoryList);
         rcvMovieCategoryList.adapter = ADTCategoryList(null)
-        rcvMovieCategoryList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        rcvMovieCategoryList.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
         rcvMovieByCategory = findViewById(R.id.rcvMovieByCategory);
-        rcvMovieByCategory.adapter = ADTMoviesByCategory(mutableListOf(),this);
-        rcvMovieByCategory.layoutManager = GridLayoutManager(this,2)
+        rcvMovieByCategory.adapter = ADTMoviesByCategory(mutableListOf(), this);
+        rcvMovieByCategory.layoutManager = GridLayoutManager(this, 2)
     }
 }

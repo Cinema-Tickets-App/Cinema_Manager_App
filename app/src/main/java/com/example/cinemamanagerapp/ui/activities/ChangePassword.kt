@@ -13,11 +13,11 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.cinemamanagerapp.R
 
 class ChangePassword : AppCompatActivity() {
-    private  lateinit var edt_passWord: EditText
+    private lateinit var edt_passWord: EditText
     private lateinit var EDT_newPassword: EditText
     private lateinit var EDT_reNewPassword: EditText
     private lateinit var BTN_submit: Button
-    private var accountPassword : String? = null
+    private var accountPassword: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -39,13 +39,17 @@ class ChangePassword : AppCompatActivity() {
                 Toast.makeText(this@ChangePassword, "Thông tin trống", Toast.LENGTH_LONG).show()
                 return@OnClickListener
             }
-            if(accountPassword == null){
+            if (accountPassword == null) {
                 val sharedPreferences = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
                 accountPassword = sharedPreferences.getString("password", null)
             }
 
-            if(password.equals(accountPassword) == false){
-                Toast.makeText(this@ChangePassword, "Mật khẩu không bạn đã nhập không chính xác", Toast.LENGTH_LONG).show()
+            if (password.equals(accountPassword) == false) {
+                Toast.makeText(
+                    this@ChangePassword,
+                    "Mật khẩu không bạn đã nhập không chính xác",
+                    Toast.LENGTH_LONG
+                ).show()
                 return@OnClickListener
             }
 

@@ -24,11 +24,11 @@
             android:id="@+id/tv_FoodName"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Pessi"
-            android:textSize="25dp"
-            android:textColor="@color/white"
-            android:gravity="center"
             android:layout_marginStart="20dp"
+            android:gravity="center"
+            android:text="Pessi"
+            android:textColor="@color/white"
+            android:textSize="25dp"
             app:layout_constraintStart_toEndOf="@+id/img_FoodImage"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,20 +39,21 @@
             android:layout_marginEnd="105dp"
             android:background="@color/black"
             android:scaleType="centerCrop"
-            app:tint="#C6C6C6"
             android:src="@drawable/icon_sub"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#C6C6C6" />
+
         <TextView
             android:id="@+id/tv_FoodAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="69dp"
             android:background="@color/black"
+            android:text="6"
             android:textColor="@color/blue_bld"
             android:textSize="25dp"
-            android:text="6"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -64,11 +65,11 @@
             android:layout_marginEnd="20dp"
             android:background="@color/black"
             android:scaleType="centerCrop"
-            app:tint="@color/red_exp"
             android:src="@drawable/icon_add"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/red_exp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

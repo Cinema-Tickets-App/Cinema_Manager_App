@@ -15,12 +15,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     companion object {
-        var userId : Int = 0 //  0 là chưa được gán. vì userId trong database luon luon > 0
-        var userName : String = ""
+        var userId: Int = 0 //  0 là chưa được gán. vì userId trong database luon luon > 0
+        var userName: String = ""
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        userId =  intent.getIntExtra("userId",-1)
+        userId = intent.getIntExtra("userId", -1)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -36,18 +37,22 @@ class MainActivity : AppCompatActivity() {
                     replaceFragment(HomeFragment())
                     true
                 }
+
                 R.id.nav_notification -> {
                     replaceFragment(NotificationFragment())
                     true
                 }
+
                 R.id.nav_fav -> {
                     replaceFragment(TicketQueueFragment())
                     true
                 }
+
                 R.id.nav_settting -> {
                     replaceFragment(SettingFragment())
                     true
                 }
+
                 else -> false
             }
         }

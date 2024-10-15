@@ -7,7 +7,7 @@ import android.widget.BaseAdapter
 import com.example.cinemamanagerapp.R
 import com.example.cinemamanagerapp.model.Food
 
-class ADTFood(private var food : List<Food>?) : BaseAdapter() {
+class ADTFood(private var food: List<Food>?) : BaseAdapter() {
     override fun getCount(): Int {
         return 6;
         //if(food == null) 0 else food.size
@@ -22,7 +22,7 @@ class ADTFood(private var food : List<Food>?) : BaseAdapter() {
     }
 
     override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
-        val view = LayoutInflater.from(p2?.context).inflate(R.layout.food,null)
+        val view = LayoutInflater.from(p2?.context).inflate(R.layout.food, null)
         return view;
     }
 }

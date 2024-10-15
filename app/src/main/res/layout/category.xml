@@ -10,14 +10,15 @@
         android:background="#202020"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <TextView
             android:id="@+id/tv_CategoryName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="14dp"
+            android:gravity="center"
             android:text="Trinh thám"
             android:textColor="#FFFFFF"
-            android:gravity="center"
+            android:textSize="14dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

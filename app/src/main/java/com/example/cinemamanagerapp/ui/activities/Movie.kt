@@ -10,7 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.cinemamanagerapp.R
 
 class Movie : AppCompatActivity() {
-    private lateinit var BTN_BookTickets : Button
+    private lateinit var BTN_BookTickets: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -22,7 +22,7 @@ class Movie : AppCompatActivity() {
         }
         BTN_BookTickets = findViewById(R.id.BTN_BookTickets)
         BTN_BookTickets.setOnClickListener({
-            startActivity(Intent(this,ChooseChair::class.java))
+            startActivity(Intent(this, ChooseChair::class.java))
         })
     }
 }

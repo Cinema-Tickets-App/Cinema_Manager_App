@@ -73,17 +73,17 @@
                     android:layout_marginTop="22dp"
                     android:layout_marginBottom="22dp"
                     android:text="Lê Thành Nhân"
+                    android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:textSize="22dp"
-                    android:textAlignment="center" />
+                    android:textSize="22dp" />
 
                 <!-- Cấu hình từng mục cài đặt dưới đây -->
                 <LinearLayout
                     android:id="@+id/lnAccount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
                     android:background="#0F0F0F"
+                    android:clickable="true"
                     android:orientation="vertical">
 
                     <TextView
@@ -91,8 +91,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="15dp"
-                        android:text="Hồ sơ"
-                         />
+                        android:text="Hồ sơ" />
 
                     <View
                         android:layout_width="match_parent"
@@ -102,10 +101,10 @@
 
                 <LinearLayout
                     android:id="@+id/lnHistory"
-                    android:background="#0F0F0F"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="10dp"
+                    android:background="#0F0F0F"
                     android:orientation="vertical">
 
                     <TextView
@@ -113,10 +112,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:padding="15dp"
                         android:enabled="false"
-                        android:text="Lịch sử"
-                        />
+                        android:padding="15dp"
+                        android:text="Lịch sử" />
 
                     <View
                         android:layout_width="match_parent"
@@ -128,8 +126,8 @@
                     android:id="@+id/lnChangePassword"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#0F0F0F"
                     android:layout_marginTop="10dp"
+                    android:background="#0F0F0F"
                     android:orientation="vertical">
 
                     <TextView
@@ -138,8 +136,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:padding="15dp"
-                        android:text="Thay đổi mật khẩu"
-                        />
+                        android:text="Thay đổi mật khẩu" />
 
                     <View
                         android:layout_width="match_parent"
@@ -154,8 +151,8 @@
                     android:id="@+id/lnHelpCentre"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#0F0F0F"
                     android:layout_marginTop="10dp"
+                    android:background="#0F0F0F"
                     android:orientation="vertical">
 
                     <TextView
@@ -163,8 +160,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="15dp"
-                        android:text="Trung tâm trợ giúp"
-                         />
+                        android:text="Trung tâm trợ giúp" />
 
                     <View
                         android:layout_width="match_parent"

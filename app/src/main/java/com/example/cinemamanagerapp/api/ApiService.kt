@@ -12,6 +12,7 @@ data class LoginRequest(
     val email: String,
     val password: String
 )
+
 // Data class cho phản hồi đăng nhập
 data class LoginResponse(
     val userId: Int
@@ -32,6 +33,7 @@ data class UserProfile(
     var phone_number: String? = null,
     var gender: String? = null
 )
+
 data class PasswordUpdate(
     val email: String,
     val oldPassword: String,
