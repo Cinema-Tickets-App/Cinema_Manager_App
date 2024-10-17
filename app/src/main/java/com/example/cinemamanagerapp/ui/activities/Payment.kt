@@ -42,6 +42,7 @@ class Payment : AppCompatActivity() {
     private fun fetchFoodData() {
         lifecycleScope.launch {
             try {
+                Log.d("Payment", "Đang lấy dữ liệu món ăn từ API")
                 RetrofitClient.apiService.getFoodDrinks().enqueue(object : Callback<List<Food>> {
                     override fun onResponse(
                         call: Call<List<Food>>,
@@ -49,18 +50,28 @@ class Payment : AppCompatActivity() {
                     ) {
                         if (response.isSuccessful) {
                             val foodList = response.body() ?: emptyList()
+                            Log.d("Payment", "Đã nhận được ${foodList.size} món ăn")
                             adapter = ADTFood(foodList)
                             lv_FoodList.adapter = adapter
+                        } else {
+
+                            Log.e(
+                                "Payment",
+                                "Lấy dữ liệu món ăn không thành công: ${response.code()} ${response.message()}"
+                            )
                         }
                     }
 
                     override fun onFailure(call: Call<List<Food>>, t: Throwable) {
-                        Log.e("Payment", "Error fetching food data", t)
+
+                        Log.e("Payment", "Lỗi khi lấy dữ liệu món ăn: ${t.message}", t)
                     }
                 })
             } catch (e: Exception) {
-                Log.e("Payment", "Exception: $e")
+
+                Log.e("Payment", "Ngoại lệ khi lấy dữ liệu món ăn: ${e.message}", e)
             }
         }
     }
+
 }
