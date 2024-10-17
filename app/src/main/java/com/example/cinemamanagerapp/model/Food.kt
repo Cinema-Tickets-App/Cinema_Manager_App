@@ -1,3 +1,9 @@
 package com.example.cinemamanagerapp.model
 
-class Food(private var foodId: Int, private var foodName: String, private var image: Array<Byte>)
+data class Food(
+    var foodId: Int,
+    var name: String,
+    var price: Double,
+    var image: String,
+    var quantity: Int = 1
+)

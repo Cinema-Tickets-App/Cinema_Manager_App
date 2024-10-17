@@ -26,11 +26,12 @@
             android:layout_height="match_parent"
             android:layout_marginStart="20dp"
             android:gravity="center"
-            android:text="Pessi"
+            android:text="Pesi"
             android:textColor="@color/white"
             android:textSize="25dp"
             app:layout_constraintStart_toEndOf="@+id/img_FoodImage"
             app:layout_constraintTop_toTopOf="parent" />
+
 
         <ImageButton
             android:id="@+id/IMB_Sub"

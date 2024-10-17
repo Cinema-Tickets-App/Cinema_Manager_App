@@ -94,10 +94,10 @@ dependencies {
     implementation("com.github.aabhasr1:OtpView:v1.1.2-ktx")
 
     // Stripe
-    implementation("com.stripe:stripe-android:20.52.0")
+    implementation("com.stripe:stripe-android:20.52.1")
 
-    implementation("androidx.navigation:navigation-fragment-ktx:2.8.2") // Kiểm tra phiên bản mới nhất
-    implementation("androidx.navigation:navigation-ui-ktx:2.8.2") // Kiểm tra phiên bản mới nhất
+    implementation("androidx.navigation:navigation-fragment-ktx:2.8.3") // Kiểm tra phiên bản mới nhất
+    implementation("androidx.navigation:navigation-ui-ktx:2.8.3") // Kiểm tra phiên bản mới nhất
 
     implementation("com.github.bumptech.glide:glide:4.16.0")
 

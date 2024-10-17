@@ -1,6 +1,6 @@
 package com.example.cinemamanagerapp.api
 
-import com.example.cinemamanagerapp.models.FoodDrink
+import com.example.cinemamanagerapp.model.Food
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -61,5 +61,5 @@ interface ApiService {
     fun updatePassword(@Body passwordRequest: PasswordUpdate): Call<Void>
 
     @GET("api/food-drinks/")
-    fun getFoodDrinks(): Call<List<FoodDrink>>
+    fun getFoodDrinks(): Call<List<Food>>
 }

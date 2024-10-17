@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemamanagerapp.R
 import com.example.cinemamanagerapp.ui.adapters.ADTNotification
 import com.example.cinemamanagerapp.api.RetrofitClient
-import com.example.cinemamanagerapp.models.FoodDrink
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
