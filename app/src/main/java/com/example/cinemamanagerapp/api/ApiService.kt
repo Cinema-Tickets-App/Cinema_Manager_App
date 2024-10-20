@@ -1,11 +1,15 @@
 package com.example.cinemamanagerapp.api
 
+import MovieInfo
+import com.example.cinemamanagerapp.model.Category
 import com.example.cinemamanagerapp.model.Food
+
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Path
 
 // Định nghĩa lớp Request cho API đăng nhập
 data class LoginRequest(
@@ -62,4 +66,14 @@ interface ApiService {
 
     @GET("api/food-drinks/")
     fun getFoodDrinks(): Call<List<Food>>
+
+
+    @GET("/api/movies")
+    fun getMovies(): Call<List<MovieInfo>>
+
+    @GET("/api/categories") // Đường dẫn API
+    fun getCategories(): Call<List<Category>>
+
+
+
 }

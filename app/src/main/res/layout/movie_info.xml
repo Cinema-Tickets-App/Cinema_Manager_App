@@ -22,14 +22,29 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvMovieName"
+            android:id="@+id/tvMovie"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:enabled="false"
-            android:text="Movie Name : Thiên thần và ác quỷ"
+            android:text="Movie Name:"
+            android:textColor="@color/blue_bld"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Img_ImageMovie" />
+        <TextView
+            android:id="@+id/tvMovieName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="110dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:enabled="false"
+            android:text="Thiên thần và ác quỷ"
             android:textColor="@color/blue_bld"
             android:textSize="16dp"
             android:textStyle="bold"
@@ -37,15 +52,31 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/Img_ImageMovie" />
 
+
         <TextView
-            android:id="@+id/tvShowtime"
+            android:id="@+id/tvShow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:enabled="false"
-            android:text="Showtime : 10h30 22/10/2024"
+            android:text="Showtime:"
+            android:textColor="@color/blue_bld"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvMovieName" />
+        <TextView
+            android:id="@+id/tvShowtime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:enabled="false"
+            android:text="10h30 22/10/2024"
             android:textColor="@color/blue_bld"
             android:textSize="16dp"
             android:textStyle="bold"

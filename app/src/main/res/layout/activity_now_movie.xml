@@ -21,6 +21,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
+            android:id="@+id/btnNowShowing"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="5"
@@ -30,6 +31,7 @@
             android:textColor="@color/white" />
 
         <Button
+            android:id="@+id/btnComingSoon"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="5"

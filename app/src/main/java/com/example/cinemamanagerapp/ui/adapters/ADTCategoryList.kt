@@ -6,11 +6,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemamanagerapp.R
+import com.example.cinemamanagerapp.model.Category
 
-class ADTCategoryList(private val categoryList: Array<String>?) :
+class ADTCategoryList(private var categoryList: MutableList<Category>) :
     RecyclerView.Adapter<ADTCategoryList.ViewHold>() {
-    class ViewHold(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+    class ViewHold(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val tvCategoryName: TextView = itemView.findViewById(R.id.tv_CategoryName)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHold {
@@ -20,11 +22,16 @@ class ADTCategoryList(private val categoryList: Array<String>?) :
     }
 
     override fun getItemCount(): Int {
-        return 5;
-        //if(categoryList == null) 0 else categoryList.size
+        return categoryList.size
     }
 
     override fun onBindViewHolder(holder: ViewHold, position: Int) {
-        var tv = holder.itemView.findViewById<TextView>(R.id.tv_CategoryName);
+        holder.tvCategoryName.text = categoryList[position].name // Giả sử `name` là thuộc tính của `Category`
+    }
+
+    fun updateCategories(categories: List<Category>) {
+        categoryList.clear()
+        categoryList.addAll(categories)
+        notifyDataSetChanged()
     }
 }
