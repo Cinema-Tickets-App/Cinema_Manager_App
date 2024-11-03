@@ -1,106 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:padding="16dp"
+    android:background="@color/background_dark"
     tools:context=".ui.activities.LoginActivity">
 
-    <!-- Centering the UI -->
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <!-- Title -->
-        <TextView
-            android:id="@+id/titleTextView"
-            android:layout_width="wrap_content"
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:text="Đăng Nhập"
-            android:textColor="@android:color/black"
-            android:textSize="28sp"
-            android:textStyle="bold" />
+            android:orientation="vertical">
 
-        <!-- Email Input -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/emailTextInputLayout"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:endIconMode="clear_text">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/emailEditText"
+            <TextView
+                android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_background"
-                android:hint="Email"
-                android:inputType="textEmailAddress"
-                android:textColor="@android:color/black" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginStart="32sp"
+                android:layout_marginTop="128dp"
+                android:text="Đăng Nhập"
+                android:textColor="@color/text_primary_dark"
+                android:textSize="50sp"
+                android:textStyle="bold" />
 
-        <!-- Password Input -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/passwordTextInputLayout"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            app:endIconMode="password_toggle">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/passwordEditText"
+            <EditText
+                android:id="@+id/editText_Acc"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_background"
+                android:layout_height="50dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="128dp"
+                android:layout_marginEnd="32sp"
+                android:background="@drawable/edittext_background"
+                android:ems="10"
+                android:hint="Tài khoản"
+                android:inputType="text"
+                android:textAlignment="center"
+                android:textColor="@color/text_primary_dark"
+                android:textColorHint="@color/white" />
+
+            <EditText
+                android:id="@+id/editText_Pass"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32sp"
+                android:background="@drawable/edittext_background"
+                android:ems="10"
                 android:hint="Mật khẩu"
                 android:inputType="textPassword"
-                android:textColor="@android:color/black" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:textAlignment="center"
+                android:textColor="@color/text_primary_dark"
+                android:textColorHint="@color/text_primary_dark" />
 
-        <!-- Login Button -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/loginButton"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@android:color/black"
-            android:text="Đăng Nhập"
-            android:textColor="@android:color/white"
-            app:cornerRadius="12dp" />
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Quên mật khẩu"
+                android:textAlignment="center"
+                android:textColor="@color/text_primary_dark"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-        <!-- Google Login Button -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/googleLoginButton"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="@android:color/holo_blue_dark"
-            android:iconTint="@android:color/white"
-            android:text="Đăng Nhập với Google"
-            android:textColor="@android:color/white"
-            app:cornerRadius="12dp"
-            app:icon="@drawable/ic_google_logo" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/ButtonLogin"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/button_bg"
+                android:elevation="2dp"
+                android:gravity="center"
+                android:padding="16dp"
+                android:text="Đăng Nhập"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
 
-        <!-- Register Link -->
-        <TextView
-            android:id="@+id/registerTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:text="Chưa có tài khoản? Đăng ký"
-            android:textColor="@android:color/holo_blue_dark"
-            android:textSize="16sp"
-            android:textStyle="italic" />
+            <TextView
+                android:id="@+id/textNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Bạn chưa có tài khoản?"
+                android:textAlignment="center"
+                android:textColor="@color/text_primary_dark"
+                android:textSize="16sp" />
 
-    </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/textRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Đăng Ký Ngay"
+                android:textAlignment="center"
+                android:textColor="@color/text_primary_dark"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

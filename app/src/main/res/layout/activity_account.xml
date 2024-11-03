@@ -5,13 +5,14 @@
     android:id="@+id/Account"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_color"
     android:orientation="vertical"
-    tools:context=".ui.activities.accounts.AccountActivity">
+    tools:context=".ui.activities.AccountActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white">
+        android:background="@color/main_color">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbarAccount"
@@ -37,7 +38,8 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="34.3dp"
                     android:text="Account"
-                    android:textAlignment="textStart" />
+                    android:textAlignment="textStart"
+                    android:textColor="@color/white" />
 
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
@@ -86,9 +88,12 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/email"
                     android:drawablePadding="10dp"
+                    android:drawableTint="@color/white"
                     android:hint="Email"
-                    android:textColor="#000000"
-                    android:textSize="14sp" />
+                    android:textColor="@color/gray"
+                    android:textSize="14sp"
+                    android:enabled="false" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -104,8 +109,9 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/name"
                     android:drawablePadding="10dp"
-                    android:hint="Name"
-                    android:textColor="#000000"
+                    android:drawableTint="@color/white"
+                    android:hint="Full Name"
+                    android:textColor="@color/white"
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -122,8 +128,9 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/phonesvg"
                     android:drawablePadding="10dp"
+                    android:drawableTint="@color/white"
                     android:hint="Phone"
-                    android:textColor="#000000"
+                    android:textColor="@color/white"
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -140,9 +147,30 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@android:drawable/arrow_down_float"
                     android:drawablePadding="10dp"
-                    android:drawableTint="@color/black"
+                    android:drawableTint="@color/white"
                     android:hint="Address"
-                    android:textColor="#000000"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilAgeAccount"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tedAgeAccount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:drawableStart="@drawable/world"
+                    android:drawablePadding="10dp"
+                    android:drawableTint="@color/white"
+                    android:hint="Age"
+                    android:inputType="number"
+
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -158,7 +186,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Gender"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/white" />
 
                 <RadioGroup
                     android:id="@+id/rdoGroupGender"
@@ -172,26 +200,27 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="22dp"
-                        android:text="Male" />
+                        android:text="Male"
+                        android:textColor="@color/white" />
 
                     <RadioButton
                         android:id="@+id/rdoFemale"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="22dp"
-                        android:text="Female" />
+                        android:text="Female"
+                        android:textColor="@color/white" />
 
                     <RadioButton
                         android:id="@+id/rdoOther"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="22dp"
-                        android:text="Other" />
+                        android:text="Other"
+                        android:textColor="@color/white" />
                 </RadioGroup>
 
-
             </LinearLayout>
-
 
             <Button
                 android:id="@+id/btnSaveAccount"
@@ -200,7 +229,6 @@
                 android:layout_height="53dp"
                 android:layout_marginTop="22dp"
                 android:text="Save" />
-
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

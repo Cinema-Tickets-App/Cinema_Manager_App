@@ -5,13 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.example.cinemamanagerapp.R
-import com.example.cinemamanagerapp.model.Notificaton
+import com.example.cinemamanagerapp.api.NotificationResponse
 
-class ADTNotification(private val notificationList: List<Notificaton>?) :
+
+class MovieHistory_Adapter(private val movieList: List<NotificationResponse>?) :
     BaseAdapter() {
     override fun getCount(): Int {
         return 7
-        // if (notificationList == null) 0 else notificationList.size
+        // if (movieList == null) 0 else movieList.size
     }
 
     override fun getItem(p0: Int): Any {
@@ -23,7 +24,7 @@ class ADTNotification(private val notificationList: List<Notificaton>?) :
     }
 
     override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
-        var view = LayoutInflater.from(p2?.context).inflate(R.layout.notification_message, null);
+        var view = LayoutInflater.from(p2?.context).inflate(R.layout.movie_history, null);
         return view
     }
 }

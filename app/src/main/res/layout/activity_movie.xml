@@ -5,13 +5,16 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@color/main_color"
     tools:context=".ui.activities.Movie">
 
+    <!-- Video hoặc hình ảnh đại diện của phim -->
     <ImageView
         android:id="@+id/videoMovie"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/movie_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -19,26 +22,24 @@
     <ScrollView
         android:id="@+id/svContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="210dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="180dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonContainer"
+        app:layout_constraintTop_toBottomOf="@+id/videoMovie">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/black">
+            android:background="@color/black"
+            android:padding="16dp">
 
             <TextView
                 android:id="@+id/tvMovieName"
                 style="@style/MovieSynopsisStyle"
-                android:text="Movie Name : Intsoaot"
-                android:background="@color/blue_bld"
+                android:text="Tên Phim: Inception"
+                android:textColor="@color/blue_bld"
+                android:textSize="24sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -46,112 +47,124 @@
             <TextView
                 android:id="@+id/tvGenre"
                 style="@style/MovieSynopsisStyle"
-                android:text="Genre: Science Fiction, Action, Thriller"
+                android:text="Thể loại: Khoa học viễn tưởng, Hành động, Kinh dị"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvMovieName" />
+                app:layout_constraintTop_toBottomOf="@id/tvMovieName" />
 
             <TextView
                 android:id="@+id/tvDirector"
                 style="@style/MovieSynopsisStyle"
-                android:text="Director: Christopher Nolan"
+                android:text="Đạo diễn: Christopher Nolan"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvGenre" />
+                app:layout_constraintTop_toBottomOf="@id/tvGenre" />
 
             <TextView
                 android:id="@+id/tvCast"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                style="@style/MovieSynopsisStyle"
+                android:text="Diễn viên: Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page, Tom Hardy"
                 android:textColor="@color/white"
-                android:text="Cast: Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page, Tom Hardy"
-                android:textSize="30sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvDirector" />
+                app:layout_constraintTop_toBottomOf="@id/tvDirector" />
 
             <TextView
                 android:id="@+id/tvPlot"
                 style="@style/MovieSynopsisStyle"
-                android:text="Plot: Inception is a mind-bending thriller that explores the world of dreams. Dom Cobb (Leonardo DiCaprio) is a skilled thief who specializes in entering people's subconscious and stealing valuable secrets while they dream. His unique ability has made him a highly sought-after player in corporate espionage, but it has also cost him everything he loves. When he's offered a chance at redemption"
+                android:text="Nội dung: Inception là một bộ phim thriller về tâm lý khám phá thế giới giấc mơ."
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvCast" />
-
+                app:layout_constraintTop_toBottomOf="@id/tvCast" />
 
             <TextView
                 android:id="@+id/tvShowtime"
                 style="@style/MovieSynopsisStyle"
                 android:text="Giờ chiếu: 18:00"
+                android:textColor="@color/blue_bld"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvPlot" />
+                app:layout_constraintTop_toBottomOf="@id/tvPlot" />
 
             <TextView
                 android:id="@+id/tvDuration"
                 style="@style/MovieSynopsisStyle"
                 android:text="Thời gian: 148 phút"
+                android:textColor="@color/blue_bld"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvShowtime" />
+                app:layout_constraintTop_toBottomOf="@id/tvShowtime" />
 
             <TextView
                 android:id="@+id/tvRating"
                 style="@style/MovieSynopsisStyle"
                 android:text="Xếp hạng: 8.8/10"
+                android:textColor="@color/blue_bld"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvDuration" />
+                app:layout_constraintTop_toBottomOf="@id/tvDuration" />
 
             <TextView
                 android:id="@+id/tvReleaseDate"
                 style="@style/MovieSynopsisStyle"
                 android:text="Ngày phát hành: 16/07/2010"
+                android:textColor="@color/blue_bld"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvRating" />
+                app:layout_constraintTop_toBottomOf="@id/tvRating" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-    <TextView
-        android:id="@+id/imageButon"
-        android:layout_width="wrap_content"
+    <!-- Khung chứa các nút hành động -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/buttonContainer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="25dp"
-        android:text="Thêm vào danh mục"
-        android:textColor="@color/blue_bld"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/svContainer" />
-
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="256dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:background="@color/black"
-        android:padding="5dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/movie_cart"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/svContainer"
-        app:tint="@color/blue_bld" />
+        android:padding="16dp">
 
+        <TextView
+            android:id="@+id/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thêm vào danh mục"
+            android:textColor="@color/blue_bld"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/BTN_BookTickets"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="90dp"
-        android:background="@color/blue_bld"
-        android:text="Đặt vé"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/svContainer" />
+        <ImageButton
+            android:id="@+id/imageButtonAction"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="8dp"
+            android:background="@color/black"
+            android:padding="5dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/movie_cart"
+            app:layout_constraintStart_toEndOf="@id/imageButton"
+            app:tint="@color/blue_bld"
+            app:layout_constraintTop_toTopOf="@id/imageButton" />
+
+        <Button
+            android:id="@+id/BTN_BookTickets"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/blue_bld"
+            android:text="Đặt vé"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageButtonAction" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

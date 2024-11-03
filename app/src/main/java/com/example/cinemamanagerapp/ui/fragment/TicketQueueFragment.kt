@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemamanagerapp.R
-import com.example.cinemamanagerapp.ui.adapters.ADTFavoriteMovie
+import com.example.cinemamanagerapp.ui.adapters.FavoriteMovie_Adapter
 
 class TicketQueueFragment : Fragment() {
     private lateinit var rcvFavoriteMovie: RecyclerView
@@ -19,9 +19,14 @@ class TicketQueueFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_ticketqueue, container, false)
-        rcvFavoriteMovie = view.findViewById(R.id.rcv_FavoriteMovie);
-        rcvFavoriteMovie.adapter = ADTFavoriteMovie(mutableListOf(), context);
-        rcvFavoriteMovie.layoutManager = GridLayoutManager(context, 2)
+        rcvFavoriteMovie = view.findViewById(R.id.rcv_FavoriteMovie)
+
+        // Sử dụng requireContext() để đảm bảo context không null
+        val adapter = FavoriteMovie_Adapter(mutableListOf(), requireContext())
+        rcvFavoriteMovie.adapter = adapter
+        rcvFavoriteMovie.layoutManager = GridLayoutManager(requireContext(), 2)
+
         return view
     }
+
 }

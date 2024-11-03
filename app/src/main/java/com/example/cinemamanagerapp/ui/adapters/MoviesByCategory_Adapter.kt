@@ -1,6 +1,5 @@
 package com.example.cinemamanagerapp.ui.adapters
 
-import MovieInfo
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -11,11 +10,16 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemamanagerapp.R
-import com.example.cinemamanagerapp.ui.activities.Movie
+import com.example.cinemamanagerapp.ui.activities.Movie // Kiểm tra lại đây có đúng không?
 import com.bumptech.glide.Glide
+import com.example.cinemamanagerapp.api.MovieResponse
+import java.text.SimpleDateFormat
+import java.util.Locale
 
-open class ADTMoviesByCategory(private var mList: MutableList<MovieInfo>, private val context: Context?) :
-    RecyclerView.Adapter<ADTMoviesByCategory.ViewHold>() {
+class MoviesByCategory_Adapter(
+    private var mList: MutableList<MovieResponse>,
+    private val context: Context
+) : RecyclerView.Adapter<MoviesByCategory_Adapter.ViewHold>() {
 
     class ViewHold(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val movieInfoContainer: ConstraintLayout = itemView.findViewById(R.id.CL_MovieInfoContainer)
@@ -37,24 +41,33 @@ open class ADTMoviesByCategory(private var mList: MutableList<MovieInfo>, privat
     override fun onBindViewHolder(holder: ViewHold, position: Int) {
         val movie = mList[position]
 
-        // Thiết lập thông tin phim
         holder.movieName.text = movie.title
-        holder.tvShowtime.text = movie.show_time.toString() // Chuyển đổi định dạng nếu cần
+        holder.tvShowtime.text = formatDate(movie.release_date)
 
-
-        Glide.with(context!!)
-            .load(movie.image)
+        Glide.with(holder.image.context)
+            .load(movie.image_url)
             .into(holder.image)
-
 
         holder.movieInfoContainer.setOnClickListener {
             val intent = Intent(context, Movie::class.java)
-            intent.putExtra("MOVIE_INFO", movie) // Gửi toàn bộ đối tượng MovieInfo
+            intent.putExtra("MOVIE_INFO", movie)
             context.startActivity(intent)
         }
     }
 
-    fun updateMovies(movies: List<MovieInfo>) {
+    private fun formatDate(dateString: String): String {
+        return try {
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX", Locale.getDefault())
+            val outputFormat = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+            val date = inputFormat.parse(dateString)
+            outputFormat.format(date ?: return dateString)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            dateString
+        }
+    }
+
+    fun updateMovies(movies: List<MovieResponse>) {
         mList.clear()
         mList.addAll(movies)
         notifyDataSetChanged()

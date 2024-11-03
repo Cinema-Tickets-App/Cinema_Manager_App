@@ -1,4 +1,4 @@
 package com.example.cinemamanagerapp.ui.adapters
 
-class SliderAdapter {
+class Slider_Adapter {
 }

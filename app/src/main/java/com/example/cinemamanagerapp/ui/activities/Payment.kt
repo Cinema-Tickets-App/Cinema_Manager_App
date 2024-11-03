@@ -8,18 +8,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.cinemamanagerapp.R
-import com.example.cinemamanagerapp.model.Food
-import com.example.cinemamanagerapp.ui.adapters.ADTFood
+
+import com.example.cinemamanagerapp.ui.adapters.Food_Adapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import kotlinx.coroutines.launch
 import androidx.lifecycle.lifecycleScope
+import com.example.cinemamanagerapp.api.FoodDrinksResponse
 import com.example.cinemamanagerapp.api.RetrofitClient
 
 class Payment : AppCompatActivity() {
     private lateinit var lv_FoodList: ListView
-    private lateinit var adapter: ADTFood
+    private lateinit var adapter: Food_Adapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +34,7 @@ class Payment : AppCompatActivity() {
         }
 
         lv_FoodList = findViewById(R.id.lv_FoodList)
-        adapter = ADTFood(emptyList())
+        adapter = Food_Adapter(emptyList())
         lv_FoodList.adapter = adapter
 
         fetchFoodData()
@@ -42,36 +43,44 @@ class Payment : AppCompatActivity() {
     private fun fetchFoodData() {
         lifecycleScope.launch {
             try {
-                Log.d("Payment", "Đang lấy dữ liệu món ăn từ API")
-                RetrofitClient.apiService.getFoodDrinks().enqueue(object : Callback<List<Food>> {
-                    override fun onResponse(
-                        call: Call<List<Food>>,
-                        response: Response<List<Food>>
-                    ) {
-                        if (response.isSuccessful) {
-                            val foodList = response.body() ?: emptyList()
-                            Log.d("Payment", "Đã nhận được ${foodList.size} món ăn")
-                            adapter = ADTFood(foodList)
-                            lv_FoodList.adapter = adapter
-                        } else {
+                RetrofitClient.apiService.getAllFoodDrink()
+                    .enqueue(object : Callback<List<FoodDrinksResponse>> {
+                        override fun onResponse(
+                            call: Call<List<FoodDrinksResponse>>,
+                            response: Response<List<FoodDrinksResponse>>
+                        ) {
+                            if (response.isSuccessful) {
+                                val foodDrinksList = response.body() ?: emptyList()
 
-                            Log.e(
-                                "Payment",
-                                "Lấy dữ liệu món ăn không thành công: ${response.code()} ${response.message()}"
-                            )
+                                val foodList = foodDrinksList.map { foodDrinksResponse ->
+                                    FoodDrinksResponse(
+                                        food_drink_id = foodDrinksResponse.food_drink_id,
+                                        name = foodDrinksResponse.name,
+                                        type = foodDrinksResponse.type, // Đảm bảo giá trị này được truyền vào
+                                        price = foodDrinksResponse.price,
+                                        image = foodDrinksResponse.image ?: "",
+                                        quantity = 1 // Hoặc bất kỳ giá trị mặc định nào bạn muốn
+                                    )
+                                }
+
+                                adapter = Food_Adapter(foodList)
+                                lv_FoodList.adapter = adapter
+                            } else {
+                                Log.e("Payment", "Lấy dữ liệu món ăn không thành công: ${response.code()} ${response.message()}")
+                            }
                         }
-                    }
 
-                    override fun onFailure(call: Call<List<Food>>, t: Throwable) {
-
-                        Log.e("Payment", "Lỗi khi lấy dữ liệu món ăn: ${t.message}", t)
-                    }
-                })
+                        override fun onFailure(call: Call<List<FoodDrinksResponse>>, t: Throwable) {
+                            Log.e("Payment", "Lỗi khi lấy dữ liệu món ăn: ${t.message}", t)
+                        }
+                    })
             } catch (e: Exception) {
-
                 Log.e("Payment", "Ngoại lệ khi lấy dữ liệu món ăn: ${e.message}", e)
             }
         }
     }
+
+
+
 
 }

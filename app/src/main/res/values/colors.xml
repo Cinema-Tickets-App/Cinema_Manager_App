@@ -1,13 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="orange_bold">#D17842</color>
-    <color name="green_chaleston">#252A32</color>
-    <color name="red_exp">#ED1C24</color>
-    <color name="blue_bld">#009EDB</color>
-    <color name="yellow_erth">#FFC107</color>
-    <color name="green_ext">#32B34A</color>
-    <color name="light_gray">#F5F5F5</color>
-    <color name="light_pink">#F4EEEE</color>
+    <color name="black">#FF000000</color> <!-- Màu đen -->
+    <color name="white">#FFFFFFFF</color> <!-- Màu trắng -->
+    <color name="orange_bold">#D17842</color> <!-- Màu cam đậm -->
+    <color name="green_chaleston">#252A32</color> <!-- Xanh lục đậm -->
+    <color name="red_exp">#ED1C24</color> <!-- Màu đỏ -->
+    <color name="blue_bld">#009EDB</color> <!-- Màu xanh dương -->
+    <color name="yellow_erth">#FFC107</color> <!-- Màu vàng -->
+    <color name="green_ext">#32B34A</color> <!-- Xanh lá cây -->
+
+    <color name="light_pink">#F4EEEE</color> <!-- Hồng nhạt -->
+
+    <color name="main_color">#121212</color> <!-- Màu chính, xám đậm gần đen -->
+    <color name="orange">#FF8C00</color> <!-- Màu cam tối -->
+    <color name="yellow">#FFD700</color> <!-- Màu vàng tối -->
+    <color name="dark_blue">#1A1A4D</color> <!-- Màu xanh dương đậm -->
+    <color name="gray">#A9A9A9</color> <!-- Màu xám -->
+    <color name="light_gray">#A0A0A0</color> <!-- Màu xám nhạt -->
+    <color name="red">#FF4500</color> <!-- Màu đỏ tối -->
+    <color name="green">#008000</color> <!-- Xanh lá cây tối -->
+    <color name="blue">#00008B</color> <!-- Màu xanh dương tối -->
+    <color name="purple">#4B0082</color> <!-- Màu tím tối -->
+    <color name="pink">#FF69B4</color> <!-- Màu hồng tối -->
+    <color name="brown">#8B4513</color> <!-- Màu nâu tối -->
+    <color name="teal">#004D4D</color> <!-- Màu xanh lơ tối -->
+    <color name="cyan">#00BFFF</color> <!-- Màu xanh cyan tối -->
+    <color name="background_dark">#121212</color> <!-- Nền chính đen xám -->
+    <color name="surface_dark">#1E1E1E</color> <!-- Bề mặt thẻ hoặc hộp thoại -->
+    <color name="primary_dark">#BB86FC</color> <!-- Màu chính (tím nhạt) -->
+    <color name="primary_variant_dark">#3700B3</color> <!-- Biến thể đậm hơn của màu chính -->
+    <color name="secondary_dark">#03DAC6</color> <!-- Màu phụ (xanh ngọc) -->
+    <color name="text_primary_dark">#FFFFFF</color> <!-- Màu văn bản chính (trắng) -->
+    <color name="text_secondary_dark">#B3B3B3</color> <!-- Văn bản phụ (xám nhạt) -->
+    <color name="error_dark">#CF6679</color> <!-- Màu báo lỗi (đỏ nhạt) -->
+    <color name="divider_dark">#373737</color> <!-- Đường kẻ ngăn cách -->
+    <color name="disabled_dark">#5A5A5A</color> <!-- Màu cho trạng thái không hoạt động -->
+    <color name="hint_text_dark">#757575</color> <!-- Màu văn bản gợi ý -->
+    <color name="link_dark">#8AB4F8</color> <!-- Màu liên kết (xanh nhạt) -->
+
 </resources>

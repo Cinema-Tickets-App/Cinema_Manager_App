@@ -14,24 +14,37 @@
 
         <ImageView
             android:id="@+id/img_FoodImage"
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/icon_pessi"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
         <TextView
+            android:layout_marginTop="10dp"
             android:id="@+id/tv_FoodName"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="20dp"
-            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
             android:text="Pesi"
             android:textColor="@color/white"
-            android:textSize="25dp"
-            app:layout_constraintStart_toEndOf="@+id/img_FoodImage"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/img_FoodImage"
+            app:layout_constraintTop_toTopOf="@id/img_FoodImage" />
 
+        <TextView
+            android:id="@+id/tv_FoodPrice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="0.0"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/tv_FoodName"
+            app:layout_constraintTop_toTopOf="@id/tv_FoodName" />
 
         <ImageButton
             android:id="@+id/IMB_Sub"

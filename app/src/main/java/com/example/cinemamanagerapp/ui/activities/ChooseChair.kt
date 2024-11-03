@@ -10,27 +10,38 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemamanagerapp.R
-import com.example.cinemamanagerapp.ui.adapters.ADTChairNumber
+import com.example.cinemamanagerapp.ui.adapters.ChairNumber_Adapter
 
 class ChooseChair : AppCompatActivity() {
-    private lateinit var rcvChairNumber: RecyclerView //btn_to_payment
-    private lateinit var btn_to_payment: Button //
+    private lateinit var rcvChairNumber: RecyclerView
+    private lateinit var btnToPayment: Button
+    private lateinit var chairList: Array<Array<Boolean>> // Giả sử danh sách ghế được khởi tạo ở đây
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_choose_chair)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        chairList = Array(10) { Array(10) { false } } // Khởi tạo ghế trống
+        rcvChairNumber = findViewById(R.id.rcv_ChairList)
+        rcvChairNumber.adapter = ChairNumber_Adapter(chairList) { position ->
+            val row = position / chairList[0].size
+            val col = position % chairList[0].size
+            chairList[row][col] = !chairList[row][col] // Chuyển trạng thái ghế
+            rcvChairNumber.adapter?.notifyItemChanged(position) // Cập nhật lại ghế
         }
+        rcvChairNumber.layoutManager = GridLayoutManager(this, 5)
 
-        rcvChairNumber = findViewById(R.id.rcv_ChairList);
-        rcvChairNumber.adapter = ADTChairNumber(Array(10) { Array(10) { false } });
-        rcvChairNumber.layoutManager = GridLayoutManager(this, 10)
+        btnToPayment = findViewById(R.id.btn_to_payment)
+        btnToPayment.setOnClickListener {
+            val totalPrice = calculateTotalPrice() // Hàm để tính tổng tiền
+            val intent = Intent(this, Payment::class.java)
+            intent.putExtra("TOTAL_PRICE", totalPrice) // Truyền tổng tiền vào intent
+            startActivity(intent) // Chuyển sang màn thanh toán
+        }
+    }
 
-        btn_to_payment = findViewById(R.id.btn_to_payment)
-        btn_to_payment.setOnClickListener({ startActivity(Intent(this, Payment::class.java)) })
+    private fun calculateTotalPrice(): Int {
+        // Tính tổng tiền dựa trên số ghế đã chọn
+        return chairList.flatten().count { it } * 157000 // Giả sử giá mỗi ghế là 157000đ
     }
 }

@@ -15,8 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CinemaManagerApp"
         tools:targetApi="31">
+
         <activity
-            android:name=".ui.activities.ChangePassword"
+            android:name=".ui.activities.ChangePasswordActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activities.History"
@@ -24,18 +25,18 @@
         <activity
             android:name=".ui.activities.NowMovie"
             android:exported="true"
-            android:theme="@style/Base.Theme.AppLight" />
+            android:theme="@style/Base.Theme.AppDark" />
         <activity
             android:name=".ui.activities.Payment"
             android:exported="true"
-            android:theme="@style/Base.Theme.AppLight" />
+            android:theme="@style/Base.Theme.AppDark" />
         <activity
             android:name=".ui.activities.ChooseChair"
             android:exported="true"
-            android:theme="@style/Base.Theme.AppLight" />
+            android:theme="@style/Base.Theme.AppDark" />
         <activity
-            android:name=".ui.activities.accounts.AccountActivity"
-            android:exported="false" />
+            android:name=".ui.activities.AccountActivity"
+            android:exported="true" />
         <activity
             android:name=".ui.activities.RegisterActivity"
             android:exported="false" />
@@ -44,7 +45,6 @@
             android:exported="true"> <!-- Cập nhật ở đây -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -54,7 +54,7 @@
         <activity
             android:name=".ui.activities.Movie"
             android:exported="true"
-            android:theme="@style/Base.Theme.AppLight" />
+            android:theme="@style/Base.Theme.AppDark" />
     </application>
 
 </manifest>

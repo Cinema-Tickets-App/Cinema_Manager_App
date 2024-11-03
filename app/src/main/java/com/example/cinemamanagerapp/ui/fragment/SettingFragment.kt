@@ -8,15 +8,25 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.cinemamanagerapp.ui.activities.AccountActivity
 import com.example.cinemamanagerapp.R
-import com.example.cinemamanagerapp.ui.activities.ChangePassword
+import com.example.cinemamanagerapp.api.RetrofitClient
+import com.example.cinemamanagerapp.api.UserProfileResponse
+import com.example.cinemamanagerapp.databinding.ActivityChangePasswordBinding
+import com.example.cinemamanagerapp.ui.activities.ChangePasswordActivity
 import com.example.cinemamanagerapp.ui.activities.History
 import com.example.cinemamanagerapp.ui.activities.LoginActivity
-import com.example.cinemamanagerapp.ui.activities.MainActivity
-import com.example.cinemamanagerapp.ui.activities.accounts.AccountActivity
+
+import retrofit2.Call
+import retrofit2.Response
+import retrofit2.Callback // Đảm bảo import từ retrofit2
 
 class SettingFragment : Fragment() {
+    private lateinit var tvNameUserSetting: TextView
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -24,46 +34,69 @@ class SettingFragment : Fragment() {
     ): View? {
         // Inflate layout cho fragment
         val view = inflater.inflate(R.layout.fragment_setting, container, false)
+
+        // Khởi tạo TextView để hiển thị tên người dùng
+        tvNameUserSetting = view.findViewById(R.id.tvNameUserSetting)
+
+        // Lấy tên người dùng từ SharedPreferences và thiết lập vào TextView
+        loadUserName()
+
         // Tìm LinearLayout và thiết lập OnClickListener
         val lnAccount: LinearLayout = view.findViewById(R.id.lnAccount)
         lnAccount.setOnClickListener {
             val intent = Intent(activity, AccountActivity::class.java)
             startActivity(intent)
         }
-        val lnHistory: LinearLayout = view.findViewById(R.id.lnHistory);
-        lnHistory.setOnClickListener({
-            context?.startActivity(
-                Intent(
-                    context,
-                    History::class.java
-                )
-            )
-        })
 
-        val lnChangePassword: LinearLayout = view.findViewById(R.id.lnChangePassword);
-        lnChangePassword.setOnClickListener({
-            context?.startActivity(
-                Intent(
-                    context,
-                    ChangePassword::class.java
-                )
-            )
-        })
+        val lnHistory: LinearLayout = view.findViewById(R.id.lnHistory)
+        lnHistory.setOnClickListener {
+            context?.startActivity(Intent(context, History::class.java))
+        }
+
+        val lnChangePassword: LinearLayout = view.findViewById(R.id.lnChangePassword)
+        lnChangePassword.setOnClickListener {
+            context?.startActivity(Intent(context, ChangePasswordActivity::class.java))
+        }
 
         // Tìm nút Đăng xuất và thiết lập OnClickListener
         val btnLogout: Button = view.findViewById(R.id.btnLogout)
         btnLogout.setOnClickListener {
             logoutUser()
         }
+
         return view
+    }
+
+    private fun loadUserName() {
+        val sharedPreferences = activity?.getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+        val userId = sharedPreferences?.getInt("user_id", -1) // Lấy user_id từ SharedPreferences
+
+        if (userId != null && userId != -1) {
+            RetrofitClient.apiService.getProfile(userId).enqueue(object : Callback<UserProfileResponse> {
+                override fun onResponse(call: Call<UserProfileResponse>, response: Response<UserProfileResponse>) {
+                    if (response.isSuccessful) {
+                        val userProfile = response.body()
+                        userProfile?.let {
+                            // Hiển thị thông tin người dùng
+                            tvNameUserSetting.text = it.full_name // Hiển thị tên người dùng
+                        }
+                    } else {
+                        Toast.makeText(context, "Không thể tải thông tin người dùng", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<UserProfileResponse>, t: Throwable) {
+                    Toast.makeText(context, "Lỗi kết nối: ${t.message}", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
     }
 
     private fun logoutUser() {
         // Xóa thông tin người dùng khỏi SharedPreferences
-        val sharedPreferences =
-            activity?.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        val sharedPreferences = activity?.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
         sharedPreferences?.edit()?.clear()?.apply()
         // Chuyển hướng về màn hình đăng nhập
-        (context as MainActivity).finish()
+        (context as LoginActivity).finish()
     }
 }

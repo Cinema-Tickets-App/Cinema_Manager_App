@@ -2,86 +2,67 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="320dp">
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@color/main_color"
+    app:cardBackgroundColor="@color/main_color"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="5dp"
+    android:padding="8dp"
+    android:paddingBottom="8dp"
+    android:paddingTop="8dp"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/CL_MovieInfoContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/black">
+        android:layout_height="wrap_content"
+        android:background="@color/main_color">
 
         <ImageView
             android:id="@+id/Img_ImageMovie"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="200dp"
-            android:enabled="false"
-            android:scaleType="center"
+            android:scaleType="centerCrop"
             android:src="@drawable/movie_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvMovie"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:enabled="false"
-            android:text="Movie Name:"
-            android:textColor="@color/blue_bld"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Img_ImageMovie" />
-        <TextView
             android:id="@+id/tvMovieName"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="110dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:enabled="false"
-            android:text="Thiên thần và ác quỷ"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
             android:textColor="@color/blue_bld"
-            android:textSize="16dp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/Img_ImageMovie" />
 
-
-        <TextView
-            android:id="@+id/tvShow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:enabled="false"
-            android:text="Showtime:"
-            android:textColor="@color/blue_bld"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvMovieName" />
         <TextView
             android:id="@+id/tvShowtime"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:enabled="false"
-            android:text="10h30 22/10/2024"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="8dp"
             android:textColor="@color/blue_bld"
-            android:textSize="16dp"
-            android:textStyle="bold"
+            android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvMovieName" />
+
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvShowtime" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

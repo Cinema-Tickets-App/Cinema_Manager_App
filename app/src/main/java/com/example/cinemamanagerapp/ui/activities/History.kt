@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.cinemamanagerapp.R
-import com.example.cinemamanagerapp.ui.adapters.ADTMovieHistory
+import com.example.cinemamanagerapp.ui.adapters.MovieHistory_Adapter
 
 class History : AppCompatActivity() {
     //
@@ -22,6 +22,6 @@ class History : AppCompatActivity() {
             insets
         }
         lv_HistoryList = findViewById(R.id.lv_HistoryList)
-        lv_HistoryList.adapter = ADTMovieHistory(null);
+        lv_HistoryList.adapter = MovieHistory_Adapter(null);
     }
 }
