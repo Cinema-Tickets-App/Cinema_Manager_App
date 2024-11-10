@@ -1,16 +1,16 @@
 [versions]
 agp = "8.6.0"
 kotlin = "1.9.0"
-coreKtx = "1.13.1"
+coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 appcompat = "1.7.0"
 material = "1.12.0"
-activity = "1.9.2"
-constraintlayout = "2.1.4"
-annotation = "1.9.0"
-lifecycleLivedataKtx = "2.8.6"
+activity = "1.9.3"
+constraintlayout = "2.2.0"
+annotation = "1.9.1"
+lifecycleLivedataKtx = "2.8.7"
 lifecycleViewmodelKtx = "2.8.6"
 googleGmsGoogleServices = "4.4.2"
 firebaseDatabase = "21.0.0"
@@ -26,7 +26,7 @@ androidx-activity = { group = "androidx.activity", name = "activity", version.re
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
 androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
-androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
+androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version = "2.8.7" }
 firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
 
 [plugins]

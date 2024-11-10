@@ -130,10 +130,10 @@
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/imageButton"
+            android:id="@+id/ig_Love"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thêm vào danh mục"
+            android:text="Thêm vào yêu thích"
             android:textColor="@color/blue_bld"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -149,9 +149,9 @@
             android:padding="5dp"
             android:scaleType="centerCrop"
             android:src="@drawable/movie_cart"
-            app:layout_constraintStart_toEndOf="@id/imageButton"
+            app:layout_constraintStart_toEndOf="@id/ig_Love"
             app:tint="@color/blue_bld"
-            app:layout_constraintTop_toTopOf="@id/imageButton" />
+            app:layout_constraintTop_toTopOf="@id/ig_Love" />
 
         <Button
             android:id="@+id/BTN_BookTickets"

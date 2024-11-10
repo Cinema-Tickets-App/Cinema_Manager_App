@@ -15,12 +15,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CinemaManagerApp"
         tools:targetApi="31">
-
+        <activity
+            android:name=".ui.activities.QRCodeActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.activities.ChangePasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.History"
+            android:name=".ui.activities.HistoryActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activities.NowMovie"
@@ -45,6 +47,7 @@
             android:exported="true"> <!-- Cập nhật ở đây -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

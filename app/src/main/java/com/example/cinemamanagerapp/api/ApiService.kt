@@ -7,6 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 
 interface ApiService {
@@ -62,31 +63,36 @@ interface ApiService {
     @GET("api/movie/random")
     fun getRandomMovies(): Call<List<MovieResponse>>
 
-//    // Lấy tất cả các suất chiếu cho một danh mục phim cụ thể.
-//    @GET("/showtimes/{category}")
-//    fun getAllShowTime(@Path("category") category: String): Call<List<ShowTimeResponse>>
-//
-//    // Lấy các suất chiếu trong ngày cho một danh mục phim cụ thể.
-//    @GET("api/showtime/now/{category}")
-//    fun getNowShowTime(@Path("category") category: String): Call<List<ShowTimeResponse>>
 
     // Lấy tất cả các loại đồ ăn và thức uống có sẵn.
     @GET("food-drinks")
     fun getAllFoodDrink(): Call<List<FoodDrinksResponse>>
-//
-//    // Lấy tất cả các đánh giá cho một phim dựa trên ID phim.
-//    @GET("reviews/{movie-id}")
-//    fun getAllReviewMovie(@Path("movie-id") movieId: Int): Call<List<ReviewResponse>>
-//
-//    // Gửi đánh giá cho một suất chiếu cụ thể với thông tin trong ReviewRequest.
-//    @PUT("api/review/submit/{showtimeId}")
-//    fun getSubmitReview(@Path("showtimeId") showtimeId: Int, @Body review: ReviewRequest): Call<Void>
-//
-//    // Xóa đánh giá của một phim dựa trên ID đánh giá.
-//    @DELETE("api/review/delete/{reviewId}")
-//    fun deleteReView(@Path("reviewId") reviewId: Int): Call<Void>
-//
-//    // Lấy lịch sử đặt vé của người dùng dựa trên ID người dùng.
-//    @GET("api/history/{userId}")
-//    fun getAllHistory(@Path("userId") userId: Int): Call<BookingHistoryResponse>
+
+    // Phương thức thêm phim vào yêu thích
+    @POST("movies/users/{user_id}/favorites/{movie_id}")
+    fun addFavoriteMovie(
+        @Path("user_id") userId: Int,   // Lấy user_id từ URL
+        @Path("movie_id") movieId: Int  // Lấy movie_id từ URL
+    ): Call<Void>
+
+
+    // Phương thức xóa phim khỏi danh sách yêu thích
+    @DELETE("movies/users/{user_id}/favorites/{movie_id}")
+    fun removeFavoriteMovie(
+        @Path("user_id") userId: Int,   // Lấy user_id từ URL
+        @Path("movie_id") movieId: Int  // Lấy movie_id từ URL
+    ): Call<Void>
+
+
+    // Phương thức kiểm tra phim có trong danh sách yêu thích của người dùng không
+    @GET("movies/users/{user_id}/favorites/{movie_id}")
+    fun checkIfFavorite(
+        @Path("user_id") userId: Int,
+        @Path("movie_id") movieId: Int
+    ): Call<FavoriteCheckResponse>
+
+
+    // Lấy lịch sử đặt vé của người dùng dựa trên ID người dùng.
+    @GET("/bookings/history/{userId}")
+    suspend fun getTicketHistory(@Path("userId") userId: Int): List<Ticket>
 }
