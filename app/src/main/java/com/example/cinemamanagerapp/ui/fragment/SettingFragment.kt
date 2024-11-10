@@ -17,7 +17,7 @@ import com.example.cinemamanagerapp.api.RetrofitClient
 import com.example.cinemamanagerapp.api.UserProfileResponse
 import com.example.cinemamanagerapp.databinding.ActivityChangePasswordBinding
 import com.example.cinemamanagerapp.ui.activities.ChangePasswordActivity
-import com.example.cinemamanagerapp.ui.activities.History
+import com.example.cinemamanagerapp.ui.activities.HistoryActivity
 import com.example.cinemamanagerapp.ui.activities.LoginActivity
 
 import retrofit2.Call
@@ -50,7 +50,7 @@ class SettingFragment : Fragment() {
 
         val lnHistory: LinearLayout = view.findViewById(R.id.lnHistory)
         lnHistory.setOnClickListener {
-            context?.startActivity(Intent(context, History::class.java))
+            context?.startActivity(Intent(context, HistoryActivity::class.java))
         }
 
         val lnChangePassword: LinearLayout = view.findViewById(R.id.lnChangePassword)

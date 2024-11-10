@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_color"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- TextView để hiển thị tên phim android:contentDescription="@string/qr_code_image"-->
+    <TextView
+        android:id="@+id/tvMovieName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Tên phim: Sample Movie"
+        android:textSize="18sp" />
+
+    <!-- TextView để hiển thị thông tin vé -->
+    <TextView
+        android:id="@+id/tvTicketInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Vé ID: 123456789"
+        android:textSize="16sp" />
+
+    <!-- ImageView để hiển thị mã QR -->
+    <ImageView
+        android:id="@+id/ivQRCode"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:src="@drawable/ic_launcher_foreground" />
+
+    <!-- Button quay lại -->
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:background="@drawable/button_background"
+        android:text="Quay lại"
+        android:textColor="@android:color/white" />
+</LinearLayout>

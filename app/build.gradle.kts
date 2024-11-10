@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.example.cinemamanagerapp"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.cinemamanagerapp"
@@ -28,8 +28,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8 // Đã sửa
-        targetCompatibility = JavaVersion.VERSION_1_8 // Đã sửa
+        sourceCompatibility = JavaVersion.VERSION_1_8 // Sử dụng Java 8
+        targetCompatibility = JavaVersion.VERSION_1_8 // Sử dụng Java 8
     }
 
     kotlinOptions {
@@ -62,12 +62,12 @@ dependencies {
     implementation("com.github.denzcoskun:ImageSlideshow:0.1.2")
 
     // Thư viện ConstraintLayout
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.constraintlayout:constraintlayout:2.2.0")
 
     // ViewModel và LiveData
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.6")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.6")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.7")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
 
     // Retrofit và OkHttp
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
@@ -86,7 +86,7 @@ dependencies {
     implementation("com.google.android.gms:play-services-location:21.3.0")
 
     // ViewPager2
-    implementation("androidx.fragment:fragment-ktx:1.8.4")
+    implementation("androidx.fragment:fragment-ktx:1.8.5")
     implementation("androidx.viewpager2:viewpager2:1.1.0")
     implementation("com.google.android.material:material:1.12.0")
 
@@ -94,12 +94,15 @@ dependencies {
     implementation("com.github.aabhasr1:OtpView:v1.1.2-ktx")
 
     // Stripe
-    implementation("com.stripe:stripe-android:20.52.1")
+    implementation("com.stripe:stripe-android:21.0.0")
 
-    implementation("androidx.navigation:navigation-fragment-ktx:2.8.3") // Kiểm tra phiên bản mới nhất
-    implementation("androidx.navigation:navigation-ui-ktx:2.8.3") // Kiểm tra phiên bản mới nhất
+    implementation("androidx.navigation:navigation-fragment-ktx:2.8.3")
+    implementation("androidx.navigation:navigation-ui-ktx:2.8.3")
 
     implementation("com.github.bumptech.glide:glide:4.16.0")
 
-    
+
+    //QR
+    implementation("com.google.zxing:core:3.4.1")
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
 }
