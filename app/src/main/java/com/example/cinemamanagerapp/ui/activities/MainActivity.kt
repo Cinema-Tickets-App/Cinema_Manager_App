@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.cinemamanagerapp.R
 import com.example.cinemamanagerapp.databinding.ActivityMainBinding
-import com.example.cinemamanagerapp.ui.fragment.TicketQueueFragment
+import com.example.cinemamanagerapp.ui.fragment.FavouriteFragment
 import com.example.cinemamanagerapp.ui.fragment.HomeFragment
 import com.example.cinemamanagerapp.ui.fragment.NotificationFragment
 import com.example.cinemamanagerapp.ui.fragment.SettingFragment
@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_fav -> {
-                    replaceFragment(TicketQueueFragment())
+                    replaceFragment(FavouriteFragment())
                     true
                 }
 
