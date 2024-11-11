@@ -95,4 +95,10 @@ interface ApiService {
     // Lấy lịch sử đặt vé của người dùng dựa trên ID người dùng.
     @GET("/bookings/history/{userId}")
     suspend fun getTicketHistory(@Path("userId") userId: Int): List<Ticket>
+
+    // Lấy danh sách phim yêu thích của người dùng
+    @GET("movies/users/{user_id}/favorites")
+    fun getFavoriteMovies(
+        @Path("user_id") userId: Int
+    ): Call<List<MovieResponse>>
 }
