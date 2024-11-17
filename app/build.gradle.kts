@@ -51,11 +51,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.firebase.database)
-    implementation(fileTree(mapOf(
-        "dir" to "C:\\duan\\Cinema_Manager_App\\libs",
-        "include" to listOf("*.aar", "*.jar"),
-        "exclude" to listOf("")
-    )))
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
