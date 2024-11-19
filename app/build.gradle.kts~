@@ -40,7 +40,9 @@ android {
     buildFeatures {
         viewBinding = true
     }
-    
+    flatDir {
+        dirs("libs")  // Sử dụng đường dẫn tương đối đến thư mục libs trong project
+    }
 
 }
 
