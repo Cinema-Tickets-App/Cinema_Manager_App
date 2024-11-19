@@ -1,8 +1,10 @@
 package com.example.cinemamanagerapp.ui.activities
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -31,6 +33,7 @@ class Movie : AppCompatActivity() {
     private lateinit var tvCategory: TextView
     private lateinit var imgMovie: ImageView
     private lateinit var btnAddToFavorites: TextView // Nút yêu thích (TextView)
+    private lateinit var btnBooking: Button
     private var userId: Int = -1 // Để lấy từ SharedPreferences
     private var movieId: Int = -1 // Để lấy từ Intent
 
@@ -49,6 +52,7 @@ class Movie : AppCompatActivity() {
         tvCategory = findViewById(R.id.tvGenre)
         imgMovie = findViewById(R.id.videoMovie)
         btnAddToFavorites = findViewById(R.id.ig_Love) // Nút yêu thích (TextView)
+        btnBooking = findViewById(R.id.BTN_BookTickets)
 
         // Lấy userId từ SharedPreferences
         userId = getUserId()
@@ -86,6 +90,11 @@ class Movie : AppCompatActivity() {
             } else {
                 removeMovieFromFavorites(userId, movieId)
             }
+        }
+
+        btnBooking.setOnClickListener{
+            val intent = Intent(this, Payment::class.java)
+            startActivity(intent)
         }
     }
 
