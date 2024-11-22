@@ -22,42 +22,41 @@
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32sp"
+                android:gravity="center"
                 android:layout_marginTop="128dp"
                 android:text="Đăng Nhập"
                 android:textColor="@color/text_primary_dark"
                 android:textSize="50sp"
                 android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/editText_Acc"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="32dp"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_marginTop="128dp"
-                android:layout_marginEnd="32sp"
-                android:background="@drawable/edittext_background"
-                android:ems="10"
+                android:layout_width="350sp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:hint="Tài khoản"
-                android:inputType="text"
-                android:textAlignment="center"
-                android:textColor="@color/text_primary_dark"
-                android:textColorHint="@color/white" />
-
-            <EditText
-                android:id="@+id/editText_Pass"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="32dp"
+                app:hintTextColor="@color/gray">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editText_Acc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_marginTop="32dp"
-                android:layout_marginEnd="32sp"
-                android:background="@drawable/edittext_background"
-                android:ems="10"
+                android:layout_width="350sp"
+                android:layout_height="match_parent"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/gray"
+                android:layout_gravity="center"
                 android:hint="Mật khẩu"
-                android:inputType="textPassword"
-                android:textAlignment="center"
-                android:textColor="@color/text_primary_dark"
-                android:textColorHint="@color/text_primary_dark" />
+                app:hintTextColor="@color/gray">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editText_Pass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/textView1"

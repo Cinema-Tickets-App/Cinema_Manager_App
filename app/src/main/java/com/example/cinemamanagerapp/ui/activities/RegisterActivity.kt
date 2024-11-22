@@ -23,6 +23,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var editTextPassword: EditText
     private lateinit var editTextConfirmPassword: EditText
     private lateinit var btnRegister: Button
+    private var txtLogin: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,9 +35,13 @@ class RegisterActivity : AppCompatActivity() {
         editTextPassword = findViewById(R.id.editText_Password)
         editTextConfirmPassword = findViewById(R.id.editText_ConfirmPassword)
         btnRegister = findViewById(R.id.ButtonRegister)
+        txtLogin = findViewById(R.id.textLogin)
 
         btnRegister.setOnClickListener {
             registerUser()
+        }
+        txtLogin?.setOnClickListener {
+            finish()
         }
     }
 
