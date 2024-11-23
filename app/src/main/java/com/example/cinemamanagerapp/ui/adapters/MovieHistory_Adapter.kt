@@ -43,27 +43,28 @@ class MovieHistory_Adapter(private val context: Context, private val ticketList:
         val tvTickAmount: TextView = view.findViewById(R.id.tv_tickAmount)
         val tvShowTime: TextView = view.findViewById(R.id.tv_showTime)
         val tvPaymentSum: TextView = view.findViewById(R.id.tv_paymentSum)
-        val ivMoviePoster: ImageView =
-            view.findViewById(R.id.img_movie)  // ImageView để hiển thị ảnh
+        val ivMoviePoster: ImageView = view.findViewById(R.id.img_movie)  // ImageView để hiển thị ảnh
 
-        // Lấy tên phim từ ticket.movie (không phải ticket.showtime.movie)
-        val movieName =
-            ticket.movie?.title ?: "Tên phim không có" // Giá trị mặc định nếu không có tên phim
+        // Lấy tên phim từ ticket.movie
+        val movieName = ticket.movie?.title ?: "Tên phim không có" // Nếu không có tên phim, hiển thị mặc định
         tvMovieName.text = "Tên phim: $movieName"  // Hiển thị tên phim
 
-        // Hiển thị danh sách ghế (ví dụ: A1, B1, C3, ...) trong TextView
-        val seats =
-            ticket.seats.joinToString(", ")  // Kết hợp danh sách ghế thành chuỗi, phân tách bằng dấu phẩy
+        // Hiển thị danh sách ghế
+        val seats = ticket.seats.joinToString(", ")  // Kết hợp danh sách ghế thành chuỗi
         tvTickAmount.text = "Ghế: $seats"  // Hiển thị tên ghế
 
         // Xử lý và hiển thị thời gian chiếu
-        val dateString = ticket.showtime.start_time // "2024-10-30T14:30:00.000Z"
+        val dateString = ticket.showtime.start_time // Lấy thời gian chiếu từ ticket.showtime
         val date = convertStringToDate(dateString)
         val formattedDate = formatDate(date)
-        tvShowTime.text = "Công chiếu: $formattedDate"  // Thời gian chiếu đã được định dạng
+        tvShowTime.text = "Công chiếu: $formattedDate"  // Hiển thị thời gian chiếu đã định dạng
 
         // Hiển thị phương thức thanh toán
-        tvPaymentSum.text = "Thanh toán: ${ticket.payment_method}"  // Phương thức thanh toán
+        tvPaymentSum.text = when {
+            ticket.price == null -> "Thanh toán: Không có giá"
+            ticket.price == "N/A" -> "Thanh toán: Không có giá"
+            else -> "Thanh toán: ${ticket.price}đ"
+        }
 
         // Tải ảnh phim từ URL và hiển thị vào ImageView sử dụng Glide
         val movieImageUrl = ticket.movie?.image_url ?: ""  // Lấy URL ảnh từ movie (nếu có)
@@ -83,14 +84,21 @@ class MovieHistory_Adapter(private val context: Context, private val ticketList:
             context.startActivity(intent)
         }
 
-
         return view
     }
 
     // Chuyển đổi chuỗi thời gian ISO 8601 thành Date
     private fun convertStringToDate(dateString: String): Date {
+        if (dateString == "N/A") {
+            return Date() // Trả về ngày hiện tại nếu không có dữ liệu
+        }
+
         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
-        return sdf.parse(dateString) ?: Date()  // Nếu không thể parse, trả về ngày hiện tại
+        return try {
+            sdf.parse(dateString) ?: Date()  // Nếu không parse được, trả về ngày hiện tại
+        } catch (e: Exception) {
+            Date() // Nếu có lỗi, trả về ngày hiện tại
+        }
     }
 
     // Định dạng lại thời gian thành kiểu mong muốn (ví dụ: dd/MM/yyyy HH:mm:ss)

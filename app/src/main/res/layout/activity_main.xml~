@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="@color/green_chaleston"
+        android:background="@color/surface_dark"
         app:itemIconTint="@color/text_primary_dark"
         app:itemTextColor="@color/text_primary_dark"
         app:layout_constraintTop_toBottomOf="@id/home_fragment_activiy"

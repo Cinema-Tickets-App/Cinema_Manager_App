@@ -22,7 +22,7 @@ data class RegisterResponse(
     val createdAt: String // định dạng ngày theo chuỗi
 )
 
-// Model cho món ăn/đồ uống
+
 data class FoodDrinksResponse(
     val food_drink_id: Int,
     val name: String,
@@ -110,8 +110,10 @@ data class Ticket(
     val book_tickets_id: Int, // ID của vé đặt
     val user: UserEmail,     // Thông tin người dùng (email)
     val showtime: ShowTimeResponse, // Thông tin suất chiếu
-    val movie: MovieDetails  // Thông tin về bộ phim
+    val movie: MovieDetails,  // Thông tin về bộ phim
+    val price: String?
 )
+
 
 // Model cho thông tin người dùng (email)
 data class UserEmail(
@@ -120,10 +122,13 @@ data class UserEmail(
 
 // Model cho thông tin suất chiếu
 data class ShowTimeResponse(
-    val start_time: String,  // Thời gian bắt đầu
-    val room: String,        // Phòng chiếu
-    val ticket_price: Int    // Giá vé của suất chiếu
+    val showtime_id: Int,      // ID của suất chiếu
+    val start_time: String,    // Thời gian bắt đầu
+    val room: String,          // Phòng chiếu
+    val ticket_price: Int,     // Giá vé của suất chiếu
+    val reserved_seats: List<String>  // Các ghế đã được đặt
 )
+
 
 // Thông tin chi tiết về phim
 data class MovieDetails(

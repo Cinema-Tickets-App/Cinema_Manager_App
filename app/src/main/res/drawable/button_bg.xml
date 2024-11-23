@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/divider_dark" />   <!-- Nền nút -->
+    <solid android:color="@color/green_chaleston" />   <!-- Nền nút -->
     <corners android:radius="25dp" />               <!-- Bo góc tròn -->
     <padding android:left="8dp" android:right="8dp" />
     <size android:height="50dp" android:width="200dp" />

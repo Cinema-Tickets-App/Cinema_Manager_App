@@ -1,6 +1,7 @@
 package com.example.cinemamanagerapp.ui.activities
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.cinemamanagerapp.R
@@ -55,6 +56,12 @@ class MainActivity : AppCompatActivity() {
 
                 else -> false
             }
+        }
+        // Nhận thông báo về trạng thái thanh toán
+        val paymentStatus = intent.getStringExtra("payment_status")
+        if (paymentStatus != null) {
+            // Hiển thị thông báo đã thanh toán thành công
+            Toast.makeText(this, paymentStatus, Toast.LENGTH_SHORT).show()
         }
     }
 

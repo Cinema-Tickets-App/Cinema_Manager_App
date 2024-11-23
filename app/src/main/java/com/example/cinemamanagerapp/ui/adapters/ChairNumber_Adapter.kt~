@@ -12,7 +12,7 @@ import com.example.cinemamanagerapp.R
 
 class ChairNumber_Adapter(
     private var mList: Array<Array<Boolean>>,  // Seat matrix, true for reserved
-    private val reservedSeats: List<String>,  // Reserved seat positions (e.g., A1, B3)
+    private val reservedSeats: List<Int>,  // Reserved seat positions
     private val onChairClick: (Int) -> Unit // Click callback
 ) : RecyclerView.Adapter<ChairNumber_Adapter.ViewHold>() {
 
@@ -38,7 +38,7 @@ class ChairNumber_Adapter(
         val seatLabel = "${seatRows[row]}${col + 1}" // Generate seat label (e.g., A1, B2)
 
         // Determine if seat is reserved
-        val isReserved = reservedSeats.contains(seatLabel)
+        val isReserved = reservedSeats.contains(position)
 
         // Set default seat image
         holder.imgSeat.setImageResource(R.drawable.icon_chair)

@@ -1,5 +1,6 @@
 package com.example.cinemamanagerapp.ui.activities
 
+
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -12,9 +13,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.cinemamanagerapp.R
 import com.example.cinemamanagerapp.api.FavoriteCheckResponse
-import com.example.cinemamanagerapp.api.MovieIdRequest
 import com.example.cinemamanagerapp.api.MovieResponse
 import com.example.cinemamanagerapp.api.RetrofitClient
+import com.example.cinemamanagerapp.api.ShowTimeResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,10 +33,11 @@ class Movie : AppCompatActivity() {
     private lateinit var tvCast: TextView
     private lateinit var tvCategory: TextView
     private lateinit var imgMovie: ImageView
-    private lateinit var btnAddToFavorites: TextView // Nút yêu thích (TextView)
+    private lateinit var btnAddToFavorites: TextView
     private lateinit var btnBookTickets: Button
-    private var userId: Int = -1 // Để lấy từ SharedPreferences
-    private var movieId: Int = -1 // Để lấy từ Intent
+    private var userId: Int = -1
+    private var movieId: Int = -1
+    private var movieInfo: MovieResponse? = null  // Khai báo movieInfo ở phạm vi lớp
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,32 +53,30 @@ class Movie : AppCompatActivity() {
         tvCast = findViewById(R.id.tvCast)
         tvCategory = findViewById(R.id.tvGenre)
         imgMovie = findViewById(R.id.videoMovie)
-        btnAddToFavorites = findViewById(R.id.ig_Love) // Nút yêu thích (TextView)
-
+        btnAddToFavorites = findViewById(R.id.ig_Love)
         btnBookTickets = findViewById(R.id.BTN_BookTickets)
 
-        // Lấy userId từ SharedPreferences
         userId = getUserId()
 
-        // Lấy thông tin movie từ Intent
-        val movieInfo: MovieResponse? = intent.getSerializableExtra("MOVIE_INFO") as? MovieResponse
+        movieInfo =
+            intent.getSerializableExtra("MOVIE_INFO") as? MovieResponse  // Gán giá trị movieInfo từ Intent
 
         if (movieInfo != null) {
-            movieId = movieInfo.movie_id // Lấy movieId từ movieInfo (từ Intent)
+            movieId = movieInfo!!.movie_id
 
-            tvTitle.text = movieInfo.title
-            tvDescription.text = "Mô tả: ${movieInfo.description}"
-            tvShowTime.text = "Giờ chiếu: ${formatDate(movieInfo.release_date)}"
-            tvDuration.text = "Thời lượng: ${movieInfo.duration} phút"
-            tvRating.text = "Xếp hạng: ${movieInfo.movie_id}"  // Kiểm tra việc lấy movie_id
-            tvReleaseDate.text = "Ngày phát hành: ${formatDate(movieInfo.release_date)}"
-            tvCast.text = "Diễn viên: ${movieInfo.description}"
-            tvCategory.text = "Thể loại: ${movieInfo.category_id}"
+            tvTitle.text = movieInfo!!.title
+            tvDescription.text = "Mô tả: ${movieInfo!!.description}"
+            tvShowTime.text = "Giờ chiếu: ${formatDate(movieInfo!!.release_date)}"
+            tvDuration.text = "Thời lượng: ${movieInfo!!.duration} phút"
+            tvRating.text = "Xếp hạng: ${movieInfo!!.movie_id}"  // Kiểm tra việc lấy movie_id
+            tvReleaseDate.text = "Ngày phát hành: ${formatDate(movieInfo!!.release_date)}"
+            tvCast.text = "Diễn viên: ${movieInfo!!.description}"
+            tvCategory.text = "Thể loại: ${movieInfo!!.category_id}"
 
-            Glide.with(this).load(movieInfo.image_url).into(imgMovie)
+            Glide.with(this).load(movieInfo!!.image_url).into(imgMovie)
         } else {
             Toast.makeText(this, "Không thể tải thông tin phim", Toast.LENGTH_SHORT).show()
-            finish() // Nếu không có movieInfo, quay lại hoặc thoát
+            finish()
         }
 
         // Kiểm tra nếu bộ phim đã được thêm vào yêu thích của người dùng
@@ -93,11 +93,13 @@ class Movie : AppCompatActivity() {
             }
         }
 
-
+        // Sự kiện nhấn nút đặt vé
         btnBookTickets.setOnClickListener {
-            val intent = Intent(this, ChooseChair::class.java)
-            intent.putExtra("MOVIE_INFO", movieInfo)
-            startActivity(intent)
+            if (movieId != -1) {
+                checkShowtimesForMovie(movieId)
+            } else {
+                Toast.makeText(this@Movie, "ID phim không hợp lệ", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -113,6 +115,7 @@ class Movie : AppCompatActivity() {
         }
     }
 
+    // Kiểm tra xem bộ phim đã có trong danh sách yêu thích của người dùng chưa
     private fun checkIfMovieIsFavorite(userId: Int, movieId: Int) {
         val call = RetrofitClient.apiService.checkIfFavorite(userId, movieId)
 
@@ -142,6 +145,7 @@ class Movie : AppCompatActivity() {
         })
     }
 
+    // Thêm phim vào yêu thích
     private fun addMovieToFavorites(userId: Int, movieId: Int) {
         if (movieId == -1) {  // Kiểm tra giá trị movieId hợp lệ
             Toast.makeText(this@Movie, "ID phim không hợp lệ", Toast.LENGTH_SHORT).show()
@@ -150,7 +154,6 @@ class Movie : AppCompatActivity() {
 
         Log.d("Movie", "Movie ID to add: $movieId")
 
-        // Gọi API để thêm phim vào danh sách yêu thích
         val call = RetrofitClient.apiService.addFavoriteMovie(userId, movieId)
 
         call.enqueue(object : Callback<Void> {
@@ -160,13 +163,7 @@ class Movie : AppCompatActivity() {
                     btnAddToFavorites.text = "Đã yêu thích"
                     btnAddToFavorites.setTextColor(resources.getColor(R.color.red))
                 } else {
-                    val errorBody = response.errorBody()?.string()
-                    Log.e("Movie", "Error: ${response.code()} - ${response.message()} - $errorBody")
-                    Toast.makeText(
-                        this@Movie,
-                        "Thêm vào yêu thích thất bại. Lỗi: $errorBody",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(this@Movie, "Thêm vào yêu thích thất bại", Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -176,7 +173,7 @@ class Movie : AppCompatActivity() {
         })
     }
 
-
+    // Xóa phim khỏi yêu thích
     private fun removeMovieFromFavorites(userId: Int, movieId: Int) {
         if (movieId == -1) {  // Kiểm tra giá trị movieId hợp lệ
             Toast.makeText(this@Movie, "ID phim không hợp lệ", Toast.LENGTH_SHORT).show()
@@ -185,7 +182,6 @@ class Movie : AppCompatActivity() {
 
         Log.d("Movie", "Movie ID to remove: $movieId")
 
-        // Gọi API để xóa phim khỏi danh sách yêu thích của người dùng
         val call = RetrofitClient.apiService.removeFavoriteMovie(userId, movieId)
 
         call.enqueue(object : Callback<Void> {
@@ -195,18 +191,113 @@ class Movie : AppCompatActivity() {
                     btnAddToFavorites.text = "Thêm vào yêu thích"
                     btnAddToFavorites.setTextColor(resources.getColor(R.color.blue_bld))
                 } else {
-                    val errorBody = response.errorBody()?.string()
-                    Log.e("Movie", "Error: ${response.code()} - ${response.message()} - $errorBody")
-                    Toast.makeText(
-                        this@Movie,
-                        "Xóa khỏi yêu thích thất bại. Lỗi: $errorBody",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(this@Movie, "Xóa khỏi yêu thích thất bại", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
                 Toast.makeText(this@Movie, "Lỗi kết nối: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun checkShowtimesForMovie(movieId: Int) {
+        Log.d("MovieActivity", "Đang kiểm tra suất chiếu cho phim có ID: $movieId")
+        val call = RetrofitClient.apiService.getShowtimesByMovieId(movieId)
+
+        call.enqueue(object : Callback<List<ShowTimeResponse>> {
+            override fun onResponse(
+                call: Call<List<ShowTimeResponse>>,
+                response: Response<List<ShowTimeResponse>>
+            ) {
+                Log.d("MovieActivity", "Nhận phản hồi từ API: ${response.code()}")
+
+                when (response.code()) {
+                    200 -> {
+                        val showtimes = response.body()
+                        if (showtimes != null && showtimes.isNotEmpty()) {
+                            Log.d("MovieActivity", "Tìm thấy ${showtimes.size} suất chiếu.")
+                            val showtime = showtimes[0]
+                            val ticketPrice = showtime.ticket_price ?: 0
+                            Log.d("MovieActivity", "Giá vé của suất chiếu là: $ticketPrice")
+
+                            if (ticketPrice > 0) {
+                                val intent = Intent(this@Movie, ChooseChair::class.java)
+                                intent.putExtra("MOVIE_INFO", movieInfo)
+                                intent.putExtra("TICKET_PRICE", ticketPrice)
+                                intent.putExtra("SHOWTIME_ID", showtime.showtime_id)  // Pass showtime_id
+                                intent.putExtra(
+                                    "RESERVED_SEATS",
+                                    ArrayList(showtime.reserved_seats)
+                                )
+                                Log.d(
+                                    "MovieActivity",
+                                    "Chuyển sang màn hình chọn ghế với showtime_id: ${showtime.showtime_id}"
+                                )
+                                startActivity(intent)
+                            } else {
+                                Log.d("MovieActivity", "Giá vé không hợp lệ.")
+                                Toast.makeText(
+                                    this@Movie,
+                                    "Oops, có vấn đề với giá vé. Vui lòng thử lại sau!",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        } else {
+                            Log.d(
+                                "MovieActivity",
+                                "Rất tiếc, hiện tại không có suất chiếu cho bộ phim này."
+                            )
+                            Toast.makeText(
+                                this@Movie,
+                                "Xin lỗi, hiện tại không có suất chiếu. Vui lòng quay lại sau nhé!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+
+                    400 -> {
+                        Log.d("MovieActivity", "Thông báo lỗi từ server: ${response.message()}")
+                        Toast.makeText(
+                            this@Movie,
+                            "Hình như có chút vấn đề với mã phim. Hãy thử lại nhé!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    404 -> {
+                        Log.d("MovieActivity", "Không có suất chiếu cho phim này.")
+                        Toast.makeText(
+                            this@Movie,
+                            "Không tìm thấy suất chiếu cho bộ phim này. Bạn có thể thử phim khác nhé!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    500 -> {
+                        Log.d("MovieActivity", "Lỗi server từ API.")
+                        Toast.makeText(
+                            this@Movie,
+                            "Lỗi server. Vui lòng thử lại sau nhé!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    else -> {
+                        Log.d("MovieActivity", "Lỗi không xác định: ${response.code()}")
+                        Toast.makeText(
+                            this@Movie,
+                            "Chúng tôi đang gặp chút sự cố. Vui lòng thử lại sau.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<List<ShowTimeResponse>>, t: Throwable) {
+                Log.e("MovieActivity", "Lỗi kết nối: ${t.message}", t)
+                Toast.makeText(this@Movie, "Lỗi kết nối. Vui lòng thử lại sau!", Toast.LENGTH_SHORT)
+                    .show()
             }
         })
     }

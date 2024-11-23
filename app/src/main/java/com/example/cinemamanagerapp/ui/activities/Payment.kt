@@ -2,118 +2,113 @@ package com.example.cinemamanagerapp.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.StrictMode
-import android.os.StrictMode.ThreadPolicy
 import android.util.Log
 import android.widget.Button
-import android.widget.CheckBox
-import android.widget.LinearLayout
 import android.widget.ListView
+import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.cinemamanagerapp.R
 import com.example.cinemamanagerapp.api.FoodDrinksResponse
 import com.example.cinemamanagerapp.api.RetrofitClient
 import com.example.cinemamanagerapp.ui.adapters.Food_Adapter
 import com.example.cinemamanagerapp.zalopay.Api.CreateOrder
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-
+import kotlinx.coroutines.withContext
 import vn.zalopay.sdk.Environment
 import vn.zalopay.sdk.ZaloPayError
 import vn.zalopay.sdk.ZaloPaySDK
 import vn.zalopay.sdk.listeners.PayOrderListener
 
-
 class Payment : AppCompatActivity() {
-    private lateinit var lv_FoodList: ListView
+
+    private lateinit var tvSelectedSeats: TextView
+    private lateinit var tvPaymentSum: TextView
+    private lateinit var lvFoodList: ListView
     private lateinit var adapter: Food_Adapter
-    private lateinit var layoutZalo: LinearLayout
-    private lateinit var cb_zalo: CheckBox
-    private lateinit var btnPayment: Button
+
+    private var selectedSeats: String = ""
+    private var totalAmount: Int = 0 // Tổng tiền đã tính từ màn hình ChooseChair
+
+    private var foodList: MutableList<FoodDrinksResponse> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_payment)
-
-        val policy = ThreadPolicy.Builder().permitAll().build()
-        StrictMode.setThreadPolicy(policy)
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
         ZaloPaySDK.init(2554, Environment.SANDBOX)
 
-        layoutZalo = findViewById(R.id.layoutZalo)
-        cb_zalo = findViewById(R.id.cb_zalo)
-        btnPayment = findViewById(R.id.btn_payment)
+        // Nhận dữ liệu từ màn hình trước (ChooseChair)
+        selectedSeats = intent.getStringExtra("SELECTED_SEATS") ?: ""
+        totalAmount = intent.getIntExtra("TOTAL_AMOUNT", 0) // Nhận tổng tiền từ ChooseChair
 
-        lv_FoodList = findViewById(R.id.lv_FoodList)
-        adapter = Food_Adapter(emptyList())
-        lv_FoodList.adapter = adapter
+        // Ánh xạ các phần tử giao diện
+        tvSelectedSeats = findViewById(R.id.tv_selectedSeats)
+        tvPaymentSum = findViewById(R.id.tv_paymentSum)
+        lvFoodList = findViewById(R.id.lv_FoodList)
 
+        // Hiển thị ghế đã chọn và tổng tiền ban đầu
+        tvSelectedSeats.text = "Ghế đã chọn: $selectedSeats"
+        tvPaymentSum.text = "Tổng thanh toán: $totalAmount đ" // Hiển thị tổng tiền đã được truyền
+
+        // Lấy dữ liệu món ăn và tính tổng tiền
         fetchFoodData()
 
-        layoutZalo.setOnClickListener {
-            cb_zalo.isChecked = !cb_zalo.isChecked
+        // Khi người dùng nhấn thanh toán
+        findViewById<Button>(R.id.btn_payment).setOnClickListener {
+            payment(totalAmount) // Truyền totalAmount khi thanh toán
         }
+    }
 
-        btnPayment.setOnClickListener {
-            if (cb_zalo.isChecked) {
-                payment()
-            } else {
-                Toast.makeText(this, "Vui lòng chọn hình thức thanh toán", Toast.LENGTH_SHORT).show()
+    // Lấy dữ liệu món ăn
+    private fun fetchFoodData() {
+        lifecycleScope.launch(Dispatchers.IO) { // Sử dụng Dispatchers.IO để chạy trên background thread
+            try {
+                val response = RetrofitClient.apiService.getAllFoodDrink().execute() // Sử dụng .execute() thay vì enqueue
+                if (response.isSuccessful) {
+                    val foodDrinksList = response.body() ?: emptyList()
+                    withContext(Dispatchers.Main) {
+                        // Chuyển dữ liệu về main thread để cập nhật UI
+                        foodList.clear()
+                        foodList.addAll(foodDrinksList)
+                        adapter = Food_Adapter(foodList)
+                        lvFoodList.adapter = adapter
+                        updateSelectedFoodPrice() // Cập nhật giá trị tổng tiền
+                    }
+                } else {
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(this@Payment, "Lỗi khi lấy dữ liệu món ăn", Toast.LENGTH_SHORT).show()
+                        Log.e("Payment", "Failed to fetch food data: ${response.code()}")
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@Payment, "Lỗi khi lấy dữ liệu món ăn: ${e.message}", Toast.LENGTH_SHORT).show()
+                    Log.e("Payment", "Error fetching food data: ${e.message}", e)
+                }
             }
         }
     }
 
-    private fun fetchFoodData() {
-        lifecycleScope.launch {
-            try {
-                RetrofitClient.apiService.getAllFoodDrink()
-                    .enqueue(object : Callback<List<FoodDrinksResponse>> {
-                        override fun onResponse(
-                            call: Call<List<FoodDrinksResponse>>,
-                            response: Response<List<FoodDrinksResponse>>
-                        ) {
-                            if (response.isSuccessful) {
-                                val foodDrinksList = response.body() ?: emptyList()
-
-                                val foodList = foodDrinksList.map { foodDrinksResponse ->
-                                    FoodDrinksResponse(
-                                        food_drink_id = foodDrinksResponse.food_drink_id,
-                                        name = foodDrinksResponse.name,
-                                        type = foodDrinksResponse.type, // Đảm bảo giá trị này được truyền vào
-                                        price = foodDrinksResponse.price,
-                                        image = foodDrinksResponse.image ?: "",
-                                        quantity = 1 // Hoặc bất kỳ giá trị mặc định nào bạn muốn
-                                    )
-                                }
-
-                                adapter = Food_Adapter(foodList)
-                                lv_FoodList.adapter = adapter
-                            } else {
-                                Log.e("Payment", "Lấy dữ liệu món ăn không thành công: ${response.code()} ${response.message()}")
-                            }
-                        }
-
-                        override fun onFailure(call: Call<List<FoodDrinksResponse>>, t: Throwable) {
-                            Log.e("Payment", "Lỗi khi lấy dữ liệu món ăn: ${t.message}", t)
-                        }
-                    })
-            } catch (e: Exception) {
-                Log.e("Payment", "Ngoại lệ khi lấy dữ liệu món ăn: ${e.message}", e)
+    // Tính toán tổng tiền món ăn đã chọn
+    internal fun updateSelectedFoodPrice() {
+        var selectedFoodPrice = 0
+        // Duyệt qua danh sách món ăn và tính tổng tiền của món ăn đã chọn
+        for (food in foodList) {
+            if (food.quantity > 0) {
+                selectedFoodPrice += (food.price * food.quantity).toInt() // Tính tổng tiền món ăn
             }
         }
+
+        // Cập nhật tổng tiền khi có món ăn đã chọn
+        updateTotalPrice(selectedFoodPrice)
+    }
+
+    // Cập nhật tổng tiền khi có món ăn
+    private fun updateTotalPrice(selectedFoodPrice: Int) {
+        totalAmount += selectedFoodPrice // Cập nhật totalAmount với giá trị món ăn
+        tvPaymentSum.text = "Tổng thanh toán: ${totalAmount}đ" // Cập nhật giao diện với tổng tiền mới
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -122,39 +117,60 @@ class Payment : AppCompatActivity() {
         ZaloPaySDK.getInstance().onResult(intent)
     }
 
-    private fun payment(){
-        val order = CreateOrder()
-        try {
-            val data = order.createOrder("10000")// gia tien thanh toan
-            val code = data.getString("returncode")
-            val token = data.getString("zptranstoken")
+    // Xử lý thanh toán
+    private fun payment(totalAmount: Int) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                Log.d("Payment", "Initiating payment with total amount: $totalAmount")
+                val order = CreateOrder()
+                val data = order.createOrder(totalAmount.toString()) // Sử dụng totalAmount ở đây
+                val code = data.getString("returncode")
+                val token = data.getString("zptranstoken")
 
-           if(code.equals("1")){
-               ZaloPaySDK.getInstance().payOrder(this, token, "demozpdk://app", object :
-                   PayOrderListener {
-                   override fun onPaymentSucceeded(p0: String?, p1: String?, p2: String?) {
-                       val intent = Intent(this@Payment, MainActivity::class.java)
-                       intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                       startActivity(intent)
-                   }
+                Log.d("Payment", "Received return code: $code and token: $token")
 
-                   override fun onPaymentCanceled(p0: String?, p1: String?) {
-                       Toast.makeText(this@Payment, "Thanh toán bị hủy", Toast.LENGTH_SHORT).show()
-                   }
+                // Kiểm tra mã trả về và token
+                if (code == "1" && !token.isNullOrEmpty()) {
+                    withContext(Dispatchers.Main) {
+                        // Thanh toán ZaloPay từ Main Thread
+                        Log.d("Payment", "Starting ZaloPay payment with token: $token")
+                        ZaloPaySDK.getInstance().payOrder(this@Payment, token, "demozpdk://app", object : PayOrderListener {
+                            override fun onPaymentSucceeded(p0: String?, p1: String?, p2: String?) {
+                                // Thanh toán thành công, chuyển hướng đến MainActivity với thông báo "Thanh toán thành công"
+                                Log.d("Payment", "Payment succeeded. Redirecting to MainActivity.")
+                                val intent = Intent(this@Payment, MainActivity::class.java)
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)  // Clear all activities above MainActivity
+                                intent.putExtra("payment_status", "Thanh toán thành công") // Thêm thông báo vào Intent
+                                startActivity(intent)
+                            }
 
-                   override fun onPaymentError(p0: ZaloPayError?, p1: String?, p2: String?) {
-                       Toast.makeText(this@Payment, "Lỗi thanh toan", Toast.LENGTH_SHORT).show()
-                   }
+                            override fun onPaymentCanceled(p0: String?, p1: String?) {
+                                // Thanh toán bị hủy
+                                Log.d("Payment", "Payment canceled.")
+                                Toast.makeText(this@Payment, "Thanh toán bị hủy", Toast.LENGTH_SHORT).show()
+                            }
 
-
-               })
-           }else{
-               Toast.makeText(this, "loi code khac 1", Toast.LENGTH_SHORT).show()
-           }
-        }catch (e: Exception){
-            Log.e("Payment", "Lỗi khi lấy : ${e.printStackTrace()}", e)
+                            override fun onPaymentError(p0: ZaloPayError?, p1: String?, p2: String?) {
+                                // Xử lý lỗi thanh toán
+                                Log.e("Payment", "Payment error: ${p0?.let {  }}, $p1, $p2")
+                                Toast.makeText(this@Payment, "Lỗi thanh toán", Toast.LENGTH_SHORT).show()
+                            }
+                        })
+                    }
+                } else {
+                    withContext(Dispatchers.Main) {
+                        // Thông báo lỗi nếu mã trả về không hợp lệ
+                        Log.e("Payment", "Invalid return code or missing token: code=$code, token=$token")
+                        Toast.makeText(this@Payment, "Lỗi mã trả về: $code", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    // Log lỗi và thông báo người dùng
+                    Log.e("Payment", "Lỗi khi tạo đơn hàng: ${e.message}", e)
+                    Toast.makeText(this@Payment, "Lỗi khi tạo đơn hàng: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
-
-
 }
