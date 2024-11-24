@@ -77,9 +77,10 @@ data class MovieResponse(
 
 // Model cho thông báo
 data class NotificationResponse(
-    val title: String,
-    val message: String,
-    val timestamp: String // Hoặc có thể dùng Long cho thời gian
+    val userId: Int,   // Thêm userId
+    val title: String, // Tiêu đề thông báo
+    val message: String, // Nội dung thông báo
+    val timestamp: String // Thời gian hoặc có thể dùng Long cho thời gian
 )
 
 // Model cho lịch sử đặt vé

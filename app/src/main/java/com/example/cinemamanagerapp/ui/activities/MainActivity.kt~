@@ -40,13 +40,13 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
 
-                R.id.nav_fav -> {
-                    replaceFragment(FavouriteFragment())
+                R.id.nav_notification -> {
+                    replaceFragment(HistoryFragment())
                     true
                 }
 
-                R.id.nav_history -> {
-                    replaceFragment(HistoryFragment())
+                R.id.nav_fav -> {
+                    replaceFragment(FavouriteFragment())
                     true
                 }
 

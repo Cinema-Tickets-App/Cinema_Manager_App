@@ -5,6 +5,7 @@ plugins {
 
 }
 
+
 android {
     namespace = "com.example.cinemamanagerapp"
     compileSdk = 35
@@ -40,13 +41,12 @@ android {
     buildFeatures {
         viewBinding = true
     }
-    flatDir {
-        dirs("libs")  // Sử dụng đường dẫn tương đối đến thư mục libs trong project
-    }
+
 
 }
 
 dependencies {
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -61,6 +61,9 @@ dependencies {
         "include" to listOf("*.aar", "*.jar"),
         "exclude" to listOf("")
     )))
+
+
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -116,4 +119,8 @@ dependencies {
     implementation("com.google.zxing:core:3.5.3")
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
 
+
 }
+
+// Áp dụng plugin google-services ở cuối file
+apply(plugin = "com.google.gms.google-services")

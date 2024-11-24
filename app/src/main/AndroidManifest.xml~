@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <service
+        android:name=".MyFirebaseMessagingService"
+        android:exported="false">
+        <intent-filter>
+            <action android:name="com.google.firebase.MESSAGING_EVENT" />
+        </intent-filter>
+    </service>
+
 
     <application
         android:allowBackup="true"
@@ -16,16 +26,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CinemaManagerApp"
         tools:targetApi="31">
-
-        <!-- The service declaration should be inside the application tag -->
-        <service
-            android:name=".MyFirebaseMessagingService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-
         <activity
             android:name=".ui.activities.QRCodeActivity"
             android:exported="false" />
@@ -51,6 +51,7 @@
                 <category android:name="android.intent.category.BROWSABLE"/>
                 <data android:scheme="demozpdk"
                     android:host="app"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </activity>
         <activity
@@ -65,9 +66,10 @@
             android:exported="false" />
         <activity
             android:name=".ui.activities.LoginActivity"
-            android:exported="true">
+            android:exported="true"> <!-- Cập nhật ở đây -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -78,7 +80,6 @@
             android:name=".ui.activities.Movie"
             android:exported="true"
             android:theme="@style/Base.Theme.AppDark" />
-
     </application>
 
 </manifest>
