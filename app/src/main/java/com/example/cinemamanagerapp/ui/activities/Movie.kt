@@ -48,9 +48,9 @@ class Movie : AppCompatActivity() {
         tvDescription = findViewById(R.id.tvPlot)
         tvShowTime = findViewById(R.id.tvShowtime)
         tvDuration = findViewById(R.id.tvDuration)
-        tvRating = findViewById(R.id.tvRating)
+
         tvReleaseDate = findViewById(R.id.tvReleaseDate)
-        tvCast = findViewById(R.id.tvCast)
+
         tvCategory = findViewById(R.id.tvGenre)
         imgMovie = findViewById(R.id.videoMovie)
         btnAddToFavorites = findViewById(R.id.ig_Love)
@@ -68,9 +68,7 @@ class Movie : AppCompatActivity() {
             tvDescription.text = "Mô tả: ${movieInfo!!.description}"
             tvShowTime.text = "Giờ chiếu: ${formatDate(movieInfo!!.release_date)}"
             tvDuration.text = "Thời lượng: ${movieInfo!!.duration} phút"
-            tvRating.text = "Xếp hạng: ${movieInfo!!.movie_id}"  // Kiểm tra việc lấy movie_id
             tvReleaseDate.text = "Ngày phát hành: ${formatDate(movieInfo!!.release_date)}"
-            tvCast.text = "Diễn viên: ${movieInfo!!.description}"
             tvCategory.text = "Thể loại: ${movieInfo!!.category_id}"
 
             Glide.with(this).load(movieInfo!!.image_url).into(imgMovie)
@@ -163,7 +161,8 @@ class Movie : AppCompatActivity() {
                     btnAddToFavorites.text = "Đã yêu thích"
                     btnAddToFavorites.setTextColor(resources.getColor(R.color.red))
                 } else {
-                    Toast.makeText(this@Movie, "Thêm vào yêu thích thất bại", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@Movie, "Thêm vào yêu thích thất bại", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
 
@@ -191,7 +190,8 @@ class Movie : AppCompatActivity() {
                     btnAddToFavorites.text = "Thêm vào yêu thích"
                     btnAddToFavorites.setTextColor(resources.getColor(R.color.blue_bld))
                 } else {
-                    Toast.makeText(this@Movie, "Xóa khỏi yêu thích thất bại", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@Movie, "Xóa khỏi yêu thích thất bại", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
 
@@ -225,7 +225,10 @@ class Movie : AppCompatActivity() {
                                 val intent = Intent(this@Movie, ChooseChair::class.java)
                                 intent.putExtra("MOVIE_INFO", movieInfo)
                                 intent.putExtra("TICKET_PRICE", ticketPrice)
-                                intent.putExtra("SHOWTIME_ID", showtime.showtime_id)  // Pass showtime_id
+                                intent.putExtra(
+                                    "SHOWTIME_ID",
+                                    showtime.showtime_id
+                                )  // Pass showtime_id
                                 intent.putExtra(
                                     "RESERVED_SEATS",
                                     ArrayList(showtime.reserved_seats)

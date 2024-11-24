@@ -15,14 +15,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    // Tạo biến lưu trữ các Fragment
-    private val homeFragment = HomeFragment()
-    private val notificationFragment = NotificationFragment()
-    private val favouriteFragment = FavouriteFragment()
-    private val settingFragment = SettingFragment()
-
     companion object {
-        var userId: Int = 0 // 0 là chưa được gán. vì userId trong database luôn luôn > 0
+        var userId: Int = 0 //  0 là chưa được gán. vì userId trong database luon luon > 0
         var userName: String = ""
     }
 
@@ -34,32 +28,35 @@ class MainActivity : AppCompatActivity() {
 
         // Hiển thị fragment mặc định
         if (savedInstanceState == null) {
-            replaceFragment(homeFragment)
+            replaceFragment(HomeFragment())
         }
 
         // Thiết lập BottomNavigationView
         binding.bottomNav.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_home -> {
-                    replaceFragment(homeFragment)
+                    replaceFragment(HomeFragment())
                     true
                 }
+
                 R.id.nav_notification -> {
-                    replaceFragment(notificationFragment)
+                    replaceFragment(NotificationFragment())
                     true
                 }
+
                 R.id.nav_fav -> {
-                    replaceFragment(favouriteFragment)
+                    replaceFragment(FavouriteFragment())
                     true
                 }
+
                 R.id.nav_settting -> {
-                    replaceFragment(settingFragment)
+                    replaceFragment(SettingFragment())
                     true
                 }
+
                 else -> false
             }
         }
-
         // Nhận thông báo về trạng thái thanh toán
         val paymentStatus = intent.getStringExtra("payment_status")
         if (paymentStatus != null) {
@@ -68,33 +65,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // Hàm replaceFragment được tối ưu để không khởi tạo lại mỗi Fragment
     private fun replaceFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.home_fragment_activiy, fragment)
 
-        // Ẩn tất cả các fragment
-        supportFragmentManager.fragments.forEach {
-            transaction.hide(it)
-        }
-
-        // Hiển thị fragment nếu đã tồn tại, nếu không, thêm vào
-        if (fragment.isAdded) {
-            transaction.show(fragment)
-        } else {
-            transaction.add(R.id.home_fragment_activiy, fragment)
-        }
-
+        // Không gọi addToBackStack
         transaction.commit()
     }
 
-    // Xử lý khi nhấn nút back
-    override fun onBackPressed() {
-        if (binding.bottomNav.selectedItemId != R.id.nav_home) {
-            // Chuyển về tab Home nếu không ở Home
-            binding.bottomNav.selectedItemId = R.id.nav_home
-        } else {
-            // Nếu đang ở Home, thoát ứng dụng
-            super.onBackPressed()
-        }
-    }
+
 }

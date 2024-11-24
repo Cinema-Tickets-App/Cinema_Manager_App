@@ -154,12 +154,3 @@ data class FoodDrink(
 data class FavoriteCheckResponse(
     val isFavorite: Boolean
 )
-
-// Model for the API response after booking a ticket
-data class TicketResponse(
-    val message: String,
-    val ticket: Ticket,  // Assuming the response contains a single ticket object
-    val seats: List<String>,  // List of selected seats
-    val food_drinks: List<FoodDrinksResponse>,  // List of food and drink items
-    val price: String  // Total price for the booking
-)

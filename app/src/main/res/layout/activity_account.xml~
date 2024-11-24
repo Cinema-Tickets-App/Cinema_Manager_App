@@ -222,12 +222,12 @@
 
             </LinearLayout>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <Button
                 android:id="@+id/btnSaveAccount"
-                android:background="@drawable/button_bg"
+                style="@style/MainButton"
                 android:layout_width="match_parent"
                 android:layout_height="53dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="22dp"
                 android:text="Save" />
 
         </LinearLayout>

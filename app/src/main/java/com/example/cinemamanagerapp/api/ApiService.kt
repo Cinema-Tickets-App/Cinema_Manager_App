@@ -106,5 +106,8 @@ interface ApiService {
     fun getShowtimesByMovieId(
         @Path("movie_id") movieId: Int
     ): Call<List<ShowTimeResponse>>
-}
 
+    // Function to make a booking request
+    @POST("tickets/book")
+    fun bookTicket(@Body ticketRequest: TicketRequest): Call<TicketResponse>
+}

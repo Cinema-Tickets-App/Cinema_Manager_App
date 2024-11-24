@@ -27,7 +27,7 @@
     <color name="cyan">#00BFFF</color> <!-- Màu xanh cyan tối -->
     <color name="background_dark">#121212</color> <!-- Nền chính đen xám -->
     <color name="surface_dark">#1E1E1E</color> <!-- Bề mặt thẻ hoặc hộp thoại -->
-    <color name="primary_dark">#BB86FC</color> <!-- Màu chính (tím nhạt) -->
+    <color name="primary_dark">#FFFFFFFF</color>
     <color name="primary_variant_dark">#3700B3</color> <!-- Biến thể đậm hơn của màu chính -->
     <color name="secondary_dark">#03DAC6</color> <!-- Màu phụ (xanh ngọc) -->
     <color name="text_primary_dark">#FFFFFF</color> <!-- Màu văn bản chính (trắng) -->

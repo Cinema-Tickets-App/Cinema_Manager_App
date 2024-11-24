@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_color">
+    android:background="@color/black">
 
     <TextView
         android:layout_width="wrap_content"
@@ -14,8 +14,7 @@
         android:text="Danh sách Booking"
         android:textColor="@color/white"
         android:textSize="26dp"
-        android:fontFamily="@font/inter_extrabold"
-        android:textStyle="italic"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
