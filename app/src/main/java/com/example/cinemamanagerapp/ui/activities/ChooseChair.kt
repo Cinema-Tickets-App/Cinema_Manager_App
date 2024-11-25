@@ -79,13 +79,19 @@ class ChooseChair : AppCompatActivity() {
             Log.d("ChooseChair", "Total Price: $totalPrice")
 
             val intent = Intent(this, Payment::class.java)
-            intent.putExtra("TOTAL_AMOUNT", totalPrice) // Pass the total amount (seat price + ticket price)
+            intent.putExtra(
+                "TOTAL_AMOUNT",
+                totalPrice
+            ) // Pass the total amount (seat price + ticket price)
             intent.putExtra("SELECTED_SEATS", selectedSeatsList)
             intent.putExtra("SHOWTIME_ID", showtimeId)
             intent.putExtra("TICKET_PRICE", ticketPrice)
 
             // Log để xác nhận dữ liệu đã được truyền đi
-            Log.d("ChooseChair", "Passing data to Payment screen: Total Amount = ${totalPrice + ticketPrice}, Selected Seats = $selectedSeatsList, Showtime ID = $showtimeId")
+            Log.d(
+                "ChooseChair",
+                "Passing data to Payment screen: Total Amount = ${totalPrice + ticketPrice}, Selected Seats = $selectedSeatsList, Showtime ID = $showtimeId"
+            )
 
             startActivity(intent)
         }

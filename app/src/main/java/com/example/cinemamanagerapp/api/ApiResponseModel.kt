@@ -119,14 +119,14 @@ data class UserEmail(
     val email: String
 )
 
-// Model cho thông tin suất chiếu
 data class ShowTimeResponse(
-    val showtime_id: Int,      // ID của suất chiếu
-    val start_time: String,    // Thời gian bắt đầu
-    val room: String,          // Phòng chiếu
-    val ticket_price: Int,     // Giá vé của suất chiếu
-    val reserved_seats: List<String>  // Các ghế đã được đặt
-)
+    val showtime_id: Int,
+    val start_time: String,
+    val room: String,
+    val ticket_price: Int,
+    val reserved_seats: List<String>
+) : Serializable
+
 
 // Thông tin chi tiết về phim
 data class MovieDetails(

@@ -18,16 +18,16 @@
             android:layout_height="50dp"
             android:scaleType="centerCrop"
             android:src="@drawable/icon_pessi"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
         <TextView
+            android:layout_marginTop="10dp"
             android:id="@+id/tv_FoodName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="10dp"
             android:text="Pesi"
             android:textColor="@color/white"
             android:textSize="18sp"

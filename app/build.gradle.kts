@@ -69,6 +69,8 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    implementation ("com.google.android.material:material:1.12.0")
+
     // Thư viện hình ảnh hình tròn
     implementation("de.hdodenhof:circleimageview:3.1.0")
     // Thư viện trình chiếu hình ảnh
@@ -101,7 +103,6 @@ dependencies {
     // ViewPager2
     implementation("androidx.fragment:fragment-ktx:1.8.5")
     implementation("androidx.viewpager2:viewpager2:1.1.0")
-    implementation("com.google.android.material:material:1.12.0")
 
     // Thư viện OTP
     implementation("com.github.aabhasr1:OtpView:v1.1.2-ktx")

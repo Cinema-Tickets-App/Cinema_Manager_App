@@ -78,7 +78,10 @@
             android:name=".ui.activities.Movie"
             android:exported="true"
             android:theme="@style/Base.Theme.AppDark" />
-
+        <activity
+            android:name=".ui.activities.ShowtimeSelectionActivity"
+            android:exported="true"
+            android:theme="@style/Base.Theme.AppDark" />
     </application>
 
 </manifest>

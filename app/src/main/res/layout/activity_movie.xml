@@ -26,12 +26,12 @@
         android:layout_width="120dp"
         android:layout_height="180dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:elevation="6dp"
         android:scaleType="centerCrop"
         android:src="@drawable/movie_name"
-        app:layout_constraintTop_toBottomOf="@id/videoTrailerContainer"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="16dp"/>
+        app:layout_constraintTop_toBottomOf="@id/videoTrailerContainer" />
 
 
     <!-- Movie Title -->
@@ -39,32 +39,32 @@
         android:id="@+id/tvMovieName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="35dp"
+        android:fontFamily="@font/inter_extrabold"
         android:text="Tên Phim: Inception"
         android:textColor="@color/yellow_erth"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:fontFamily="@font/inter_extrabold"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="35dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/videoMovie"
-        app:layout_constraintTop_toTopOf="@id/videoMovie"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="@id/videoMovie" />
 
     <!-- Genre (Thể loại) -->
     <TextView
         android:id="@+id/tvGenre"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto_bold"
         android:text="Thể loại: Khoa học viễn tưởng, Hành động, Kinh dị"
         android:textColor="@color/light_pink"
         android:textSize="18sp"
-        android:textStyle="normal"
-        android:fontFamily="@font/inter"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/videoMovie"
-        app:layout_constraintTop_toBottomOf="@id/tvMovieName"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/tvMovieName" />
 
     <!-- Movie Information (ScrollView) -->
     <ScrollView
@@ -81,23 +81,21 @@
             android:padding="5dp">
 
 
-
-
             <!-- Plot -->
             <TextView
                 android:id="@+id/tvPlot"
                 style="@style/MovieSynopsisStyle"
+                android:fontFamily="@font/roboto_medium"
                 android:text="Nội dung: Inception là một bộ phim thriller về tâm lý khám phá thế giới giấc mơ."
                 android:textColor="@color/white"
-                android:fontFamily="@font/inter"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-         />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <!-- Showtime -->
             <TextView
                 android:id="@+id/tvShowtime"
                 style="@style/MovieSynopsisStyle"
+                android:fontFamily="@font/roboto_bold"
                 android:text="Giờ chiếu: 18:00"
                 android:textColor="@color/yellow_erth"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -108,8 +106,10 @@
             <TextView
                 android:id="@+id/tvDuration"
                 style="@style/MovieSynopsisStyle"
+                android:fontFamily="@font/roboto_bold"
                 android:text="Thời gian: 148 phút"
                 android:textColor="@color/yellow_erth"
+
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvShowtime" />
@@ -118,6 +118,7 @@
             <TextView
                 android:id="@+id/tvReleaseDate"
                 style="@style/MovieSynopsisStyle"
+                android:fontFamily="@font/roboto_bold"
                 android:text="Ngày phát hành: 16/07/2010"
                 android:textColor="@color/yellow_erth"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -140,10 +141,10 @@
             android:id="@+id/ig_Love"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/luckyskirt"
             android:text="Thêm vào yêu thích"
             android:textColor="@color/orange_bold"
             android:textSize="20sp"
-            android:fontFamily="@font/luckyskirt"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -151,8 +152,8 @@
             android:id="@+id/imageButtonAction"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:background="@android:color/transparent"
             android:layout_marginStart="8dp"
+            android:background="@android:color/transparent"
             android:padding="5dp"
             android:scaleType="centerCrop"
             android:src="@drawable/movie_cart"
@@ -169,8 +170,8 @@
             android:text="Đặt vé"
             android:textColor="@color/white"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageButtonAction" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

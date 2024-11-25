@@ -1,0 +1,42 @@
+package com.example.cinemamanagerapp.ui.adapters
+
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.example.cinemamanagerapp.R
+import com.example.cinemamanagerapp.api.ShowTimeResponse
+
+class ShowTimeAdapter(
+    private var showtimeList: List<ShowTimeResponse>,
+    private val onRoomClick: (String) -> Unit // Callback khi nhấn vào phòng
+) : RecyclerView.Adapter<ShowTimeAdapter.ViewHolder>() {
+
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val btnRoom: TextView = itemView.findViewById(R.id.btnRoom)  // TextView hiển thị tên phòng
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.room, parent, false) // Inflate layout item_room.xml
+        return ViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val showtime = showtimeList[position]
+        holder.btnRoom.text = "Room: ${showtime.room}" // Hiển thị tên phòng chiếu trong TextView
+
+        holder.itemView.setOnClickListener {
+            // Gọi callback khi nhấn vào button phòng chiếu
+            onRoomClick(showtime.room)
+        }
+    }
+
+    override fun getItemCount(): Int = showtimeList.size
+
+    fun updateShowtimes(showtimes: List<ShowTimeResponse>) {
+        showtimeList = showtimes
+        notifyDataSetChanged()
+    }
+}
