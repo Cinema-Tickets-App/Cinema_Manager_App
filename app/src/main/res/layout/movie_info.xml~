@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:background="@color/background_dark"
+    app:cardBackgroundColor="@color/surface_dark"
+    app:cardCornerRadius="15dp"
+    app:cardElevation="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/CL_MovieInfoContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/surface_dark">
+
+        <!-- Poster Movie Image with Rounded Corners -->
+        <ImageView
+            android:id="@+id/Img_ImageMovie"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/movie_name"
+
+            app:layout_constraintBottom_toTopOf="@id/tvMovieName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Movie Name -->
+        <TextView
+            android:id="@+id/tvMovieName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+
+            android:layout_marginEnd="12dp"
+            android:ellipsize="end"
+            android:text="Name"
+            android:maxLines="1"
+            android:textColor="@color/primary_dark"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginTop="9dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Img_ImageMovie" />
+
+        <!-- Showtime -->
+        <TextView
+            android:id="@+id/tvShowtime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="16dp"
+            android:text="Rime"
+            android:textColor="@color/secondary_dark"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvMovieName" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

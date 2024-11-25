@@ -6,14 +6,16 @@
         android:icon="@drawable/home_nav"
         android:title="Trang chủ" />
 
-    <item
-        android:id="@+id/nav_notification"
-        android:icon="@drawable/alert"
-        android:title="Thông báo" />
+
     <item
         android:id="@+id/nav_fav"
-        android:icon="@drawable/heart_nav"
+        android:icon="@drawable/baseline_history_24"
         android:title="Yêu thích" />
+
+    <item
+        android:id="@+id/nav_history"
+        android:icon="@drawable/alert"
+        android:title="Vé đã đặt" />
     <item
         android:id="@+id/nav_settting"
         android:icon="@drawable/user_circle_filled"

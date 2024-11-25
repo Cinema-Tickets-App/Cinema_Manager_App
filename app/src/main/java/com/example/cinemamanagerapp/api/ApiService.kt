@@ -93,7 +93,7 @@ interface ApiService {
 
 
     // Lấy lịch sử đặt vé của người dùng dựa trên ID người dùng.
-    @GET("/bookings/history/{userId}")
+    @GET("/booking-history/history/{userId}")
     suspend fun getTicketHistory(@Path("userId") userId: Int): List<Ticket>
 
     // Lấy danh sách phim yêu thích của người dùng
@@ -101,4 +101,16 @@ interface ApiService {
     fun getFavoriteMovies(
         @Path("user_id") userId: Int
     ): Call<List<MovieResponse>>
+
+    @GET("showtimes/{movie_id}")
+    fun getShowtimesByMovieId(
+        @Path("movie_id") movieId: Int
+    ): Call<List<ShowTimeResponse>>
+
+    // Function to make a booking request
+    @POST("tickets/book")
+    fun bookTicket(@Body ticketRequest: TicketRequest): Call<TicketResponse>
+
+    @POST("sendNotification")
+    fun sendNotification(@Body notification: NotificationResponse): Call<NotificationResponse>
 }

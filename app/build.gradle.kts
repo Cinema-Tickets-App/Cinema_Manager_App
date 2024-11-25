@@ -2,7 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.google.gms.google.services)
+
 }
+
 
 android {
     namespace = "com.example.cinemamanagerapp"
@@ -39,9 +41,12 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
+
 }
 
 dependencies {
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -51,6 +56,14 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.firebase.database)
+    implementation(fileTree(mapOf(
+        "dir" to "C:\\Users\\Thang\\Documents\\GitHub\\Cinema_Manager_App\\libs",
+        "include" to listOf("*.aar", "*.jar"),
+        "exclude" to listOf("")
+    )))
+
+
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -82,7 +95,7 @@ dependencies {
 
     // Google Maps
     implementation("com.google.android.gms:play-services-maps:19.0.0")
-    implementation("com.google.android.libraries.places:places:4.0.0")
+    implementation("com.google.android.libraries.places:places:4.1.0")
     implementation("com.google.android.gms:play-services-location:21.3.0")
 
     // ViewPager2
@@ -94,10 +107,10 @@ dependencies {
     implementation("com.github.aabhasr1:OtpView:v1.1.2-ktx")
 
     // Stripe
-    implementation("com.stripe:stripe-android:21.0.0")
+    implementation("com.stripe:stripe-android:21.2.0")
 
-    implementation("androidx.navigation:navigation-fragment-ktx:2.8.3")
-    implementation("androidx.navigation:navigation-ui-ktx:2.8.3")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.8.4")
+    implementation("androidx.navigation:navigation-ui-ktx:2.8.4")
 
     implementation("com.github.bumptech.glide:glide:4.16.0")
 
@@ -105,4 +118,7 @@ dependencies {
     //QR
     implementation("com.google.zxing:core:3.5.3")
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
+
+    implementation("com.google.firebase:firebase-messaging:24.1.0")
 }
+

@@ -77,7 +77,10 @@ class HistoryActivity : AppCompatActivity() {
                 Log.e("HistoryActivity", "Exception: ", e)
             }
         }
+
     }
+
+
 }
 
 

@@ -22,7 +22,6 @@ data class RegisterResponse(
     val createdAt: String // định dạng ngày theo chuỗi
 )
 
-// Model cho món ăn/đồ uống
 data class FoodDrinksResponse(
     val food_drink_id: Int,
     val name: String,
@@ -78,9 +77,10 @@ data class MovieResponse(
 
 // Model cho thông báo
 data class NotificationResponse(
-    val title: String,
-    val message: String,
-    val timestamp: String // Hoặc có thể dùng Long cho thời gian
+    val userId: Int,   // Thêm userId
+    val title: String, // Tiêu đề thông báo
+    val message: String, // Nội dung thông báo
+    val timestamp: String // Thời gian hoặc có thể dùng Long cho thời gian
 )
 
 // Model cho lịch sử đặt vé
@@ -110,7 +110,8 @@ data class Ticket(
     val book_tickets_id: Int, // ID của vé đặt
     val user: UserEmail,     // Thông tin người dùng (email)
     val showtime: ShowTimeResponse, // Thông tin suất chiếu
-    val movie: MovieDetails  // Thông tin về bộ phim
+    val movie: MovieDetails,  // Thông tin về bộ phim
+    val price: String?
 )
 
 // Model cho thông tin người dùng (email)
@@ -120,9 +121,11 @@ data class UserEmail(
 
 // Model cho thông tin suất chiếu
 data class ShowTimeResponse(
-    val start_time: String,  // Thời gian bắt đầu
-    val room: String,        // Phòng chiếu
-    val ticket_price: Int    // Giá vé của suất chiếu
+    val showtime_id: Int,      // ID của suất chiếu
+    val start_time: String,    // Thời gian bắt đầu
+    val room: String,          // Phòng chiếu
+    val ticket_price: Int,     // Giá vé của suất chiếu
+    val reserved_seats: List<String>  // Các ghế đã được đặt
 )
 
 // Thông tin chi tiết về phim
@@ -133,7 +136,31 @@ data class MovieDetails(
     val image_url: String   // URL ảnh đại diện phim
 )
 
+// Model cho yêu cầu đặt vé
+data class TicketRequest(
+    val user_id: Int,
+    val showtime_id: Int,
+    val seats: List<String>,
+    val food_drinks: List<FoodDrink>,
+    val payment_method: String,
+    val price: Int
+)
+
+// Model cho món ăn/đồ uống trong yêu cầu đặt vé
+data class FoodDrink(
+    val food_drink_id: Int,
+    val quantity: Int
+)
+
 data class FavoriteCheckResponse(
     val isFavorite: Boolean
 )
 
+// Model for the API response after booking a ticket
+data class TicketResponse(
+    val message: String,
+    val ticket: Ticket,  // Assuming the response contains a single ticket object
+    val seats: List<String>,  // List of selected seats
+    val food_drinks: List<FoodDrinksResponse>,  // List of food and drink items
+    val price: String  // Total price for the booking
+)

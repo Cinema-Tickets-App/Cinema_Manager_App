@@ -10,7 +10,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.cinemamanagerapp.R
 import com.example.cinemamanagerapp.api.FoodDrinksResponse
-
+import com.example.cinemamanagerapp.ui.activities.Payment
 
 class Food_Adapter(private var foodList: List<FoodDrinksResponse>?) : BaseAdapter() {
     override fun getCount(): Int {
@@ -21,13 +21,12 @@ class Food_Adapter(private var foodList: List<FoodDrinksResponse>?) : BaseAdapte
         return foodList?.get(position) ?: FoodDrinksResponse(
             food_drink_id = 0,
             name = "Unknown",
-            type = "Unknown",  // Cần thêm thuộc tính này
+            type = "Unknown",
             price = 0.0,
-            image = "",  // Giá trị mặc định cho image
-            quantity = 0 // Đảm bảo có giá trị cho quantity
+            image = "",
+            quantity = 0
         )
     }
-
 
     override fun getItemId(position: Int): Long {
         return position.toLong()
@@ -42,29 +41,32 @@ class Food_Adapter(private var foodList: List<FoodDrinksResponse>?) : BaseAdapte
         val imageView = view.findViewById<ImageView>(R.id.img_FoodImage)
         val nameTextView = view.findViewById<TextView>(R.id.tv_FoodName)
         val amountTextView = view.findViewById<TextView>(R.id.tv_FoodAmount)
-        val priceTextView = view.findViewById<TextView>(R.id.tv_FoodPrice) // Thêm TextView cho giá
+        val priceTextView = view.findViewById<TextView>(R.id.tv_FoodPrice)
         val addButton = view.findViewById<ImageButton>(R.id.IMB_Add)
         val subButton = view.findViewById<ImageButton>(R.id.IMB_Sub)
 
         nameTextView.text = food.name
         amountTextView.text = food.quantity.toString()
-        priceTextView.text = food.price.toString() // Chuyển đổi giá sang chuỗi
+        priceTextView.text = food.price.toString()
 
         Glide.with(view.context).load(food.image).into(imageView)
 
         addButton.setOnClickListener {
             food.quantity++
             amountTextView.text = food.quantity.toString()
+            // Cập nhật lại tổng tiền sau khi thay đổi số lượng
+            (parent?.context as? Payment)?.updateSelectedFoodPrice()
         }
 
         subButton.setOnClickListener {
             if (food.quantity > 0) {
                 food.quantity--
                 amountTextView.text = food.quantity.toString()
+                // Cập nhật lại tổng tiền sau khi thay đổi số lượng
+                (parent?.context as? Payment)?.updateSelectedFoodPrice()
             }
         }
 
         return view
     }
 }
-

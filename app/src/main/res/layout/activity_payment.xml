@@ -63,13 +63,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/lv_FoodList">
 
                 <LinearLayout
+                    android:id="@+id/layoutZalo"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <CheckBox
-                        android:id="@+id/cb_momo"
+                        android:id="@+id/cb_zalo"
                         android:layout_width="50dp"
                         android:layout_height="match_parent" />
 
@@ -78,14 +79,14 @@
                         android:layout_height="match_parent"
                         android:padding="5dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/icon_momo" />
+                        android:src="@drawable/zalopay" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginStart="30dp"
                         android:gravity="center"
-                        android:text="Momo"
+                        android:text="ZaloPay"
                         android:textColor="@color/white"
                         android:textSize="25dp" />
                 </LinearLayout>
@@ -123,25 +124,37 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/tv_paymentSum"
+                android:id="@+id/tv_selectedSeats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="30dp"
-                android:text="Tổng Thanh toán : 200.000đ"
+                android:text="Số ghế đã chọn:"
                 android:textAllCaps="false"
                 android:textColor="@color/blue_bld"
                 android:textSize="25dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cl_containerPayment" />
+            <TextView
+                android:id="@+id/tv_paymentSum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:text="Tổng thanh toán:"
+                android:textAllCaps="false"
+                android:textColor="@color/blue_bld"
+                android:textSize="25dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_selectedSeats" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_payment"
                 android:layout_width="250dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="25dp"
-                android:background="@color/blue_bld"
+                android:background="@drawable/button_bg"
                 android:text="Thanh toán"
                 android:textAllCaps="false"
                 android:textColor="@color/white"

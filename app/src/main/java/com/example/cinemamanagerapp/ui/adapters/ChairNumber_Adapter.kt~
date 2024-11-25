@@ -1,0 +1,68 @@
+package com.example.cinemamanagerapp.ui.adapters
+
+import android.content.res.ColorStateList
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
+import com.example.cinemamanagerapp.R
+
+class ChairNumber_Adapter(
+    private var mList: Array<Array<Boolean>>,  // Seat matrix, true for reserved
+    private val reservedSeats: List<Int>,  // Reserved seat positions
+    private val onChairClick: (Int) -> Unit // Click callback
+) : RecyclerView.Adapter<ChairNumber_Adapter.ViewHold>() {
+
+    private val seatRows = "ABCDEFGHIJ" // Row labels (A to J)
+
+    class ViewHold(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val imgSeat: ImageView = itemView.findViewById(R.id.Img_SeatCondition)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHold {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.seat_condition, parent, false)
+        return ViewHold(view)
+    }
+
+    override fun getItemCount(): Int {
+        return mList.size * mList[0].size // Total number of seats (10x5)
+    }
+
+    override fun onBindViewHolder(holder: ViewHold, position: Int) {
+        val row = position / mList[0].size // Calculate row number
+        val col = position % mList[0].size // Calculate column number
+        val seatLabel = "${seatRows[row]}${col + 1}" // Generate seat label (e.g., A1, B2)
+
+        // Determine if seat is reserved
+        val isReserved = reservedSeats.contains(position)
+
+        // Set default seat image
+        holder.imgSeat.setImageResource(R.drawable.icon_chair)
+
+        // Update seat color based on state (reserved, selected, or available)
+        if (isReserved) {
+            holder.imgSeat.imageTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(holder.itemView.context, R.color.green_chaleston)
+            )
+        } else if (mList[row][col]) {
+            holder.imgSeat.imageTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(holder.itemView.context, R.color.red)
+            )
+        } else {
+            holder.imgSeat.imageTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(holder.itemView.context, R.color.white)
+            )
+        }
+
+        // Handle seat selection click
+        holder.itemView.setOnClickListener {
+            if (!isReserved) {  // If not reserved, toggle selection
+                onChairClick(position)
+            }
+        }
+    }
+}

@@ -10,12 +10,16 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemamanagerapp.R
 
-class ChairNumber_Adapter(private var mList: Array<Array<Boolean>>, private val onChairClick: (Int) -> Unit) :
-    RecyclerView.Adapter<ChairNumber_Adapter.ViewHold>() {
+class ChairNumber_Adapter(
+    private var mList: Array<Array<Boolean>>,  // Seat matrix, true for reserved
+    private val reservedSeats: List<String>,  // Reserved seat positions (e.g., A1, B3)
+    private val onChairClick: (Int) -> Unit // Click callback
+) : RecyclerView.Adapter<ChairNumber_Adapter.ViewHold>() {
+
+    private val seatRows = "ABCDEFGHIJ" // Row labels (A to J)
 
     class ViewHold(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imgSeat: ImageView = itemView.findViewById(R.id.Img_SeatCondition)
-        // Add more views if needed
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHold {
@@ -25,22 +29,40 @@ class ChairNumber_Adapter(private var mList: Array<Array<Boolean>>, private val 
     }
 
     override fun getItemCount(): Int {
-        return mList.size * mList[0].size // Assume mList is a 2D array
+        return mList.size * mList[0].size // Total number of seats (10x5)
     }
 
     override fun onBindViewHolder(holder: ViewHold, position: Int) {
-        val row = position / mList[0].size
-        val col = position % mList[0].size
+        val row = position / mList[0].size // Calculate row number
+        val col = position % mList[0].size // Calculate column number
+        val seatLabel = "${seatRows[row]}${col + 1}" // Generate seat label (e.g., A1, B2)
 
+        // Determine if seat is reserved
+        val isReserved = reservedSeats.contains(seatLabel)
+
+        // Set default seat image
         holder.imgSeat.setImageResource(R.drawable.icon_chair)
-        holder.imgSeat.imageTintList = if (mList[row][col]) {
-            ColorStateList.valueOf(ContextCompat.getColor(holder.itemView.context, R.color.red_exp)) // Ghế đã chọn
+
+        // Update seat color based on state (reserved, selected, or available)
+        if (isReserved) {
+            holder.imgSeat.imageTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(holder.itemView.context, R.color.green_chaleston)
+            )
+        } else if (mList[row][col]) {
+            holder.imgSeat.imageTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(holder.itemView.context, R.color.red)
+            )
         } else {
-            ColorStateList.valueOf(ContextCompat.getColor(holder.itemView.context, R.color.white)) // Ghế trống
+            holder.imgSeat.imageTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(holder.itemView.context, R.color.white)
+            )
         }
 
+        // Handle seat selection click
         holder.itemView.setOnClickListener {
-            onChairClick(position) // Call the click listener
+            if (!isReserved) {  // If not reserved, toggle selection
+                onChairClick(position)
+            }
         }
     }
 }
