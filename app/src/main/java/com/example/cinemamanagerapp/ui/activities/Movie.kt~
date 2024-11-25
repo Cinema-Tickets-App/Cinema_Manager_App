@@ -66,7 +66,7 @@ class Movie : AppCompatActivity() {
 
             tvTitle.text = movieInfo!!.title
             tvDescription.text = "Mô tả: ${movieInfo!!.description}"
-//            tvShowTime.text = "Giờ chiếu: ${formatDate(movieInfo!!.release_date)}"
+            tvShowTime.text = "Giờ chiếu: ${formatDate(movieInfo!!.release_date)}"
             tvDuration.text = "Thời lượng: ${movieInfo!!.duration} phút"
             tvReleaseDate.text = "Ngày phát hành: ${formatDate(movieInfo!!.release_date)}"
             tvCategory.text = "Thể loại: ${movieInfo!!.category_id}"
