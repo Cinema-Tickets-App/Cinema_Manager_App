@@ -23,4 +23,14 @@
         android:layout_weight="1" />
 
 
+    <!-- Back Button -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:id="@+id/btnBackShowTime"
+        android:text="Quay lại"
+        android:background="@drawable/button_bg"
+        android:textColor="@android:color/white" />
+
 </LinearLayout>

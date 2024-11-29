@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatImageButton
 import com.bumptech.glide.Glide
 import com.example.cinemamanagerapp.R
 import com.example.cinemamanagerapp.api.FavoriteCheckResponse
@@ -43,6 +44,13 @@ class Movie : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie)
 
+        val btnBack = findViewById<AppCompatImageButton>(R.id.btnBackMovie)
+        btnBack.setOnClickListener {
+            finish() // Phương thức này sẽ xử lý quay lại màn hình trước đó
+        }
+
+
+
         // Ánh xạ các View
         tvTitle = findViewById(R.id.tvMovieName)
         tvDescription = findViewById(R.id.tvPlot)
@@ -69,7 +77,8 @@ class Movie : AppCompatActivity() {
 //            tvShowTime.text = "Giờ chiếu: ${formatDate(movieInfo!!.release_date)}"
             tvDuration.text = "Thời lượng: ${movieInfo!!.duration} phút"
             tvReleaseDate.text = "Ngày phát hành: ${formatDate(movieInfo!!.release_date)}"
-            tvCategory.text = "Thể loại: ${movieInfo!!.category_id}"
+            tvCategory.text = "Thể loại: ${movieInfo!!.category}"
+
 
             Glide.with(this).load(movieInfo!!.image_url).into(imgMovie)
         } else {

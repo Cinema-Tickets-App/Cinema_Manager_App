@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemamanagerapp.R
@@ -22,7 +23,10 @@ class ShowtimeSelectionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_showtime_selection)
-
+        val btnBack = findViewById<AppCompatButton>(R.id.btnBackShowTime)
+        btnBack.setOnClickListener {
+            finish()  // Quay lại màn hình trước đó
+        }
         tvMovieTitle = findViewById(R.id.tvMovieTitle)
         showtimeRecyclerView = findViewById(R.id.showtime_list)
 
@@ -57,6 +61,7 @@ class ShowtimeSelectionActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this, "Không có suất chiếu cho bộ phim này!", Toast.LENGTH_SHORT).show()
         }
+
     }
 }
 

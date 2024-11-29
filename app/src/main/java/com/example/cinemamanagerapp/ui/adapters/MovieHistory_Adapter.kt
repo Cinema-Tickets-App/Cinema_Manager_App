@@ -2,6 +2,7 @@ package com.example.cinemamanagerapp.ui.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.example.cinemamanagerapp.R
 import com.example.cinemamanagerapp.api.Ticket
 import com.example.cinemamanagerapp.ui.activities.QRCodeActivity
+import com.google.gson.Gson
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -43,10 +45,12 @@ class MovieHistory_Adapter(private val context: Context, private val ticketList:
         val tvTickAmount: TextView = view.findViewById(R.id.tv_tickAmount)
         val tvShowTime: TextView = view.findViewById(R.id.tv_showTime)
         val tvPaymentSum: TextView = view.findViewById(R.id.tv_paymentSum)
-        val ivMoviePoster: ImageView = view.findViewById(R.id.img_movie)  // ImageView để hiển thị ảnh
+        val ivMoviePoster: ImageView =
+            view.findViewById(R.id.img_movie)  // ImageView để hiển thị ảnh
 
         // Lấy tên phim từ ticket.movie
-        val movieName = ticket.movie?.title ?: "Tên phim không có" // Nếu không có tên phim, hiển thị mặc định
+        val movieName =
+            ticket.movie?.title ?: "Tên phim không có" // Nếu không có tên phim, hiển thị mặc định
         tvMovieName.text = "Tên phim: $movieName"  // Hiển thị tên phim
 
         // Hiển thị danh sách ghế
@@ -78,9 +82,39 @@ class MovieHistory_Adapter(private val context: Context, private val ticketList:
         view.setOnClickListener {
             val qrCodeContent = generateQRCode(ticket)  // Mã QR từ ticket
             val intent = Intent(context, QRCodeActivity::class.java)
+
+            // Truyền thông tin cần thiết vào intent
             intent.putExtra("QR_CODE_CONTENT", qrCodeContent)  // Truyền mã QR vào intent
             intent.putExtra("MOVIE_NAME", ticket.movie?.title)  // Truyền tên phim vào intent
-            intent.putExtra("TICKET_ID", ticket._id)  // Truyền ID vé vào intent
+            intent.putExtra("TICKET_ID", ticket._id)// Truyền ID vé vào intent
+            intent.putExtra(
+                "USER_EMAIL",
+                ticket.user?.email ?: "Email người dùng không có"
+            )
+
+            intent.putExtra(
+                "SHOW_TIME",
+                ticket.showtime?.start_time ?: "Không có thông tin giờ chiếu"
+            )  // Truyền thời gian chiếu
+            intent.putExtra(
+                "SEAT_NUMBERS",
+                ticket.seats.joinToString(", ") ?: "Chưa chọn ghế"
+            )  // Truyền danh sách ghế
+
+// Nếu food_drinks là một mảng, bạn cần phải chuyển nó thành chuỗi JSON hoặc truyền mảng nếu muốn
+            val foodDetails = if (ticket.food_drinks != null && ticket.food_drinks.isNotEmpty()) {
+                Gson().toJson(ticket.food_drinks)  // Chuyển mảng food_drinks thành chuỗi JSON
+            } else {
+                "Không đặt đồ ăn"
+            }
+            intent.putExtra("FOOD_DETAILS", foodDetails)  // Truyền thông tin món ăn
+            intent.putExtra("TOTAL_PRICE", ticket.price ?: "Chưa có giá")  // Truyền tổng giá
+            intent.putExtra(
+                "PAYMENT_METHOD",
+                ticket.payment_method ?: "Chưa chọn"
+            )  // Truyền phương thức thanh toán
+
+            // Mở QRCodeActivity với intent đã thêm dữ liệu
             context.startActivity(intent)
         }
 
@@ -113,4 +147,3 @@ class MovieHistory_Adapter(private val context: Context, private val ticketList:
         return ticket._id ?: "QR_${System.currentTimeMillis()}"
     }
 }
-

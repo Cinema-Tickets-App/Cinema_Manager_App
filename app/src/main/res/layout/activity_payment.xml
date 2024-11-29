@@ -139,8 +139,43 @@
                     android:textColor="@color/white"
                     android:textSize="18sp" />
             </LinearLayout>
+
+            <!-- Container nhập mã giảm giá -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <!-- Trường nhập mã giảm giá -->
+                <EditText
+                    android:id="@+id/et_discount_code"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:hint="Nhập mã giảm giá"
+                    android:padding="12dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/light_gray"
+                    android:textSize="16sp" />
+
+                <!-- Nút áp dụng -->
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_apply_discount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/button_bg"
+                    android:text="Áp dụng"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
         </LinearLayout>
+
+
     </androidx.cardview.widget.CardView>
+
 
     <!-- Số ghế đã chọn -->
     <TextView

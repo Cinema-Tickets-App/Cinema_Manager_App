@@ -14,7 +14,6 @@ import com.example.cinemamanagerapp.R
 import com.example.cinemamanagerapp.api.RetrofitClient
 import com.example.cinemamanagerapp.api.Ticket
 import com.example.cinemamanagerapp.ui.adapters.MovieHistory_Adapter
-import com.example.cinemamanagerapp.ui.adapters.Notification_Adapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -28,7 +27,7 @@ class HistoryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        // Inflate layout fragment
         val rootView = inflater.inflate(R.layout.fragment_history, container, false)
 
         lvHistoryList = rootView.findViewById(R.id.lv_HistoryList)
@@ -59,7 +58,7 @@ class HistoryFragment : Fragment() {
     }
 
     private fun fetchTicketHistory(userId: Int) {
-        lifecycleScope.launch(Dispatchers.Main) {  // Thay GlobalScope bằng lifecycleScope
+        lifecycleScope.launch(Dispatchers.Main) {
             try {
                 // Gọi API để lấy dữ liệu vé từ server
                 val response = RetrofitClient.apiService.getTicketHistory(userId)

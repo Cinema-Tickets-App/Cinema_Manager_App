@@ -18,10 +18,11 @@ import retrofit2.Response
 import android.widget.Button
 import android.widget.Toast
 import android.util.Log
+import androidx.appcompat.widget.AppCompatImageButton
 import com.example.cinemamanagerapp.api.MovieResponse
 
 class NowMovie : AppCompatActivity() {
-    private lateinit var rcvMovieCategoryList: RecyclerView
+
     private lateinit var rcvMovieByCategory: RecyclerView
     private lateinit var btnNowShowing: Button
     private lateinit var btnComingSoon: Button
@@ -37,9 +38,10 @@ class NowMovie : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
-        rcvMovieCategoryList = findViewById(R.id.rcvMovieCategoryList)
-        rcvMovieCategoryList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        val btnBack = findViewById<AppCompatImageButton>(R.id.btnBackNowMovie)
+        btnBack.setOnClickListener {
+            finish() // Phương thức này sẽ xử lý quay lại màn hình trước đó
+        }
 
         rcvMovieByCategory = findViewById(R.id.rcvMovieByCategory)
         moviesAdapter = MoviesByCategory_Adapter(mutableListOf(), this)
