@@ -109,24 +109,41 @@ class Payment : AppCompatActivity() {
 
     // Tính toán tổng tiền món ăn đã chọn
     internal fun updateSelectedFoodPrice() {
-        var selectedFoodPrice = 0
+        var selectedFoodPrice = 0 // Khởi tạo biến lưu tổng tiền mới
+        var previousTotal = 0 // Biến lưu tổng tiền cũ trước khi thay đổi số lượng
+
         // Duyệt qua danh sách món ăn và tính tổng tiền của món ăn đã chọn
         for (food in foodList) {
             if (food.quantity > 0) {
-                selectedFoodPrice += (food.price * food.quantity).toInt() // Tính tổng tiền món ăn
+                // Lưu tổng tiền trước khi thay đổi số lượng (để quay lại nếu số lượng giảm)
+                previousTotal += (food.price * food.quantity).toInt()
             }
         }
 
-        // Cập nhật tổng tiền khi có món ăn đã chọn
-        updateTotalPrice(selectedFoodPrice)
+        // Tính toán tổng tiền sau khi thay đổi số lượng
+        for (food in foodList) {
+            if (food.quantity > 0) {
+                selectedFoodPrice += (food.price * food.quantity).toInt() // Cập nhật lại tổng tiền món ăn đã chọn
+            }
+        }
+
+        // Nếu số lượng giảm, quay lại số tiền trước đó
+        if (selectedFoodPrice < previousTotal) {
+            selectedFoodPrice = previousTotal // Quay lại giá trị tổng tiền cũ nếu cần
+        }
+
+        updateTotalPrice(selectedFoodPrice) // Cập nhật tổng tiền vào giao diện
     }
 
-    // Cập nhật tổng tiền khi có món ăn
+
+    // Cập nhật tổng tiền thanh toán
     private fun updateTotalPrice(selectedFoodPrice: Int) {
-        totalAmount += selectedFoodPrice // Cập nhật totalAmount với giá trị món ăn
-        tvPaymentSum.text =
-            "Tổng thanh toán: ${totalAmount}đ" // Cập nhật giao diện với tổng tiền mới
+        totalAmount = intent.getIntExtra("TOTAL_AMOUNT", 0) // Lấy lại giá trị ban đầu của tổng tiền từ màn hình trước
+
+        totalAmount += selectedFoodPrice // Cập nhật totalAmount với giá trị món ăn đã chọn
+        tvPaymentSum.text = "Tổng thanh toán: ${totalAmount}đ" // Cập nhật giao diện với tổng tiền mới
     }
+
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)

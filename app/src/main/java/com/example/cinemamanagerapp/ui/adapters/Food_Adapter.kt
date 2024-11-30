@@ -12,7 +12,8 @@ import com.example.cinemamanagerapp.R
 import com.example.cinemamanagerapp.api.FoodDrinksResponse
 import com.example.cinemamanagerapp.ui.activities.Payment
 
-class Food_Adapter(private var foodList: List<FoodDrinksResponse>?) : BaseAdapter() {
+class Food_Adapter(private var foodList: MutableList<FoodDrinksResponse>?) : BaseAdapter() {
+
     override fun getCount(): Int {
         return foodList?.size ?: 0
     }
@@ -47,23 +48,23 @@ class Food_Adapter(private var foodList: List<FoodDrinksResponse>?) : BaseAdapte
 
         nameTextView.text = food.name
         amountTextView.text = food.quantity.toString()
-        priceTextView.text = food.price.toString()
+        priceTextView.text = "${food.price.toInt()} đ" // Chuyển food.price thành Int để hiển thị
 
         Glide.with(view.context).load(food.image).into(imageView)
 
+        // Nút cộng
         addButton.setOnClickListener {
-            food.quantity++
-            amountTextView.text = food.quantity.toString()
-            // Cập nhật lại tổng tiền sau khi thay đổi số lượng
-            (parent?.context as? Payment)?.updateSelectedFoodPrice()
+            food.quantity++ // Tăng số lượng
+            amountTextView.text = food.quantity.toString() // Cập nhật số lượng trên giao diện
+            (parent?.context as? Payment)?.updateSelectedFoodPrice() // Cập nhật tổng tiền
         }
 
+        // Nút trừ
         subButton.setOnClickListener {
-            if (food.quantity > 0) {
-                food.quantity--
-                amountTextView.text = food.quantity.toString()
-                // Cập nhật lại tổng tiền sau khi thay đổi số lượng
-                (parent?.context as? Payment)?.updateSelectedFoodPrice()
+            if (food.quantity > 0) { // Đảm bảo số lượng không giảm dưới 0
+                food.quantity-- // Giảm số lượng
+                amountTextView.text = food.quantity.toString() // Cập nhật số lượng trên giao diện
+                (parent?.context as? Payment)?.updateSelectedFoodPrice() // Cập nhật tổng tiền
             }
         }
 

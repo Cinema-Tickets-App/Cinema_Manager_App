@@ -78,8 +78,14 @@ class ChooseChair : AppCompatActivity() {
 
         btnToPayment = findViewById(R.id.btn_to_payment)
         btnToPayment.setOnClickListener {
-            val totalPrice = calculateTotalPrice() // Add seat price here
+            val totalPrice = calculateTotalPrice() // Tính tổng tiền
             val selectedSeatsList = getSelectedSeats()
+
+            // Kiểm tra nếu không có ghế nào được chọn
+            if (selectedSeatsList.isEmpty()) {
+                Toast.makeText(this, "Vui lòng chọn ít nhất một ghế", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
             // Log thông tin khi chuyển dữ liệu thanh toán
             Log.d("ChooseChair", "Selected Seats: $selectedSeatsList")
@@ -87,22 +93,13 @@ class ChooseChair : AppCompatActivity() {
             Log.d("ChooseChair", "Total Price: $totalPrice")
 
             val intent = Intent(this, Payment::class.java)
-            intent.putExtra(
-                "TOTAL_AMOUNT",
-                totalPrice
-            ) // Pass the total amount (seat price + ticket price)
+            intent.putExtra("TOTAL_AMOUNT", totalPrice) // Truyền tổng số tiền (giá vé + ghế)
             intent.putExtra("SELECTED_SEATS", selectedSeatsList)
             intent.putExtra("SHOWTIME_ID", showtimeId)
             intent.putExtra("TICKET_PRICE", ticketPrice)
 
             // Log để xác nhận dữ liệu đã được truyền đi
-            Log.d(
-                "ChooseChair",
-                "Passing data to Payment screen: Total Amount = ${totalPrice + ticketPrice}, Selected Seats = $selectedSeatsList, Showtime ID = $showtimeId"
-            )
-
-
-
+            Log.d("ChooseChair", "Passing data to Payment screen: Total Amount = ${totalPrice + ticketPrice}, Selected Seats = $selectedSeatsList, Showtime ID = $showtimeId")
 
             startActivity(intent)
         }
