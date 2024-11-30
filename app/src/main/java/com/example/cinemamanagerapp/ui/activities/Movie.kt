@@ -36,9 +36,11 @@ class Movie : AppCompatActivity() {
     private lateinit var imgMovie: ImageView
     private lateinit var btnAddToFavorites: TextView
     private lateinit var btnBookTickets: Button
+    private var btnTrailer: Button? = null
     private var userId: Int = -1
     private var movieId: Int = -1
     private var movieInfo: MovieResponse? = null  // Khai báo movieInfo ở phạm vi lớp
+    private var url: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +65,14 @@ class Movie : AppCompatActivity() {
         imgMovie = findViewById(R.id.videoMovie)
         btnAddToFavorites = findViewById(R.id.ig_Love)
         btnBookTickets = findViewById(R.id.BTN_BookTickets)
+        btnTrailer = findViewById(R.id.btnTrailer)
+
+        btnTrailer!!.setOnClickListener {
+            url = "https://www.youtube.com/watch?v=U9H-6w7Qwu4&t=610s" // truyen url vao trong intent
+            val intent = Intent(this, TrailerActivity::class.java)
+            intent.putExtra("url", url)
+            startActivity(intent)
+        }
 
         userId = getUserId()
 
