@@ -8,6 +8,7 @@
     android:background="@color/main_color"
     tools:context=".ui.activities.NowMovie">
 
+    <!-- LinearLayout chứa Button và nút Back -->
     <LinearLayout
         android:id="@+id/LL_NowMovie"
         android:layout_width="match_parent"
@@ -20,16 +21,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <!-- Nút Back -->
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btnBackNowMovie"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:background="@drawable/back"
+            android:backgroundTint="@color/green_chaleston"
+
+            android:layout_gravity="center_vertical"/>
+
+        <!-- Nút "Phim đang chiếu" -->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnNowShowing"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="5"
+            android:layout_marginStart="15dp"
             android:background="@color/green_chaleston"
             android:gravity="center"
             android:text="Phim đang chiếu"
             android:textColor="@color/white" />
 
+        <!-- Nút "Sắp ra mắt" -->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnComingSoon"
             android:layout_width="0dp"
@@ -41,24 +55,13 @@
             android:textColor="@color/white" />
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcvMovieCategoryList"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/green_chaleston"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LL_NowMovie" />
-
+    <!-- RecyclerView hiển thị phim theo thể loại -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcvMovieByCategory"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="70dp"
         android:layout_marginEnd="16dp"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"

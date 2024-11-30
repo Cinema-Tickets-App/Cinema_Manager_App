@@ -1,44 +1,170 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_color"
-    android:gravity="center"
-    android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- TextView để hiển thị tên phim android:contentDescription="@string/qr_code_image"-->
-    <TextView
-        android:id="@+id/tvMovieName"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Tên phim: Sample Movie"
-        android:textSize="18sp" />
+        android:orientation="vertical"
+        android:layout_marginTop="40dp">
 
-    <!-- TextView để hiển thị thông tin vé -->
-    <TextView
-        android:id="@+id/tvTicketInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Vé ID: 123456789"
-        android:textSize="16sp" />
+        <!-- Booking Details Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thông Tin Đặt Vé"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
 
-    <!-- ImageView để hiển thị mã QR -->
-    <ImageView
-        android:id="@+id/ivQRCode"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:src="@drawable/ic_launcher_foreground" />
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            android:layout_marginBottom="16dp">
 
-    <!-- Button quay lại -->
-    <Button
-        android:id="@+id/btnBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:background="@color/main_color"
+                android:orientation="vertical">
 
-        android:background="@drawable/button_background"
-        android:text="Quay lại"
-        android:textColor="@android:color/white" />
-</LinearLayout>
+                <TextView
+                    android:id="@+id/tvTicketInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ID Đặt Vé: 123456789"
+                    android:textColor="@color/white"
+                    android:layout_marginBottom="8dp" />
+                <TextView
+                    android:id="@+id/tvNameInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Người Dùng: Nguyễn Văn A"
+                    android:textColor="@color/white"
+                    android:layout_marginBottom="8dp" />
+                <TextView
+                    android:id="@+id/tvMovieInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Phim: Avengers: Endgame"
+                    android:textColor="@color/white"
+                    android:layout_marginBottom="8dp" />
+                <TextView
+                    android:id="@+id/tvTimeInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Thời Gian Chiếu: 19:00"
+                    android:textColor="@color/white"
+                    android:layout_marginBottom="8dp" />
+                <TextView
+                    android:id="@+id/tvChooseInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ghế: A12, A13"
+                    android:textColor="@color/white"
+                    android:layout_marginBottom="8dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Food and Price Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thông Tin Đồ Ăn vs Giá Tiền"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:background="@color/main_color"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvFoodInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Đồ Ăn: Bắp rang, Coca"
+                    android:textColor="@color/white"
+                    android:layout_marginBottom="8dp"/>
+
+                <TextView
+                    android:id="@+id/tvPayInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tổng Giá: 350.000 VND"
+                    android:textColor="@color/white"
+                    android:layout_marginBottom="8dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Payment Info Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thông Tin Thanh Toán"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:background="@color/main_color"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvPayListInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hình Thức Thanh Toán: Ví Momo"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- QR Code -->
+        <ImageView
+            android:id="@+id/ivQRCode"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_launcher_foreground"
+            android:contentDescription="QR Code Image" />
+
+        <!-- Back Button -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:id="@+id/btnBack"
+            android:text="Quay lại"
+            android:background="@drawable/button_bg"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+</ScrollView>

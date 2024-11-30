@@ -7,6 +7,8 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemamanagerapp.R
@@ -30,6 +32,11 @@ class ChooseChair : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_choose_chair)
 
+        val btnBack = findViewById<AppCompatImageButton>(R.id.btnBack)
+        btnBack.setOnClickListener {
+            finish() // Phương thức này sẽ xử lý quay lại màn hình trước đó
+        }
+
         tvTotalPrice = findViewById(R.id.tvPaymentSum)
         tvSelectedSeats = findViewById(R.id.tvSelectedSeats)
 
@@ -38,6 +45,7 @@ class ChooseChair : AppCompatActivity() {
             Toast.makeText(this, "Lỗi: Suất chiếu không hợp lệ", Toast.LENGTH_SHORT).show()
             finish()
         }
+
 
         movieInfo = intent.getSerializableExtra("MOVIE_INFO") as MovieResponse
         ticketPrice = intent.getIntExtra("TICKET_PRICE", 0)
@@ -79,13 +87,22 @@ class ChooseChair : AppCompatActivity() {
             Log.d("ChooseChair", "Total Price: $totalPrice")
 
             val intent = Intent(this, Payment::class.java)
-            intent.putExtra("TOTAL_AMOUNT", totalPrice) // Pass the total amount (seat price + ticket price)
+            intent.putExtra(
+                "TOTAL_AMOUNT",
+                totalPrice
+            ) // Pass the total amount (seat price + ticket price)
             intent.putExtra("SELECTED_SEATS", selectedSeatsList)
             intent.putExtra("SHOWTIME_ID", showtimeId)
             intent.putExtra("TICKET_PRICE", ticketPrice)
 
             // Log để xác nhận dữ liệu đã được truyền đi
-            Log.d("ChooseChair", "Passing data to Payment screen: Total Amount = ${totalPrice + ticketPrice}, Selected Seats = $selectedSeatsList, Showtime ID = $showtimeId")
+            Log.d(
+                "ChooseChair",
+                "Passing data to Payment screen: Total Amount = ${totalPrice + ticketPrice}, Selected Seats = $selectedSeatsList, Showtime ID = $showtimeId"
+            )
+
+
+
 
             startActivity(intent)
         }

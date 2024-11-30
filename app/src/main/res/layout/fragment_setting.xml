@@ -99,28 +99,6 @@
                         android:background="?actionBarDivider" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/lnHistory"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/textContent"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:enabled="false"
-                        android:padding="15dp"
-                        android:text="Lịch sử" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="?actionBarDivider" />
-                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/lnChangePassword"

@@ -12,6 +12,8 @@ data class RegisterRequest(
     val password: String
 )
 
+
+
 data class UserProfileUpdateRequest(
     val user_id: Int,
     val email: String,
@@ -47,4 +49,15 @@ data class UserProfileEditRequest(
 
 data class MovieIdRequest(
     val movie_id: Int,
+)
+
+
+// Model cho yêu cầu đặt vé
+data class TicketRequest(
+    val user_id: Int,
+    val showtime_id: Int,
+    val seats: List<String>,
+    val food_drinks: List<FoodDrink>,
+    val payment_method: String,
+    val price: Int
 )

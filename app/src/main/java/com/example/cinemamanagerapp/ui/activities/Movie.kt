@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatImageButton
 import com.bumptech.glide.Glide
 import com.example.cinemamanagerapp.R
 import com.example.cinemamanagerapp.api.FavoriteCheckResponse
@@ -43,6 +44,13 @@ class Movie : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie)
 
+        val btnBack = findViewById<AppCompatImageButton>(R.id.btnBackMovie)
+        btnBack.setOnClickListener {
+            finish() // Phương thức này sẽ xử lý quay lại màn hình trước đó
+        }
+
+
+
         // Ánh xạ các View
         tvTitle = findViewById(R.id.tvMovieName)
         tvDescription = findViewById(R.id.tvPlot)
@@ -66,10 +74,11 @@ class Movie : AppCompatActivity() {
 
             tvTitle.text = movieInfo!!.title
             tvDescription.text = "Mô tả: ${movieInfo!!.description}"
-            tvShowTime.text = "Giờ chiếu: ${formatDate(movieInfo!!.release_date)}"
+//            tvShowTime.text = "Giờ chiếu: ${formatDate(movieInfo!!.release_date)}"
             tvDuration.text = "Thời lượng: ${movieInfo!!.duration} phút"
             tvReleaseDate.text = "Ngày phát hành: ${formatDate(movieInfo!!.release_date)}"
-            tvCategory.text = "Thể loại: ${movieInfo!!.category_id}"
+            tvCategory.text = "Thể loại: ${movieInfo!!.category}"
+
 
             Glide.with(this).load(movieInfo!!.image_url).into(imgMovie)
         } else {
@@ -217,35 +226,17 @@ class Movie : AppCompatActivity() {
                         val showtimes = response.body()
                         if (showtimes != null && showtimes.isNotEmpty()) {
                             Log.d("MovieActivity", "Tìm thấy ${showtimes.size} suất chiếu.")
-                            val showtime = showtimes[0]
-                            val ticketPrice = showtime.ticket_price ?: 0
-                            Log.d("MovieActivity", "Giá vé của suất chiếu là: $ticketPrice")
 
-                            if (ticketPrice > 0) {
-                                val intent = Intent(this@Movie, ChooseChair::class.java)
-                                intent.putExtra("MOVIE_INFO", movieInfo)
-                                intent.putExtra("TICKET_PRICE", ticketPrice)
-                                intent.putExtra(
-                                    "SHOWTIME_ID",
-                                    showtime.showtime_id
-                                )  // Pass showtime_id
-                                intent.putExtra(
-                                    "RESERVED_SEATS",
-                                    ArrayList(showtime.reserved_seats)
-                                )
-                                Log.d(
-                                    "MovieActivity",
-                                    "Chuyển sang màn hình chọn ghế với showtime_id: ${showtime.showtime_id}"
-                                )
-                                startActivity(intent)
-                            } else {
-                                Log.d("MovieActivity", "Giá vé không hợp lệ.")
-                                Toast.makeText(
-                                    this@Movie,
-                                    "Oops, có vấn đề với giá vé. Vui lòng thử lại sau!",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
+                            // Truyền danh sách các suất chiếu qua màn hình ShowtimeSelectionActivity
+                            val intent = Intent(this@Movie, ShowtimeSelectionActivity::class.java)
+                            intent.putExtra("MOVIE_INFO", movieInfo)  // Chuyển thông tin phim
+                            intent.putExtra(
+                                "SHOWTIMES",
+                                ArrayList(showtimes)
+                            )  // Chuyển danh sách suất chiếu
+
+                            Log.d("MovieActivity", "Chuyển sang màn hình chọn suất chiếu")
+                            startActivity(intent)  // Chuyển màn hình
                         } else {
                             Log.d(
                                 "MovieActivity",
