@@ -71,7 +71,7 @@ class HistoryActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 // Log và thông báo lỗi khi gọi API
                 Log.e("HistoryActivity", "Error occurred while fetching ticket history: ${e.message}")
-                Toast.makeText(this@HistoryActivity, "Lỗi khi lấy dữ liệu", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@HistoryActivity, "Không có vé", Toast.LENGTH_SHORT).show()
 
                 // Log chi tiết exception để debug
                 Log.e("HistoryActivity", "Exception: ", e)

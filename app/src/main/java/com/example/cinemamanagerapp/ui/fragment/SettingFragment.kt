@@ -88,10 +88,20 @@ class SettingFragment : Fragment() {
     }
 
     private fun logoutUser() {
-        // Xóa thông tin người dùng khỏi SharedPreferences
-        val sharedPreferences = activity?.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
-        sharedPreferences?.edit()?.clear()?.apply()
-        // Chuyển hướng về màn hình đăng nhập
-        (context as LoginActivity).finish()
+        // Lấy SharedPreferences từ Activity
+        val sharedPreferences = requireActivity().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+
+        // Xóa tất cả dữ liệu lưu trữ trong SharedPreferences
+        editor.clear()
+        editor.apply()
+
+        // Đăng xuất và chuyển về màn hình LoginActivity
+        val intent = Intent(requireActivity(), LoginActivity::class.java)
+        startActivity(intent)
+
+        // Kết thúc activity hiện tại
+        requireActivity().finish()
     }
+
 }

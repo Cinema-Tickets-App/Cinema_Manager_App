@@ -79,7 +79,7 @@ class HistoryFragment : Fragment() {
             } catch (e: Exception) {
                 // Log và thông báo lỗi khi gọi API
                 Log.e("HistoryFragment", "Error occurred while fetching ticket history: ${e.message}")
-                Toast.makeText(activity, "Lỗi khi lấy dữ liệu", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "Không tìm thấy lịch sử vé cho người dùng này", Toast.LENGTH_SHORT).show()
 
                 // Log chi tiết exception để debug
                 Log.e("HistoryFragment", "Exception: ", e)

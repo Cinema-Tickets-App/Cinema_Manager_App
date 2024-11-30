@@ -3,9 +3,6 @@ package com.example.cinemamanagerapp.ui.activities
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
@@ -28,26 +25,38 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
 
-        editTextAcc = findViewById(R.id.editText_Acc)
-        editTextPass = findViewById(R.id.editText_Pass)
-        buttonLogin = findViewById(R.id.ButtonLogin)
-        textViewRegister = findViewById(R.id.textRegister)
+        // Kiểm tra xem người dùng đã đăng nhập chưa
+        if (isUserLoggedIn()) {
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        } else {
+            setContentView(R.layout.activity_login)
 
-        buttonLogin.setOnClickListener {
-            val email = editTextAcc.text.toString()
-            val password = editTextPass.text.toString()
+            editTextAcc = findViewById(R.id.editText_Acc)
+            editTextPass = findViewById(R.id.editText_Pass)
+            buttonLogin = findViewById(R.id.ButtonLogin)
+            textViewRegister = findViewById(R.id.textRegister)
 
-            if (email.isNotEmpty() && password.isNotEmpty()) {
-                loginUser(email, password)
-            } else {
-                Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show()
+            buttonLogin.setOnClickListener {
+                val email = editTextAcc.text.toString()
+                val password = editTextPass.text.toString()
+
+                // Kiểm tra email và mật khẩu có hợp lệ không
+                if (email.isNotEmpty() && password.isNotEmpty()) {
+                    if (isEmailValid(email) && isPasswordStrong(password)) {
+                        loginUser(email, password)
+                    } else {
+                        Toast.makeText(this, "Email hoặc mật khẩu không hợp lệ", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show()
+                }
             }
-        }
 
-        textViewRegister.setOnClickListener {
-            startActivity(Intent(this, RegisterActivity::class.java))
+            textViewRegister.setOnClickListener {
+                startActivity(Intent(this, RegisterActivity::class.java))
+            }
         }
     }
 
@@ -90,6 +99,38 @@ class LoginActivity : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putInt("user_id", userId)
+        editor.putBoolean("is_logged_in", true)  // Lưu trạng thái đăng nhập
         editor.apply()
+    }
+
+    private fun isUserLoggedIn(): Boolean {
+        val sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+        return sharedPreferences.getBoolean("is_logged_in", false)
+    }
+
+    // Kiểm tra email hợp lệ
+    private fun isEmailValid(email: String): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+    // Kiểm tra mật khẩu có đủ độ mạnh không
+    private fun isPasswordStrong(password: String): Boolean {
+        // Kiểm tra mật khẩu có ít nhất 8 ký tự
+        if (password.length < 8) return false
+
+        // Kiểm tra mật khẩu có ít nhất một chữ cái viết hoa
+        if (!password.any { it.isUpperCase() }) return false
+
+        // Kiểm tra mật khẩu có ít nhất một chữ cái viết thường
+        if (!password.any { it.isLowerCase() }) return false
+
+        // Kiểm tra mật khẩu có ít nhất một chữ số
+        if (!password.any { it.isDigit() }) return false
+
+        // Kiểm tra mật khẩu có ít nhất một ký tự đặc biệt
+        val specialChars = "!@#$%^&*()-_+=<>?"
+        if (!password.any { it in specialChars }) return false
+
+        return true
     }
 }

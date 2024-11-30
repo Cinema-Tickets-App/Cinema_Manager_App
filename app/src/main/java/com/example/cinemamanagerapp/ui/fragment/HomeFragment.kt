@@ -84,7 +84,7 @@ class HomeFragment : Fragment() {
                     }
                 } else {
                     Log.e("FetchMoviesByCategory", "Phản hồi không thành công: ${response.errorBody()?.string()}")
-                    Toast.makeText(requireContext(), "Không thể lấy danh sách phim theo thể loại", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Không tìm thấy phim cho thể loại này", Toast.LENGTH_SHORT).show()
                 }
             }
 

@@ -55,6 +55,11 @@ data class UserProfileResponse(
     val avatar_url: String
 )
 
+data class CloudinaryResponse(
+    val url: String?  // URL của ảnh sau khi tải lên
+)
+
+
 // Model cho thông tin phim
 data class MovieResponse(
     val movie_id: Int,

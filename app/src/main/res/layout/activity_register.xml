@@ -74,7 +74,7 @@
                 android:layout_gravity="center"
                 app:passwordToggleEnabled="true"
                 app:passwordToggleTint="@color/gray"
-                android:hint="Tên tài khoản"
+                android:hint="Mật khẩu"
                 app:hintTextColor="@color/gray">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editText_Password"
@@ -89,7 +89,7 @@
                 android:layout_gravity="center"
                 app:passwordToggleEnabled="true"
                 app:passwordToggleTint="@color/gray"
-                android:hint="Tên tài khoản"
+                android:hint="Xác nhận mật khẩu"
                 app:hintTextColor="@color/gray">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editText_ConfirmPassword"

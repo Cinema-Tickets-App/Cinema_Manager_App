@@ -14,6 +14,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import android.util.Log
+import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatImageButton
 
 class ChangePasswordActivity : AppCompatActivity() {
 
@@ -22,6 +24,7 @@ class ChangePasswordActivity : AppCompatActivity() {
     private lateinit var edtReNewPassword: EditText
     private lateinit var btnSubmit: Button
     private lateinit var apiService: ApiService
+    private lateinit var btnBackAccount: AppCompatImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +38,11 @@ class ChangePasswordActivity : AppCompatActivity() {
 
         // Khởi tạo API service từ Retrofit
         apiService = RetrofitClient.apiService
+        btnBackAccount = findViewById(R.id.btnBackAccount)
 
+        btnBackAccount.setOnClickListener {
+            finish()  // Thực hiện hành động quay lại khi nhấn nút
+        }
         // Xử lý sự kiện nhấn nút thay đổi mật khẩu
         btnSubmit.setOnClickListener {
             val currentPassword = edtPassword.text.toString()

@@ -2,8 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Quyền truy cập internet và mạng -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -16,6 +19,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CinemaManagerApp"
         tools:targetApi="31">
+
+        <!-- FileProvider phải là con của <application> -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="androidx.core.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
+
+        <!-- Các activity của ứng dụng -->
         <activity
             android:name=".ui.activities.TrailerActivity"
             android:exported="false" />
@@ -40,13 +56,9 @@
             android:theme="@style/Base.Theme.AppDark">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="app"
-                    android:scheme="demozpdk" />
+                <data android:host="app" android:scheme="demozpdk" />
             </intent-filter>
         </activity>
         <activity

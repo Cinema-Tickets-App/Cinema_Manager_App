@@ -29,8 +29,11 @@ interface ApiService {
     @GET("auth/user/{id}")
     fun getProfile(@Path("id") id: Int): Call<UserProfileResponse>
 
-    @PUT("auth/update-info")
-    fun updateProfile(@Body updatedProfile: UserProfileUpdateRequest): Call<Void>
+    @PUT("auth/update/{user_id}")
+    fun updateProfile(
+        @Path("user_id") userId: Int,  // Truyền tham số user_id vào URL
+        @Body updatedProfile: UserProfileUpdateRequest
+    ): Call<Void>
 
 
     // Lấy tất cả danh mục phim dưới dạng danh sách chuỗi.

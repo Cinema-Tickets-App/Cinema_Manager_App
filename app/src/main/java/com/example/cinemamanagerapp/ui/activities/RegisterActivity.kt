@@ -58,7 +58,25 @@ class RegisterActivity : AppCompatActivity() {
             return
         }
 
-        // Kiểm tra xem mật khẩu có khớp không
+        // Kiểm tra định dạng email hợp lệ
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            Toast.makeText(this, "Email không hợp lệ", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Kiểm tra số điện thoại hợp lệ (Ví dụ, phải có 10 chữ số)
+        if (phoneNumber.length != 10) {
+            Toast.makeText(this, "Số điện thoại phải có 10 chữ số", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Kiểm tra mật khẩu có đủ độ mạnh không
+        if (!isPasswordStrong(password)) {
+            Toast.makeText(this, "Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ cái viết hoa, chữ cái viết thường, số và ký tự đặc biệt", Toast.LENGTH_LONG).show()
+            return
+        }
+
+        // Kiểm tra mật khẩu có khớp không
         if (password != confirmPassword) {
             Toast.makeText(this, "Mật khẩu xác nhận không khớp", Toast.LENGTH_SHORT).show()
             return
@@ -83,4 +101,26 @@ class RegisterActivity : AppCompatActivity() {
             }
         })
     }
+
+    private fun isPasswordStrong(password: String): Boolean {
+        // Kiểm tra mật khẩu có ít nhất 8 ký tự
+        if (password.length < 8) return false
+
+        // Kiểm tra mật khẩu có ít nhất một chữ cái viết hoa
+        if (!password.any { it.isUpperCase() }) return false
+
+        // Kiểm tra mật khẩu có ít nhất một chữ cái viết thường
+        if (!password.any { it.isLowerCase() }) return false
+
+        // Kiểm tra mật khẩu có ít nhất một chữ số
+        if (!password.any { it.isDigit() }) return false
+
+        // Kiểm tra mật khẩu có ít nhất một ký tự đặc biệt
+        val specialChars = "!@#$%^&*()-_+=<>?"
+        if (!password.any { it in specialChars }) return false
+
+        return true
+    }
+
+
 }

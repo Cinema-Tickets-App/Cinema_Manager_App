@@ -15,14 +15,15 @@ data class RegisterRequest(
 
 
 data class UserProfileUpdateRequest(
-    val user_id: Int,
     val email: String,
     val full_name: String,
     val phone_number: String,
     val address: String,
+    val age: Int,
     val gender: String,
-    val age: Int
+    val avatar_url: String
 )
+
 
 
 data class PasswordUpdateRequest(
