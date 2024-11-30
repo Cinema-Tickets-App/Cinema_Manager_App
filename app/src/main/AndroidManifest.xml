@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -16,16 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CinemaManagerApp"
         tools:targetApi="31">
-
-        <!-- The service declaration should be inside the application tag -->
-        <service
-            android:name=".MyFirebaseMessagingService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-
+        <activity
+            android:name=".ui.activities.TrailerActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.activities.QRCodeActivity"
             android:exported="false" />
@@ -42,15 +35,18 @@
         <activity
             android:name=".ui.activities.Payment"
             android:exported="true"
-            android:theme="@style/Base.Theme.AppDark"
             android:label="Merchant Demo"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:theme="@style/Base.Theme.AppDark">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="demozpdk"
-                    android:host="app"/>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="app"
+                    android:scheme="demozpdk" />
             </intent-filter>
         </activity>
         <activity

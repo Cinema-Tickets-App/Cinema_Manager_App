@@ -14,6 +14,7 @@ import androidx.appcompat.widget.AppCompatImageButton
 import com.bumptech.glide.Glide
 import com.example.cinemamanagerapp.R
 import com.example.cinemamanagerapp.api.FavoriteCheckResponse
+import com.example.cinemamanagerapp.api.MovieDetails
 import com.example.cinemamanagerapp.api.MovieResponse
 import com.example.cinemamanagerapp.api.RetrofitClient
 import com.example.cinemamanagerapp.api.ShowTimeResponse
@@ -68,10 +69,14 @@ class Movie : AppCompatActivity() {
         btnTrailer = findViewById(R.id.btnTrailer)
 
         btnTrailer!!.setOnClickListener {
-            url = "https://www.youtube.com/watch?v=U9H-6w7Qwu4&t=610s" // truyen url vao trong intent
-            val intent = Intent(this, TrailerActivity::class.java)
-            intent.putExtra("url", url)
-            startActivity(intent)
+            val trailerUrl = movieInfo?.trailer_url // Lấy giá trị trailer_url từ đối tượng movieInfo
+            if (trailerUrl != null) {
+                val intent = Intent(this, TrailerActivity::class.java)
+                intent.putExtra("url", trailerUrl) // Truyền URL trailer qua intent
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "Trailer không khả dụng", Toast.LENGTH_SHORT).show()
+            }
         }
 
         userId = getUserId()

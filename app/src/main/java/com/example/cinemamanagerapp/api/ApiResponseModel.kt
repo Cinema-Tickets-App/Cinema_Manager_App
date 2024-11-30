@@ -115,12 +115,12 @@ data class ShowTimeResponse(
 
 // Thông tin chi tiết về phim
 data class MovieDetails(
-    val title: String,      // Tên phim
-
-    val description: String, // Mô tả phim
-    val trailer_url: String, // URL trailer
-    val image_url: String   // URL ảnh đại diện phim
+    val title: String,
+    val description: String,
+    val trailer_url: String,
+    val image_url: String
 )
+
 
 
 // Model cho món ăn/đồ uống trong yêu cầu đặt vé
