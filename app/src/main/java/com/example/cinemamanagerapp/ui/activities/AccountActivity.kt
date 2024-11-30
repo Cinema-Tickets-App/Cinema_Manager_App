@@ -168,7 +168,70 @@ class AccountActivity : AppCompatActivity() {
         val fullName = tedNameAccount.text.toString()
         val phone = tedPhoneAccount.text.toString()
         val address = tedAddress.text.toString()
-        val age = tedAgeAccount.text.toString().toIntOrNull() ?: 0
+        val ageText = tedAgeAccount.text.toString()
+
+        // Kiểm tra các trường không được để trống
+        if (email.isEmpty()) {
+            tedEmailAccount.error = "Email không được để trống"
+            return
+        }
+
+        if (fullName.isEmpty()) {
+            tedNameAccount.error = "Tên không được để trống"
+            return
+        }
+
+        if (phone.isEmpty()) {
+            tedPhoneAccount.error = "Số điện thoại không được để trống"
+            return
+        }
+
+        if (address.isEmpty()) {
+            tedAddress.error = "Địa chỉ không được để trống"
+            return
+        }
+
+        // Kiểm tra định dạng email hợp lệ
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            tedEmailAccount.error = "Email không hợp lệ"
+            return
+        }
+
+        // Kiểm tra số điện thoại hợp lệ (tối thiểu 10 ký tự)
+        if (phone.length < 10) {
+            tedPhoneAccount.error = "Số điện thoại phải có ít nhất 10 ký tự"
+            return
+        }
+
+        // Kiểm tra tuổi hợp lệ
+        val age = ageText.toIntOrNull()
+        if (age == null || age <= 0 || age < 18 || age > 100) {
+            tedAgeAccount.error = "Tuổi phải là một giá trị hợp lệ và từ 18 đến 100"
+            return
+        }
+
+        // Kiểm tra địa chỉ không chứa ký tự đặc biệt
+        val addressPattern = "^[a-zA-Z0-9\\s,]+$"
+        if (!address.matches(Regex(addressPattern))) {
+            tedAddress.error = "Địa chỉ không được chứa ký tự đặc biệt"
+            return
+        }
+
+        // Kiểm tra tên không chứa số
+        if (fullName.contains(Regex("[0-9]"))) {
+            tedNameAccount.error = "Tên không được chứa số"
+            return
+        }
+
+//        // Kiểm tra ảnh đại diện (nếu có) phải là một URI hợp lệ
+//        if (selectedImageUri != null) {
+//            val file = File(getRealPathFromURI(selectedImageUri!!))
+//            if (!file.exists()) {
+//                Toast.makeText(this, "Ảnh đại diện không hợp lệ", Toast.LENGTH_SHORT).show()
+//                return
+//            }
+//        }
+
         val gender = when (rdoGroupGender.checkedRadioButtonId) {
             R.id.rdoMale -> "Male"
             R.id.rdoFemale -> "Female"
@@ -201,6 +264,7 @@ class AccountActivity : AppCompatActivity() {
             }
         })
     }
+
 
 
     private fun uploadImageToCloudinary(uri: Uri): String {
