@@ -53,7 +53,6 @@ class Movie : AppCompatActivity() {
         }
 
 
-
         // Ánh xạ các View
         tvTitle = findViewById(R.id.tvMovieName)
         tvDescription = findViewById(R.id.tvPlot)
@@ -69,7 +68,8 @@ class Movie : AppCompatActivity() {
         btnTrailer = findViewById(R.id.btnTrailer)
 
         btnTrailer!!.setOnClickListener {
-            val trailerUrl = movieInfo?.trailer_url // Lấy giá trị trailer_url từ đối tượng movieInfo
+            val trailerUrl =
+                movieInfo?.trailer_url // Lấy giá trị trailer_url từ đối tượng movieInfo
             if (trailerUrl != null) {
                 val intent = Intent(this, TrailerActivity::class.java)
                 intent.putExtra("url", trailerUrl) // Truyền URL trailer qua intent
