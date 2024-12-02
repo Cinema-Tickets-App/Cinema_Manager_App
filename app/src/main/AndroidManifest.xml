@@ -36,6 +36,9 @@
             android:name=".ui.activities.TrailerActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.activities.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activities.QRCodeActivity"
             android:exported="false" />
         <activity

@@ -22,6 +22,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var editTextPass: AppCompatEditText
     private lateinit var buttonLogin: AppCompatButton
     private lateinit var textViewRegister: AppCompatTextView
+    private lateinit var textViewForgotPassword: AppCompatTextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +38,15 @@ class LoginActivity : AppCompatActivity() {
             editTextPass = findViewById(R.id.editText_Pass)
             buttonLogin = findViewById(R.id.ButtonLogin)
             textViewRegister = findViewById(R.id.textRegister)
+
+
+            // Go To Quên Pass
+
+            textViewForgotPassword = findViewById(R.id.textViewForgotPasswordActivity)
+            textViewForgotPassword.setOnClickListener {
+                startActivity(Intent(this, ForgotPasswordActivity::class.java))
+                finish()
+            }
 
             buttonLogin.setOnClickListener {
                 val email = editTextAcc.text.toString()

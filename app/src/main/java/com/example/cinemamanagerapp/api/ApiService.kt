@@ -1,5 +1,7 @@
 package com.example.cinemamanagerapp.api
 
+import okhttp3.FormBody
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -8,6 +10,7 @@ import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
+import retrofit2.http.Url
 
 
 interface ApiService {
@@ -114,6 +117,13 @@ interface ApiService {
     @POST("tickets/book")
     fun bookTicket(@Body ticketRequest: TicketRequest): Call<TicketResponse>
 
-    @POST("sendNotification")
-    fun sendNotification(@Body notification: NotificationResponse): Call<NotificationResponse>
+//    @POST("sendNotification")
+//    fun sendNotification(@Body notification: NotificationResponse): Call<NotificationResponse>
+
+
+    @POST
+    fun sendForgotPasswordRequest(
+        @Url url: String,
+        @Body requestBody: FormBody
+    ): Call<ResponseBody>
 }
