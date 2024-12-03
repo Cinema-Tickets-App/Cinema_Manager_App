@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
@@ -37,6 +38,10 @@ class Payment : AppCompatActivity() {
 
     private var foodList: MutableList<FoodDrinksResponse> = mutableListOf()
     private var showtimeId: Int = -1
+
+    //Giảm giá
+    private var discountPercentage: Int = 0 // Mặc định không có giảm giá
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment)
@@ -61,6 +66,20 @@ class Payment : AppCompatActivity() {
 
         // Lấy dữ liệu món ăn và tính tổng tiền
         fetchFoodData()
+
+
+        //  Giảm giá
+        val etDiscountCode = findViewById<EditText>(R.id.et_discount_code)
+        val btnApplyDiscount = findViewById<Button>(R.id.btn_apply_discount)
+
+        btnApplyDiscount.setOnClickListener {
+            val discountCode = etDiscountCode.text.toString().trim()
+            if (discountCode.isNotEmpty()) {
+                applyDiscountCode(discountCode)
+            } else {
+                Toast.makeText(this, "Vui lòng nhập mã giảm giá!", Toast.LENGTH_SHORT).show()
+            }
+        }
 
         // Khi người dùng nhấn thanh toán
         findViewById<Button>(R.id.btn_payment).setOnClickListener {
@@ -134,6 +153,58 @@ class Payment : AppCompatActivity() {
 
         updateTotalPrice(selectedFoodPrice) // Cập nhật tổng tiền vào giao diện
     }
+
+
+    //Giảm giá
+
+    private fun applyDiscountCode(discountCode: String) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val response = RetrofitClient.apiService.getPromotionByCode(discountCode).execute()
+                if (response.isSuccessful) {
+                    val promotion = response.body()
+                    if (promotion != null) {
+                        discountPercentage = promotion.discount_percentage
+                        val discountedAmount = totalAmount - (totalAmount * discountPercentage / 100)
+                        withContext(Dispatchers.Main) {
+                            totalAmount = discountedAmount
+                            tvPaymentSum.text = "Tổng thanh toán (sau giảm): ${totalAmount}đ"
+                            Toast.makeText(
+                                this@Payment,
+                                "Áp dụng mã giảm giá thành công!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    } else {
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(
+                                this@Payment,
+                                "Mã giảm giá không hợp lệ!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                } else {
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(
+                            this@Payment,
+                            "Lỗi khi kiểm tra mã giảm giá!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(
+                        this@Payment,
+                        "Lỗi kết nối: ${e.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
+
 
 
     // Cập nhật tổng tiền thanh toán

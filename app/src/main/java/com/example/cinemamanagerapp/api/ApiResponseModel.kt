@@ -152,4 +152,12 @@ data class FoodItem(
     val price: String      // Giá món ăn (có thể là chuỗi để bao gồm cả "VND")
 )
 
+//Giảm giá
+data class PromotionResponse(
+    val promotion_id: Int,
+    val discount_percentage: Int,
+    val discount_code: String
+)
+
+
 

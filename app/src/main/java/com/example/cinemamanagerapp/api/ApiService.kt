@@ -121,6 +121,11 @@ interface ApiService {
 //    fun sendNotification(@Body notification: NotificationResponse): Call<NotificationResponse>
 
 
+    //Giảm Giá
+    @GET("/promotions/{code}")
+    fun getPromotionByCode(@Path("code") discountCode: String): Call<PromotionResponse>
+
+
     @POST
     fun sendForgotPasswordRequest(
         @Url url: String,
