@@ -48,6 +48,7 @@ class ShowtimeSelectionActivity : AppCompatActivity() {
                 // Chỉ truyền showtime_id, ticket_price, reserved_seats và movie_info
                 intent.putExtra("SHOWTIME_ID", selectedShowtime.showtime_id)
                 intent.putExtra("MOVIE_INFO", movieInfo)
+                intent.putExtra("START_TIME", selectedShowtime.start_time)
                 intent.putExtra("TICKET_PRICE", selectedShowtime.ticket_price)  // Truyền giá vé
                 intent.putExtra(
                     "RESERVED_SEATS",

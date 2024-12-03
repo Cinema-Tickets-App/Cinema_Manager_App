@@ -13,7 +13,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemamanagerapp.R
 import com.example.cinemamanagerapp.api.MovieResponse
+import com.example.cinemamanagerapp.api.ShowTimeResponse
 import com.example.cinemamanagerapp.ui.adapters.ChairNumber_Adapter
+import java.text.SimpleDateFormat
+import java.util.Locale
+import java.util.TimeZone
 
 class ChooseChair : AppCompatActivity() {
 
@@ -44,6 +48,19 @@ class ChooseChair : AppCompatActivity() {
         if (showtimeId == -1) {
             Toast.makeText(this, "Lỗi: Suất chiếu không hợp lệ", Toast.LENGTH_SHORT).show()
             finish()
+        }
+
+        val tvShowTime =
+            findViewById<TextView>(R.id.tvTime) // Kết nối với TextView hiển thị thời gian
+
+
+// Lấy dữ liệu từ Intent
+        val startTime = intent.getStringExtra("START_TIME") // Nhận chuỗi thời gian
+        if (!startTime.isNullOrEmpty()) {
+            val formattedTime = formatStartTime(startTime) // Định dạng thời gian
+            tvShowTime.text = "Thời gian chiếu: $formattedTime" // Hiển thị lên TextView
+        } else {
+            tvShowTime.text = "Không có thông tin thời gian chiếu"
         }
 
 
@@ -99,7 +116,10 @@ class ChooseChair : AppCompatActivity() {
             intent.putExtra("TICKET_PRICE", ticketPrice)
 
             // Log để xác nhận dữ liệu đã được truyền đi
-            Log.d("ChooseChair", "Passing data to Payment screen: Total Amount = ${totalPrice + ticketPrice}, Selected Seats = $selectedSeatsList, Showtime ID = $showtimeId")
+            Log.d(
+                "ChooseChair",
+                "Passing data to Payment screen: Total Amount = ${totalPrice + ticketPrice}, Selected Seats = $selectedSeatsList, Showtime ID = $showtimeId"
+            )
 
             startActivity(intent)
         }
@@ -148,6 +168,23 @@ class ChooseChair : AppCompatActivity() {
     private fun seatLabelFromIndex(row: Int, col: Int): String {
         val rowChar = ('A'.toInt() + row).toChar()
         return "${rowChar}${col + 1}"
+    }
+
+
+    fun formatStartTime(startTime: String): String {
+        return try {
+            // Parse chuỗi ISO 8601
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+            inputFormat.timeZone = TimeZone.getTimeZone("UTC") // Múi giờ UTC
+            val date = inputFormat.parse(startTime)
+
+            // Định dạng thời gian theo múi giờ địa phương
+            val outputFormat = SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault())
+            outputFormat.format(date!!)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            "Không xác định"
+        }
     }
 }
 

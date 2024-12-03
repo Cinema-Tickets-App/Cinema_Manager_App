@@ -22,19 +22,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Movie Name -->
-    <TextView
-        android:id="@+id/tvMovieName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/roboto_regular"
-        android:text="Movie Name: Thiên thần và ác quỷ"
-        android:textColor="@color/yellow"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_header" />
+<!--    &lt;!&ndash; Movie Name &ndash;&gt;-->
+<!--    <TextView-->
+<!--        android:id="@+id/tvMovieName"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:fontFamily="@font/roboto_regular"-->
+<!--        android:text="Movie Name: Thiên thần và ác quỷ"-->
+<!--        android:textColor="@color/yellow"-->
+<!--        android:textSize="18sp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/tv_header" />-->
 
     <!-- Danh sách món ăn -->
     <androidx.cardview.widget.CardView
@@ -46,7 +46,7 @@
         app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvMovieName">
+        app:layout_constraintTop_toBottomOf="@id/tv_header">
 
         <ListView
             android:id="@+id/lv_FoodList"
