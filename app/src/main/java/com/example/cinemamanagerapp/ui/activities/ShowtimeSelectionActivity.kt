@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemamanagerapp.R
 import com.example.cinemamanagerapp.api.MovieResponse
 import com.example.cinemamanagerapp.api.ShowTimeResponse
+import com.example.cinemamanagerapp.ui.adapters.Showtime_Adapter
 
 class ShowtimeSelectionActivity : AppCompatActivity() {
 
@@ -50,6 +51,8 @@ class ShowtimeSelectionActivity : AppCompatActivity() {
                 intent.putExtra("MOVIE_INFO", movieInfo)
                 intent.putExtra("START_TIME", selectedShowtime.start_time)
                 intent.putExtra("TICKET_PRICE", selectedShowtime.ticket_price)  // Truyền giá vé
+                intent.putExtra("ROOM_ID", selectedShowtime.room_id)  // Truyền room_id
+                intent.putExtra("ROOM_NAME", selectedShowtime.room.room_name)
                 intent.putExtra(
                     "RESERVED_SEATS",
                     ArrayList(selectedShowtime.reserved_seats)

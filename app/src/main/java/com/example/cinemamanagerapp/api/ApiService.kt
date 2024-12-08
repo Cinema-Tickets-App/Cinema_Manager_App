@@ -131,4 +131,9 @@ interface ApiService {
         @Url url: String,
         @Body requestBody: FormBody
     ): Call<ResponseBody>
+
+
+
+    @GET("/cinema-rooms/{room_id}")
+    fun getCinemaRoom(@Path("room_id") roomId: Int): Call<CinemaRoomResponse>
 }

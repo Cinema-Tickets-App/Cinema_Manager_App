@@ -110,13 +110,39 @@ data class User(
 )
 
 data class ShowTimeResponse(
-    val showtime_id: Int,
-    val start_time: String,
-    val room: String,
-    val ticket_price: Int,
+    val showtime_id: Int, // ID tự động trong hệ thống
+    val movie_id: Int, // ID của phim
+    val start_time: String, // Thời gian bắt đầu suất chiếu
+    val room_id: Int, // ID phòng chiếu
+    val ticket_price: Int, // Giá vé
+    val movie: MovieDATA,
+    val room: CinemaRoomResponse, // Thông tin phòng chiếu
     val reserved_seats: List<String>
 ) : Serializable
 
+data class CinemaRoomResponse(
+    val room_id: Int, // ID phòng chiếu (số)
+    val room_name: String, // Tên phòng chiếu
+    val seat_capacity: Int, // Số ghế
+    val is_active: Boolean, // Phòng còn hoạt động không
+    val start_time: String, // Thời gian bắt đầu của phòng
+    val end_time: String, // Thời gian kết thúc của phòng
+    val duration: Int, // Thời lượng của phòng
+    val movie_id: Int // ID phim đang chiếu trong phòng
+) : Serializable
+
+data class MovieDATA(
+    val _id: String, // ID phim (string trong JSON)
+    val title: String, // Tên phim
+    val description: String, // Mô tả phim
+    val trailer_url: String, // Đường dẫn trailer phim
+    val category_id: Int, // ID thể loại phim
+    val duration: Int, // Thời lượng phim
+    val release_date: String, // Ngày phát hành
+    val image_url: String, // Đường dẫn ảnh phim
+    val coming_soon: Boolean, // Có phải phim sắp chiếu không
+    val movie_id: Int // ID phim
+) : Serializable
 
 // Thông tin chi tiết về phim
 data class MovieDetails(
@@ -144,7 +170,8 @@ data class TicketResponse(
     val ticket: Ticket,  // Assuming the response contains a single ticket object
     val seats: List<String>,  // List of selected seats
     val food_drinks: List<FoodDrinksResponse>,  // List of food and drink items
-    val price: String  // Total price for the booking
+    val price: String,  // Total price for the booking
+    val room_name: String, // Tên phòng chiếu
 )
 data class FoodItem(
     val name: String,       // Tên món ăn

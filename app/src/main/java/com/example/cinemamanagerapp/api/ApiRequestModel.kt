@@ -60,5 +60,6 @@ data class TicketRequest(
     val seats: List<String>,
     val food_drinks: List<FoodDrink>,
     val payment_method: String,
-    val price: Int
+    val price: Int,
+    val room_name: String,
 )

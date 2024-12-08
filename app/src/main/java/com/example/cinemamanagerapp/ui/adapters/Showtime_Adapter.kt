@@ -1,10 +1,10 @@
-package com.example.cinemamanagerapp.ui.activities
+package com.example.cinemamanagerapp.ui.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemamanagerapp.R
 import com.example.cinemamanagerapp.api.ShowTimeResponse
@@ -35,21 +35,13 @@ class Showtime_Adapter(
         private val priceTextView: TextView = view.findViewById(R.id.tvTicketPrice)
 
         fun bind(showTime: ShowTimeResponse) {
+
             // Format thời gian hiển thị
             val formattedStartTime = formatTime(showTime.start_time)
-            startTimeTextView.text = "Giờ: $formattedStartTime" // Hiển thị theo yêu cầu
-            roomTextView.text = "Phòng: ${showTime.room}"
-            priceTextView.text = "${showTime.ticket_price} VND"
+            startTimeTextView.text = "Giờ: $formattedStartTime"
 
-            // Log để hiển thị dữ liệu
-            Log.d("Showtime_Adapter", "Showtime ID: ${showTime.showtime_id}")
-            Log.d("Showtime_Adapter", "Start Time: ${showTime.start_time}")
-            Log.d("Showtime_Adapter", "Room: ${showTime.room}")
-            Log.d("Showtime_Adapter", "Ticket Price: ${showTime.ticket_price}")
-            Log.d(
-                "Showtime_Adapter",
-                "Reserved Seats: ${showTime.reserved_seats.joinToString(", ")}"
-            )
+            roomTextView.text = "Phòng: ${showTime.room.room_name}"
+            priceTextView.text = "${showTime.ticket_price} VND"
 
             // Bắt sự kiện click vào mỗi item
             itemView.setOnClickListener {
@@ -62,21 +54,20 @@ class Showtime_Adapter(
             val inputFormat = SimpleDateFormat(
                 "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
                 Locale.getDefault()
-            ) // Định dạng ISO 8601
+            )
             val outputFormat = SimpleDateFormat(
                 "HH:mm dd/MM/yyyy",
                 Locale.getDefault()
-            ) // Định dạng hiển thị mong muốn
+            )
 
             return try {
                 val date = inputFormat.parse(time)
                 if (date != null) {
-                    outputFormat.format(date) // Trả về thời gian đã format
+                    outputFormat.format(date)
                 } else {
-                    time // Trả về chuỗi gốc nếu không parse được
+                    time
                 }
             } catch (e: Exception) {
-                // Nếu không thể parse, trả về chuỗi ban đầu
                 time
             }
         }

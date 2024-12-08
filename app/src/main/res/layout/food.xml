@@ -24,7 +24,7 @@
 
         <TextView
             android:id="@+id/tv_FoodName"
-            android:layout_width="135dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="13dp"
@@ -39,11 +39,11 @@
             android:id="@+id/tv_FoodPrice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="7dp"
+            android:layout_marginStart="0dp"
 
             android:text="0.0"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/IMB_Sub"
             app:layout_constraintStart_toEndOf="@id/tv_FoodName"
             app:layout_constraintTop_toTopOf="@id/tv_FoodName" />

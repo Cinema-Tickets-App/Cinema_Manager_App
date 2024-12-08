@@ -7,10 +7,11 @@
     android:layout_height="match_parent"
     android:background="@color/main_color"
     tools:context=".ui.activities.ChooseChair">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="50dp"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="15dp">
 
         <!-- Nút quay lại -->
 
@@ -25,8 +26,9 @@
             tools:layout_editor_absoluteY="0dp" />
 
 
-
+        <!-- TextView đầu tiên -->
         <TextView
+            android:id="@+id/tvChonGhe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -36,6 +38,22 @@
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@id/btnBack"
+            app:layout_constraintTop_toTopOf="@id/btnBack" />
+
+        <!-- TextView thứ hai -->
+        <TextView
+            android:id="@+id/tvRoomName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="3dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Tên phòng"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/tvChonGhe"
             app:layout_constraintTop_toTopOf="@id/btnBack" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -214,8 +232,6 @@
         app:layout_constraintTop_toBottomOf="@id/rcv_ChairList" />
 
 
-
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_to_payment"
         android:layout_width="200dp"
@@ -239,10 +255,10 @@
         android:layout_marginStart="22dp"
         android:layout_marginTop="14dp"
         android:text="Số ghế đã chọn: 0"
-        android:textSize="14sp"
         android:textColor="@android:color/white"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_to_payment"/>
+        app:layout_constraintTop_toBottomOf="@id/btn_to_payment" />
 
     <TextView
         android:id="@+id/tvTime"
@@ -251,10 +267,10 @@
         android:layout_marginStart="22dp"
         android:layout_marginTop="14dp"
         android:text="Giờ công chiếu : 12/10/2024 ~ 12h10'"
-        android:textSize="14sp"
         android:textColor="@android:color/white"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvSelectedSeats"/>
+        app:layout_constraintTop_toBottomOf="@id/tvSelectedSeats" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

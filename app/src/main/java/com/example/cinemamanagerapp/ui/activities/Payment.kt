@@ -4,20 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ListView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.cinemamanagerapp.R
-import com.example.cinemamanagerapp.api.FoodDrink
-import com.example.cinemamanagerapp.api.FoodDrinksResponse
-import com.example.cinemamanagerapp.api.RetrofitClient
-import com.example.cinemamanagerapp.api.TicketRequest
+import com.example.cinemamanagerapp.api.*
 import com.example.cinemamanagerapp.ui.adapters.Food_Adapter
 import com.example.cinemamanagerapp.zalopay.Api.CreateOrder
+import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -28,47 +22,67 @@ import vn.zalopay.sdk.listeners.PayOrderListener
 
 class Payment : AppCompatActivity() {
 
+    // UI Elements
     private lateinit var tvSelectedSeats: TextView
     private lateinit var tvPaymentSum: TextView
     private lateinit var lvFoodList: ListView
+
+    // Variables
     private lateinit var adapter: Food_Adapter
-
     private var selectedSeats: String = ""
-    private var totalAmount: Int = 0 // Tổng tiền đã tính từ màn hình ChooseChair
-
+    private var totalAmount: Int = 0
     private var foodList: MutableList<FoodDrinksResponse> = mutableListOf()
     private var showtimeId: Int = -1
-
-    //Giảm giá
+    private var roomName: String = ""
     private var discountPercentage: Int = 0 // Mặc định không có giảm giá
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_payment)
+        // Initialize ZaloPay SDK
         ZaloPaySDK.init(2554, Environment.SANDBOX)
+        setContentView(R.layout.activity_payment)
 
-        // Nhận dữ liệu từ màn hình trước (ChooseChair)
+        // Receive data from previous activity
+        receiveIntentData()
+
+        // Initialize UI elements
+        initUI()
+
+        // Fetch food data
+        fetchFoodData()
+
+        // Setup discount code functionality
+        setupDiscountCode()
+
+        // Setup payment button listener
+        findViewById<Button>(R.id.btn_payment).setOnClickListener {
+            payment(totalAmount)
+        }
+    }
+
+    private fun receiveIntentData() {
         selectedSeats = intent.getStringExtra("SELECTED_SEATS") ?: ""
-        totalAmount = intent.getIntExtra("TOTAL_AMOUNT", 0) // Nhận tổng tiền từ ChooseChair
+        totalAmount = intent.getIntExtra("TOTAL_AMOUNT", 0)
         showtimeId = intent.getIntExtra("SHOWTIME_ID", -1)
         if (showtimeId == -1) {
             Toast.makeText(this, "Lỗi: Suất chiếu không hợp lệ", Toast.LENGTH_SHORT).show()
             finish()
         }
-        // Ánh xạ các phần tử giao diện
+
+        roomName = intent.getStringExtra("ROOM_NAME") ?: "Không xác định"
+        Log.d("Payment", "Room Name nhận được: $roomName")
+    }
+
+    private fun initUI() {
         tvSelectedSeats = findViewById(R.id.tv_selectedSeats)
         tvPaymentSum = findViewById(R.id.tv_paymentSum)
         lvFoodList = findViewById(R.id.lv_FoodList)
 
-        // Hiển thị ghế đã chọn và tổng tiền ban đầu
         tvSelectedSeats.text = "Ghế đã chọn: $selectedSeats"
-        tvPaymentSum.text = "Tổng thanh toán: $totalAmount đ" // Hiển thị tổng tiền đã được truyền
+        tvPaymentSum.text = "Tổng thanh toán: $totalAmount đ"
+    }
 
-        // Lấy dữ liệu món ăn và tính tổng tiền
-        fetchFoodData()
-
-
-        //  Giảm giá
+    private fun setupDiscountCode() {
         val etDiscountCode = findViewById<EditText>(R.id.et_discount_code)
         val btnApplyDiscount = findViewById<Button>(R.id.btn_apply_discount)
 
@@ -80,28 +94,21 @@ class Payment : AppCompatActivity() {
                 Toast.makeText(this, "Vui lòng nhập mã giảm giá!", Toast.LENGTH_SHORT).show()
             }
         }
-
-        // Khi người dùng nhấn thanh toán
-        findViewById<Button>(R.id.btn_payment).setOnClickListener {
-            payment(totalAmount) // Truyền totalAmount khi thanh toán
-        }
     }
 
-    // Lấy dữ liệu món ăn
+    // Fetch food data from server
     private fun fetchFoodData() {
-        lifecycleScope.launch(Dispatchers.IO) { // Sử dụng Dispatchers.IO để chạy trên background thread
+        lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val response = RetrofitClient.apiService.getAllFoodDrink()
-                    .execute() // Sử dụng .execute() thay vì enqueue
+                val response = RetrofitClient.apiService.getAllFoodDrink().execute()
                 if (response.isSuccessful) {
                     val foodDrinksList = response.body() ?: emptyList()
                     withContext(Dispatchers.Main) {
-                        // Chuyển dữ liệu về main thread để cập nhật UI
                         foodList.clear()
                         foodList.addAll(foodDrinksList)
                         adapter = Food_Adapter(foodList)
                         lvFoodList.adapter = adapter
-                        updateSelectedFoodPrice() // Cập nhật giá trị tổng tiền
+                        updateSelectedFoodPrice()
                     }
                 } else {
                     withContext(Dispatchers.Main) {
@@ -126,36 +133,16 @@ class Payment : AppCompatActivity() {
         }
     }
 
-    // Tính toán tổng tiền món ăn đã chọn
+    // Update total price when food quantity changes
     internal fun updateSelectedFoodPrice() {
-        var selectedFoodPrice = 0 // Khởi tạo biến lưu tổng tiền mới
-        var previousTotal = 0 // Biến lưu tổng tiền cũ trước khi thay đổi số lượng
-
-        // Duyệt qua danh sách món ăn và tính tổng tiền của món ăn đã chọn
+        var selectedFoodPrice = 0
         for (food in foodList) {
             if (food.quantity > 0) {
-                // Lưu tổng tiền trước khi thay đổi số lượng (để quay lại nếu số lượng giảm)
-                previousTotal += (food.price * food.quantity).toInt()
+                selectedFoodPrice += (food.price * food.quantity).toInt()
             }
         }
-
-        // Tính toán tổng tiền sau khi thay đổi số lượng
-        for (food in foodList) {
-            if (food.quantity > 0) {
-                selectedFoodPrice += (food.price * food.quantity).toInt() // Cập nhật lại tổng tiền món ăn đã chọn
-            }
-        }
-
-        // Nếu số lượng giảm, quay lại số tiền trước đó
-        if (selectedFoodPrice < previousTotal) {
-            selectedFoodPrice = previousTotal // Quay lại giá trị tổng tiền cũ nếu cần
-        }
-
-        updateTotalPrice(selectedFoodPrice) // Cập nhật tổng tiền vào giao diện
+        updateTotalPrice(selectedFoodPrice)
     }
-
-
-    //Giảm giá
 
     private fun applyDiscountCode(discountCode: String) {
         lifecycleScope.launch(Dispatchers.IO) {
@@ -205,117 +192,44 @@ class Payment : AppCompatActivity() {
         }
     }
 
-
-
-    // Cập nhật tổng tiền thanh toán
     private fun updateTotalPrice(selectedFoodPrice: Int) {
-        totalAmount = intent.getIntExtra("TOTAL_AMOUNT", 0) // Lấy lại giá trị ban đầu của tổng tiền từ màn hình trước
-
-        totalAmount += selectedFoodPrice // Cập nhật totalAmount với giá trị món ăn đã chọn
-        tvPaymentSum.text = "Tổng thanh toán: ${totalAmount}đ" // Cập nhật giao diện với tổng tiền mới
+        // Lấy lại giá trị ban đầu của tổng tiền
+        totalAmount = intent.getIntExtra("TOTAL_AMOUNT", 0)
+        totalAmount += selectedFoodPrice
+        tvPaymentSum.text = "Tổng thanh toán: ${totalAmount}đ"
     }
-
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        Log.d("newIntent", intent.toString())
+        Log.d("Payment", "onNewIntent: $intent")
         ZaloPaySDK.getInstance().onResult(intent)
     }
 
-    // Xử lý thanh toán và gửi dữ liệu vé lên server
     private fun payment(totalAmount: Int) {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 Log.d("Payment", "Initiating payment with total amount: $totalAmount")
                 val order = CreateOrder()
-                val data = order.createOrder(totalAmount.toString()) // Sử dụng totalAmount ở đây
+                val data = order.createOrder(totalAmount.toString())
                 val code = data.getString("returncode")
                 val token = data.getString("zptranstoken")
 
                 Log.d("Payment", "Received return code: $code and token: $token")
 
-                // Kiểm tra mã trả về và token
                 if (code == "1" && !token.isNullOrEmpty()) {
                     withContext(Dispatchers.Main) {
-                        // Thanh toán ZaloPay từ Main Thread
                         Log.d("Payment", "Starting ZaloPay payment with token: $token")
                         ZaloPaySDK.getInstance().payOrder(
                             this@Payment,
                             token,
                             "demozpdk://app",
                             object : PayOrderListener {
-                                override fun onPaymentSucceeded(
-                                    p0: String?,
-                                    p1: String?,
-                                    p2: String?
-                                ) {
-                                    // Thanh toán thành công, gửi dữ liệu vé lên server
-                                    Log.d(
-                                        "Payment",
-                                        "Payment succeeded. Redirecting to MainActivity."
-                                    )
-                                    //lấy userId từ SharedPreferences
-                                    val sharedPreferences =
-                                        getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
-                                    val userId = sharedPreferences.getInt(
-                                        "user_id",
-                                        -1
-                                    ) // Đảm bảo rằng key là "user_id"
-                                    Log.d("Payment", "User ID nhận được: $userId")
-
-                                    // Lấy showtimeId từ API hoặc giá trị có sẵn
-                                    val showtimeId = intent.getIntExtra("SHOWTIME_ID", -1)
-
-                                    // Kiểm tra nếu userId hợp lệ
-                                    if (userId == -1) {
-                                        Log.e("Payment", "User ID không hợp lệ")
-                                        Toast.makeText(
-                                            this@Payment,
-                                            "Lỗi lấy thông tin người dùng",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                        return
-                                    }
-                                    val seats =
-                                        selectedSeats.split(",") // Ghế đã chọn, chia tách từ chuỗi
-                                    val foodDrinks = foodList.filter { it.quantity > 0 }
-                                        .map { FoodDrink(it.food_drink_id, it.quantity) }
-
-                                    // Log các thông tin chi tiết về vé
-                                    Log.d("Payment", "User ID: $userId")
-                                    Log.d("Payment", "Showtime ID: $showtimeId")
-                                    Log.d("Payment", "Seats selected: $seats")
-                                    Log.d("Payment", "Food and Drinks selected: $foodDrinks")
-
-                                    // Tạo dữ liệu vé
-                                    val ticketRequest = TicketRequest(
-                                        user_id = userId,
-                                        showtime_id = showtimeId,
-                                        seats = seats,
-                                        food_drinks = foodDrinks,
-                                        payment_method = "ZaloPay", // Phương thức thanh toán
-                                        price = totalAmount
-                                    )
-
-                                    // Gửi yêu cầu lên server để đặt vé
-                                    Log.d(
-                                        "Payment",
-                                        "Sending ticket data to server: $ticketRequest"
-                                    )
-                                    sendTicketData(ticketRequest)
-
-                                    // Chuyển đến màn hình chính sau khi thanh toán thành công
-                                    val intent = Intent(this@Payment, MainActivity::class.java)
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)  // Clear all activities above MainActivity
-                                    intent.putExtra(
-                                        "payment_status",
-                                        "Thanh toán thành công"
-                                    ) // Thêm thông báo vào Intent
-                                    startActivity(intent)
+                                override fun onPaymentSucceeded(p0: String?, p1: String?, p2: String?) {
+                                    Log.d("Payment", "Payment succeeded.")
+                                    handlePaymentSuccess()
                                 }
 
                                 override fun onPaymentCanceled(p0: String?, p1: String?) {
-                                    // Thanh toán bị hủy
                                     Log.d("Payment", "Payment canceled.")
                                     Toast.makeText(
                                         this@Payment,
@@ -324,13 +238,8 @@ class Payment : AppCompatActivity() {
                                     ).show()
                                 }
 
-                                override fun onPaymentError(
-                                    p0: ZaloPayError?,
-                                    p1: String?,
-                                    p2: String?
-                                ) {
-                                    // Xử lý lỗi thanh toán
-                                    Log.e("Payment", "Payment error: ${p0?.let { }}, $p1, $p2")
+                                override fun onPaymentError(p0: ZaloPayError?, p1: String?, p2: String?) {
+                                    Log.e("Payment", "Payment error: $p0, $p1, $p2")
                                     Toast.makeText(
                                         this@Payment,
                                         "Lỗi thanh toán",
@@ -341,7 +250,6 @@ class Payment : AppCompatActivity() {
                     }
                 } else {
                     withContext(Dispatchers.Main) {
-                        // Thông báo lỗi nếu mã trả về không hợp lệ
                         Log.e(
                             "Payment",
                             "Invalid return code or missing token: code=$code, token=$token"
@@ -352,7 +260,6 @@ class Payment : AppCompatActivity() {
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    // Log lỗi và thông báo người dùng
                     Log.e("Payment", "Lỗi khi tạo đơn hàng: ${e.message}", e)
                     Toast.makeText(
                         this@Payment,
@@ -364,32 +271,79 @@ class Payment : AppCompatActivity() {
         }
     }
 
-    // Gửi dữ liệu thanh toán lên server
+    private fun handlePaymentSuccess() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            // Lấy userId từ SharedPreferences
+            val sharedPreferences =
+                getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+            val userId = sharedPreferences.getInt("user_id", -1)
+            Log.d("Payment", "User ID nhận được: $userId")
+
+            // Kiểm tra nếu userId hợp lệ
+            if (userId == -1) {
+                withContext(Dispatchers.Main) {
+                    Log.e("Payment", "User ID không hợp lệ")
+                    Toast.makeText(
+                        this@Payment,
+                        "Lỗi lấy thông tin người dùng",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                return@launch
+            }
+
+            val seats = selectedSeats.split(",")
+            val foodDrinks = foodList.filter { it.quantity > 0 }
+                .map { FoodDrink(it.food_drink_id, it.quantity) }
+
+            val ticketRequest = TicketRequest(
+                user_id = userId,
+                showtime_id = showtimeId,
+                seats = seats,
+                food_drinks = foodDrinks,
+                payment_method = "ZaloPay",
+                price = totalAmount,
+                room_name = roomName // Đảm bảo trường này được bao gồm
+            )
+
+            // Log chi tiết dữ liệu gửi lên server
+            Log.d("Payment", "Dữ liệu vé gửi lên server: $ticketRequest")
+
+            // Gửi yêu cầu lên server để đặt vé
+            sendTicketData(ticketRequest)
+        }
+    }
+
     private fun sendTicketData(ticketRequest: TicketRequest) {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                // Gửi request đến server để đặt vé
-                Log.d("Payment", "Sending ticket data to server: $ticketRequest")
+                // Log dữ liệu JSON gửi lên server
+                val gson = Gson()
+                val ticketJson = gson.toJson(ticketRequest)
+                Log.d("Payment", "JSON gửi lên server: $ticketJson")
+
                 val response = RetrofitClient.apiService.bookTicket(ticketRequest).execute()
                 if (response.isSuccessful) {
                     withContext(Dispatchers.Main) {
                         val ticketResponse = response.body()
                         if (ticketResponse != null) {
-                            // In log thông tin trả về từ server
                             Log.d("Payment", "Đặt vé thành công: ${ticketResponse.message}")
                             Log.d("Payment", "Thông tin vé: ${ticketResponse.ticket}")
                             Log.d("Payment", "Ghế đã chọn: ${ticketResponse.seats}")
                             Log.d("Payment", "Món ăn/đồ uống: ${ticketResponse.food_drinks}")
                             Log.d("Payment", "Giá vé: ${ticketResponse.price}")
+                            Log.d("Payment", "Room Name from server: ${ticketResponse.room_name}")
 
-                            // Hiển thị thông báo hoặc chuyển hướng sang màn hình khác
-                            // VD: Chuyển đến màn hình chính sau khi thanh toán thành công
+                            Toast.makeText(
+                                this@Payment,
+                                "Đặt vé thành công!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                            // Chuyển đến màn hình chính sau khi thanh toán thành công
                             val intent = Intent(this@Payment, MainActivity::class.java)
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)  // Clear all activities above MainActivity
-                            intent.putExtra(
-                                "payment_status",
-                                "Thanh toán thành công"
-                            ) // Thêm thông báo vào Intent
+                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                            intent.putExtra("payment_status", "Thanh toán thành công")
                             startActivity(intent)
                         }
                     }
@@ -408,6 +362,4 @@ class Payment : AppCompatActivity() {
             }
         }
     }
-
-
 }

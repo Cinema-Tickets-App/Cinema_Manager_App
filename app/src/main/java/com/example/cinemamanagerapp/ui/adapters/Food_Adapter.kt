@@ -48,7 +48,7 @@ class Food_Adapter(private var foodList: MutableList<FoodDrinksResponse>?) : Bas
 
         nameTextView.text = food.name
         amountTextView.text = food.quantity.toString()
-        priceTextView.text = "${food.price.toInt()} đ" // Chuyển food.price thành Int để hiển thị
+        priceTextView.text = "${food.price.toInt()}đ" // Chuyển food.price thành Int để hiển thị
 
         Glide.with(view.context).load(food.image).into(imageView)
 

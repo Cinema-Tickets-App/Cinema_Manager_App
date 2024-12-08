@@ -7,13 +7,11 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemamanagerapp.R
 import com.example.cinemamanagerapp.api.MovieResponse
-import com.example.cinemamanagerapp.api.ShowTimeResponse
 import com.example.cinemamanagerapp.ui.adapters.ChairNumber_Adapter
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -31,6 +29,7 @@ class ChooseChair : AppCompatActivity() {
     private lateinit var reservedSeats: List<String>
     private var showtimeId: Int = -1
     private val selectedSeats = mutableListOf<String>()
+    private lateinit var roomName: String // Thêm biến này
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,13 +47,12 @@ class ChooseChair : AppCompatActivity() {
         if (showtimeId == -1) {
             Toast.makeText(this, "Lỗi: Suất chiếu không hợp lệ", Toast.LENGTH_SHORT).show()
             finish()
+            return
         }
 
-        val tvShowTime =
-            findViewById<TextView>(R.id.tvTime) // Kết nối với TextView hiển thị thời gian
+        val tvShowTime = findViewById<TextView>(R.id.tvTime) // Kết nối với TextView hiển thị thời gian
 
-
-// Lấy dữ liệu từ Intent
+        // Lấy dữ liệu từ Intent
         val startTime = intent.getStringExtra("START_TIME") // Nhận chuỗi thời gian
         if (!startTime.isNullOrEmpty()) {
             val formattedTime = formatStartTime(startTime) // Định dạng thời gian
@@ -63,11 +61,17 @@ class ChooseChair : AppCompatActivity() {
             tvShowTime.text = "Không có thông tin thời gian chiếu"
         }
 
+        roomName = intent.getStringExtra("ROOM_NAME") ?: "Không xác định" // Nhận ROOM_NAME từ Intent
+
+        // Nếu bạn cần hiển thị ROOM_NAME trên giao diện, bạn có thể thêm TextView và hiển thị nó
+        val tvRoomName = findViewById<TextView>(R.id.tvRoomName)
+        tvRoomName.text = "Phòng chiếu: $roomName"
 
         movieInfo = intent.getSerializableExtra("MOVIE_INFO") as MovieResponse
         ticketPrice = intent.getIntExtra("TICKET_PRICE", 0)
 
-        reservedSeats = intent.getStringArrayListExtra("RESERVED_SEATS") ?: emptyList()
+        reservedSeats = intent.getStringArrayListExtra("RESERVED_SEATS")?.map { it.trim() } ?: emptyList()
+
         chairList = Array(10) { Array(5) { false } }
 
         reservedSeats.forEach { seat ->
@@ -110,15 +114,16 @@ class ChooseChair : AppCompatActivity() {
             Log.d("ChooseChair", "Total Price: $totalPrice")
 
             val intent = Intent(this, Payment::class.java)
-            intent.putExtra("TOTAL_AMOUNT", totalPrice) // Truyền tổng số tiền (giá vé + ghế)
+            intent.putExtra("TOTAL_AMOUNT", totalPrice) // Truyền tổng số tiền
             intent.putExtra("SELECTED_SEATS", selectedSeatsList)
             intent.putExtra("SHOWTIME_ID", showtimeId)
             intent.putExtra("TICKET_PRICE", ticketPrice)
+            intent.putExtra("ROOM_NAME", roomName) // Truyền ROOM_NAME sang Payment
 
             // Log để xác nhận dữ liệu đã được truyền đi
             Log.d(
                 "ChooseChair",
-                "Passing data to Payment screen: Total Amount = ${totalPrice + ticketPrice}, Selected Seats = $selectedSeatsList, Showtime ID = $showtimeId"
+                "Passing data to Payment screen: Total Amount = $totalPrice, Selected Seats = $selectedSeatsList, Showtime ID = $showtimeId, Room Name = $roomName"
             )
 
             startActivity(intent)
@@ -132,13 +137,13 @@ class ChooseChair : AppCompatActivity() {
         } else {
             selectedSeats.remove(seatLabel)
         }
-        tvSelectedSeats.text = "Selected Seats: ${selectedSeats.joinToString(", ")}"
+        tvSelectedSeats.text = "Ghế đã chọn: ${selectedSeats.joinToString(", ")}"
     }
 
     private fun calculateTotalPrice(): Int {
         var totalPrice = 0
-        for (row in 0 until chairList.size) {
-            for (col in 0 until chairList[row].size) {
+        for (row in chairList.indices) {
+            for (col in chairList[row].indices) {
                 if (chairList[row][col] && !reservedSeats.contains(seatLabelFromIndex(row, col))) {
                     totalPrice += ticketPrice
                 }
@@ -155,8 +160,8 @@ class ChooseChair : AppCompatActivity() {
 
     private fun getSelectedSeats(): String {
         val selectedSeatsList = mutableListOf<String>()
-        for (row in 0 until chairList.size) {
-            for (col in 0 until chairList[row].size) {
+        for (row in chairList.indices) {
+            for (col in chairList[row].indices) {
                 if (chairList[row][col] && !reservedSeats.contains(seatLabelFromIndex(row, col))) {
                     selectedSeatsList.add(seatLabelFromIndex(row, col))
                 }
@@ -169,7 +174,6 @@ class ChooseChair : AppCompatActivity() {
         val rowChar = ('A'.toInt() + row).toChar()
         return "${rowChar}${col + 1}"
     }
-
 
     fun formatStartTime(startTime: String): String {
         return try {
@@ -187,4 +191,3 @@ class ChooseChair : AppCompatActivity() {
         }
     }
 }
-

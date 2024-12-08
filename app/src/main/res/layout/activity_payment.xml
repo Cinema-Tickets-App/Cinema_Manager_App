@@ -176,6 +176,19 @@
 
     </androidx.cardview.widget.CardView>
 
+    <TextView
+        android:id="@+id/tvShowtimeInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Thông tin suất chiếu:"
+        android:textColor="@color/light_gray"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cl_containerPayment" />
+
 
     <!-- Số ghế đã chọn -->
     <TextView
@@ -183,13 +196,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/roboto_medium"
         android:text="Số ghế đã chọn:"
         android:textColor="@color/light_gray"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cl_containerPayment" />
+        app:layout_constraintTop_toBottomOf="@id/tvShowtimeInfo" />
 
     <!-- Tổng thanh toán -->
     <TextView
@@ -204,6 +217,8 @@
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_selectedSeats" />
+
+
 
     <!-- Button Thanh toán -->
     <androidx.appcompat.widget.AppCompatButton

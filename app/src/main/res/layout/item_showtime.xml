@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/showtime_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="5dp"
     android:background="@color/surface_dark"
     android:orientation="vertical"
-    android:padding="15dp"
-    android:radius="25dp">
+    android:padding="15dp">
 
-
+    <!-- Start Time -->
     <TextView
         android:id="@+id/tvStartTime"
         android:layout_width="wrap_content"
@@ -17,18 +16,20 @@
         android:textColor="@color/text_primary_dark"
         android:textSize="18sp" />
 
+    <!-- Room -->
     <TextView
         android:id="@+id/tvRoom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Room: 1"
+        android:text="Phòng: 1"
         android:textColor="@color/text_secondary_dark" />
 
+    <!-- Ticket Price -->
     <TextView
         android:id="@+id/tvTicketPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Price: 150,000 VND"
+        android:text="Giá: 150,000 VND"
         android:textColor="@color/text_secondary_dark" />
 
 </LinearLayout>
