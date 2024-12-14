@@ -7,4 +7,4 @@
 | 3 | Võ Minh Huy | huy_vo_minh104 | Hiển Thị Thuật Toán Phim Khác, UI Tương Tác Server
 | 4 | Nguyễn Nam Hà Thành | milkypig-code | Lịch Sử, Lịch Sử Đặt Vé, Movie Trailer,  Đặt Ghế, Thanh Toán
 | 5 | Tuấn Ngọc | tuanngoc2049 | Tạo Suất Chiếu, Sửa, Xoá Suất Chiếu, Food, Thêm Sửa Xoá
-| 6 | Khánh| lekhanh1234 | UI,  User Đăng Ký, Đăng Nhập, API, UI APP, DataBase
+| 6 | Khánh| lekhanh1234 |  User Đăng Ký, Đăng Nhập, API, UI APP, DataBase
