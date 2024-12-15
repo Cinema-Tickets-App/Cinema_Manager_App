@@ -32,11 +32,11 @@ data class PasswordUpdateRequest(
     val new_password: String
 )
 
-data class ReviewRequest(
-    val bookTicketId: Int,
-    val comment: String,
-    val rate: Int,
-)
+//data class ReviewRequest(
+//    val bookTicketId: Int,
+//    val comment: String,
+//    val rate: Int,
+//)
 
 data class UserProfileEditRequest(
     val user_id: Int,
@@ -48,9 +48,9 @@ data class UserProfileEditRequest(
     val gender: String,
 )
 
-data class MovieIdRequest(
-    val movie_id: Int,
-)
+//data class MovieIdRequest(
+//    val movie_id: Int,
+//)
 
 
 // Model cho yêu cầu đặt vé
