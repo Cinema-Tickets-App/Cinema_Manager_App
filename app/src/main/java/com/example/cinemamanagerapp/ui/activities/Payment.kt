@@ -96,52 +96,52 @@ class Payment : AppCompatActivity() {
         }
     }
 
-    // Fetch food data from server
+    // Lấy dữ liệu món ăn từ máy chủ
     private fun fetchFoodData() {
-        lifecycleScope.launch(Dispatchers.IO) {
+        lifecycleScope.launch(Dispatchers.IO) { // Khởi chạy một coroutine trên luồng IO
             try {
-                val response = RetrofitClient.apiService.getAllFoodDrink().execute()
-                if (response.isSuccessful) {
-                    val foodDrinksList = response.body() ?: emptyList()
-                    withContext(Dispatchers.Main) {
-                        foodList.clear()
-                        foodList.addAll(foodDrinksList)
-                        adapter = Food_Adapter(foodList)
-                        lvFoodList.adapter = adapter
-                        updateSelectedFoodPrice()
+                val response = RetrofitClient.apiService.getAllFoodDrink().execute() // Thực hiện yêu cầu để lấy tất cả món ăn và đồ uống
+                if (response.isSuccessful) { // Kiểm tra nếu phản hồi thành công
+                    val foodDrinksList = response.body() ?: emptyList() // Lấy nội dung phản hồi hoặc danh sách rỗng nếu null
+                    withContext(Dispatchers.Main) { // Chuyển sang luồng Main để cập nhật giao diện người dùng
+                        foodList.clear() // Xóa danh sách món ăn hiện tại
+                        foodList.addAll(foodDrinksList) // Thêm tất cả món ăn và đồ uống vào danh sách
+                        adapter = Food_Adapter(foodList) // Tạo adapter mới với danh sách món ăn
+                        lvFoodList.adapter = adapter // Gán adapter cho ListView để hiển thị danh sách món ăn
+                        updateSelectedFoodPrice() // Cập nhật tổng giá khi số lượng món ăn thay đổi
                     }
                 } else {
-                    withContext(Dispatchers.Main) {
+                    withContext(Dispatchers.Main) { // Chuyển sang luồng Main để hiển thị thông báo lỗi
                         Toast.makeText(
                             this@Payment,
                             "Lỗi khi lấy dữ liệu món ăn",
                             Toast.LENGTH_SHORT
-                        ).show()
-                        Log.e("Payment", "Failed to fetch food data: ${response.code()}")
+                        ).show() // Hiển thị thông báo lỗi trên màn hình
+                        Log.e("Payment", "Failed to fetch food data: ${response.code()}") // Ghi log lỗi với mã lỗi từ phản hồi
                     }
                 }
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
+            } catch (e: Exception) { // Bắt ngoại lệ nếu có lỗi xảy ra
+                withContext(Dispatchers.Main) { // Chuyển sang luồng Main để hiển thị thông báo lỗi
                     Toast.makeText(
                         this@Payment,
                         "Lỗi khi lấy dữ liệu món ăn: ${e.message}",
                         Toast.LENGTH_SHORT
-                    ).show()
-                    Log.e("Payment", "Error fetching food data: ${e.message}", e)
+                    ).show() // Hiển thị thông báo lỗi với thông điệp ngoại lệ
+                    Log.e("Payment", "Error fetching food data: ${e.message}", e) // Ghi log lỗi với thông tin ngoại lệ
                 }
             }
         }
     }
 
-    // Update total price when food quantity changes
+    // Cập nhật tổng giá khi số lượng món ăn thay đổi
     internal fun updateSelectedFoodPrice() {
-        var selectedFoodPrice = 0
-        for (food in foodList) {
-            if (food.quantity > 0) {
-                selectedFoodPrice += (food.price * food.quantity).toInt()
+        var selectedFoodPrice = 0 // Khởi tạo biến lưu tổng giá của các món đã chọn
+        for (food in foodList) { // Duyệt qua từng món ăn trong danh sách
+            if (food.quantity > 0) { // Nếu số lượng món ăn lớn hơn 0
+                selectedFoodPrice += (food.price * food.quantity).toInt() // Tính tổng giá cho món ăn đó và cộng vào tổng giá
             }
         }
-        updateTotalPrice(selectedFoodPrice)
+        updateTotalPrice(selectedFoodPrice) // Cập nhật tổng giá hiển thị trên giao diện
     }
 
     private fun applyDiscountCode(discountCode: String) {

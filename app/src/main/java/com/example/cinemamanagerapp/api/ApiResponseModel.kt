@@ -55,9 +55,9 @@ data class UserProfileResponse(
     val avatar_url: String
 )
 
-data class CloudinaryResponse(
-    val url: String?  // URL của ảnh sau khi tải lên
-)
+//data class CloudinaryResponse(
+//    val url: String?  // URL của ảnh sau khi tải lên
+//)
 
 
 // Model cho thông tin phim
@@ -87,7 +87,6 @@ data class NotificationResponse(
 data class Ticket(
     val _id: String,         // ID của vé (dưới dạng String)
     val user_id: Int,        // ID của người dùng
-
     val showtime_id: Int,    // ID của suất chiếu
     val movie_id: Int,       // ID của phim
     val payment_method: String, // Phương thức thanh toán

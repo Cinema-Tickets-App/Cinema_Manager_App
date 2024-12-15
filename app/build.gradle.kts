@@ -65,6 +65,15 @@ dependencies {
         )
     )
 
+    implementation(
+        fileTree(
+            mapOf(
+                "dir" to "D:\\Thang\\Cinema_Manager_App\\libs",
+                "include" to listOf("*.aar", "*.jar")
+            )
+        )
+    )
+
     // Test Libraries
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

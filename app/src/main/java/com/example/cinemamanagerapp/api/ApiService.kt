@@ -65,9 +65,9 @@ interface ApiService {
     fun getMoviesByGenre(@Path("genreId") genreId: Int): Call<List<MovieResponse>>
 
 
-    // Lấy danh sách phim ngẫu nhiên để chiếu lên slide.
-    @GET("api/movie/random")
-    fun getRandomMovies(): Call<List<MovieResponse>>
+//    // Lấy danh sách phim ngẫu nhiên để chiếu lên slide.
+//    @GET("api/movie/random")
+//    fun getRandomMovies(): Call<List<MovieResponse>>
 
 
     // Lấy tất cả các loại đồ ăn và thức uống có sẵn.
