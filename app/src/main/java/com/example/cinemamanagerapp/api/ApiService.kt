@@ -39,9 +39,9 @@ interface ApiService {
     ): Call<Void>
 
 
-    // Lấy tất cả danh mục phim dưới dạng danh sách chuỗi.
-    @GET("categories")
-    fun getAllCategory(): Call<List<String>>
+//    // Lấy tất cả danh mục phim dưới dạng danh sách chuỗi.
+//    @GET("categories")
+//    fun getAllCategory(): Call<List<String>>
 
     @GET("categories")
     fun getCategories(): Call<List<CategoryResponse>>
@@ -132,8 +132,8 @@ interface ApiService {
         @Body requestBody: FormBody
     ): Call<ResponseBody>
 
-
-
-    @GET("/cinema-rooms/{room_id}")
-    fun getCinemaRoom(@Path("room_id") roomId: Int): Call<CinemaRoomResponse>
+//
+//
+//    @GET("/cinema-rooms/{room_id}")
+//    fun getCinemaRoom(@Path("room_id") roomId: Int): Call<CinemaRoomResponse>
 }
