@@ -40,7 +40,7 @@
             android:layout_marginStart="15dp"
             android:background="@color/green_chaleston"
             android:gravity="center"
-            android:text="Phim đang chiếu"
+            android:text="Phim sắp chiếu"
             android:textColor="@color/white" />
 
         <!-- Nút "Sắp ra mắt" -->
