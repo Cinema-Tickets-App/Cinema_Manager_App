@@ -145,6 +145,7 @@ class Payment : AppCompatActivity() {
     }
 
     private fun applyDiscountCode(discountCode: String) {
+        // Sử dụng lifecycleScope để chạy một coroutine, giúp xử lý các tác vụ không đồng bộ.
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val response = RetrofitClient.apiService.getPromotionByCode(discountCode).execute()
